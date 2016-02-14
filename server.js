@@ -11,7 +11,7 @@ var path = require('path');
 
 // The default port numbers are the standard ones [80,443] for convenience.
 // Change them to e.g. [8080,8443] to avoid privilege or clash problems.
-var ports = [8081, 8444];
+var ports = [8081, 8443];
 
 // The most common standard file extensions are supported.
 // The most common non-standard file extensions are excluded, with a message.
