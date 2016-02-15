@@ -51,7 +51,7 @@
                 lat: -34.397,
                 lng: 150.644
             },
-            zoom: 18,
+            zoom: 14,
             mapTypeControlOptions: {
                 mapTypeIds: [google.maps.MapTypeId.ROADMAP, customMapTypeId]
             }
@@ -72,7 +72,7 @@
                 };
 
                 infoWindow.setPosition(pos);
-                infoWindow.setContent('Location found.');
+                infoWindow.setContent('u r here 💩');
                 map.setCenter(pos);
             }, function() {
                 handleLocationError(true, infoWindow, map.getCenter());
