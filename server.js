@@ -11,7 +11,7 @@ var path = require('path');
 
 // The default port numbers are the standard ones [80,443] for convenience.
 // Change them to e.g. [8080,8443] to avoid privilege or clash problems.
-var ports = [8081, 8444];
+var ports = [80, 443];
 
 // The most common standard file extensions are supported.
 // The most common non-standard file extensions are excluded, with a message.
@@ -45,31 +45,26 @@ var types = {
 function start() {
     test();
     var httpService = http.createServer(serve);
-    httpService.listen(ports[0], '0.0.0.0');
+    httpService.listen(ports[0], 'localhost');
     var options = {
         key: key,
         cert: cert
     };
     var httpsService = https.createServer(options, serve);
-    httpsService.listen(ports[1], '0.0.0.0');
+    httpsService.listen(ports[1], 'localhost');
     printAddresses();
 }
 
 // Print out the server addresses.
 function printAddresses() {
-    var httpAddress = "http://0.0.0.0";
+    var httpAddress = "http://localhost";
     if (ports[0] != 80) httpAddress += ":" + ports[0];
     httpAddress += "/";
-    var httpsAddress = "https://0.0.0.0";
+    var httpsAddress = "https://localhost";
     if (ports[1] != 443) httpsAddress += ":" + ports[1];
     httpsAddress += "/";
     console.log('Server running at', httpAddress, 'and', httpsAddress);
 }
-
-// All URLs other than / start with a randomly chosen prefix /site-x so the
-// site is forced to use relative links, and can then be published anywhere.
-var letter = "abcdefghijklmnopqrstuvwxyz".charAt(Math.floor(Math.random() * 26));
-var prefix = "/site-" + letter;
 
 // Response codes: see http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 var OK = 200,
@@ -103,17 +98,13 @@ function fail(response, code) {
     response.end();
 }
 
-// Serve a single request.  Redirect / to add the prefix, but otherwise insist
-// that every URL should start with the prefix.  A URL ending with / is treated
-// as a folder and index.html is added.  A file name without an extension is
-// reported as an error (because we don't know how to deliver it, or if it was
-// meant to be a folder, it would inefficiently have to be redirected for the
-// browser to get relative links right).
+// Serve a single request.  A URL ending with / is treated as a folder and
+// index.html is added.  A file name without an extension is reported as an
+// error (because we don't know how to deliver it, or if it was meant to be a
+// folder, it would inefficiently have to be redirected for the browser to get
+// relative links right).
 function serve(request, response) {
     var file = request.url;
-    if (file == '/') return redirect(response, prefix + '/');
-    if (!starts(file, prefix)) return fail(response, NotFound);
-    file = file.substring(prefix.length);
     if (ends(file, '/')) file = file + 'index.html';
     file = "." + file;
     var type = findType(request, path.extname(file));
