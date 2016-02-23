@@ -8,3 +8,45 @@ body {
 #map {
     height: 100%;
 }
+
+.search {
+    box-sizing: border-box;
+    position: absolute;
+    top: 0px;
+    width: 33%;
+    background-color: rgba(255, 0, 0, 0.5);
+    padding: 2% 2% 2% 2%;
+}
+
+.info {
+    position: absolute;
+    top: 0px;
+    width: 33%;
+    height: 100%;
+    right: 0px;
+    background-color: rgba(0, 0, 255, 0.5);
+}
+
+.searchbar input {
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    color: #FFFFFF;
+    background-color: #78909C;
+    /*margin: 5% 5% 0px 5%;*/
+    padding: 0px 2% 0px 12%;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 5px 5px 5px 5px;
+    width: 100%;
+    float: left;
+}
+
+.searchbar .material-icons {
+    position: relative;
+    right: -5%;
+    margin-right: -10%;
+    margin-top: 2%;
+    float: left;
+}

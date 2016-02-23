@@ -31,7 +31,8 @@ function initMap() {
         zoom: 14,
         mapTypeControlOptions: {
             mapTypeIds: [google.maps.MapTypeId.ROADMAP, customMapTypeId]
-        }
+        },
+        disableDefaultUI: true
     });
     map.mapTypes.set(customMapTypeId, customMapType);
     map.setMapTypeId(customMapTypeId);
