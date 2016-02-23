@@ -1,34 +1,105 @@
 function initMap() {
     var customMapType = new google.maps.StyledMapType([{
-        stylers: [{
-            hue: '#890000'
-        }, {
-            visibility: 'simplified'
-        }, {
-            gamma: 0.5
-        }, {
-            weight: 0.5
+        "featureType": "landscape.man_made",
+        "elementType": "geometry",
+        "stylers": [{
+            "color": "#f7f1df"
         }]
     }, {
-        elementType: 'labels',
-        stylers: [{
-            visibility: 'off'
+        "featureType": "landscape.natural",
+        "elementType": "geometry",
+        "stylers": [{
+            "color": "#d0e3b4"
         }]
     }, {
-        featureType: 'water',
-        stylers: [{
-            color: '#890000'
+        "featureType": "landscape.natural.terrain",
+        "elementType": "geometry",
+        "stylers": [{
+            "visibility": "off"
+        }]
+    }, {
+        "featureType": "poi",
+        "elementType": "labels",
+        "stylers": [{
+            "visibility": "off"
+        }]
+    }, {
+        "featureType": "poi.business",
+        "elementType": "all",
+        "stylers": [{
+            "visibility": "off"
+        }]
+    }, {
+        "featureType": "poi.medical",
+        "elementType": "geometry",
+        "stylers": [{
+            "color": "#fbd3da"
+        }]
+    }, {
+        "featureType": "poi.park",
+        "elementType": "geometry",
+        "stylers": [{
+            "color": "#bde6ab"
+        }]
+    }, {
+        "featureType": "road",
+        "elementType": "geometry.stroke",
+        "stylers": [{
+            "visibility": "off"
+        }]
+    }, {
+        "featureType": "road",
+        "elementType": "labels",
+        "stylers": [{
+            "visibility": "off"
+        }]
+    }, {
+        "featureType": "road.highway",
+        "elementType": "geometry.fill",
+        "stylers": [{
+            "color": "#ffe15f"
+        }]
+    }, {
+        "featureType": "road.highway",
+        "elementType": "geometry.stroke",
+        "stylers": [{
+            "color": "#efd151"
+        }]
+    }, {
+        "featureType": "road.arterial",
+        "elementType": "geometry.fill",
+        "stylers": [{
+            "color": "#ffffff"
+        }]
+    }, {
+        "featureType": "road.local",
+        "elementType": "geometry.fill",
+        "stylers": [{
+            "color": "black"
+        }]
+    }, {
+        "featureType": "transit.station.airport",
+        "elementType": "geometry.fill",
+        "stylers": [{
+            "color": "#cfb2db"
+        }]
+    }, {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [{
+            "color": "#a2daf2"
         }]
     }], {
         name: 'Custom Style'
     });
+
     var customMapTypeId = 'custom_style';
     var map = new google.maps.Map(document.getElementById('map'), {
         center: {
             lat: -34.397,
             lng: 150.644
         },
-        zoom: 14,
+        zoom: 16,
         mapTypeControlOptions: {
             mapTypeIds: [google.maps.MapTypeId.ROADMAP, customMapTypeId]
         },
