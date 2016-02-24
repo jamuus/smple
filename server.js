@@ -131,7 +131,7 @@ function findType(request, extension) {
     if (!type) return type;
     if (extension != ".html") return type;
     var htmlTypes = types[".html"].split(", ");
-    var accepts = request.headers['accept'].split(",");
+    var accepts = request.headers['accept'] ? request.headers['accept'].split(",") : "";
     if (accepts.indexOf(htmlTypes[1]) >= 0) return htmlTypes[1];
     return htmlTypes[0];
 }
