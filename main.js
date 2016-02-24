@@ -182,6 +182,7 @@ function setupMarkers() {
 }
 
 var infopanel = document.getElementById('infopanel');
+var infoWindowVisible = false;
 
 function mapMoved(event) {
     if (infoWindowVisible) {
@@ -194,9 +195,6 @@ function mapMoved(event) {
 function updateInfoWindowContents(event) {
 
 }
-
-var infoWindowVisible = false;
-
 
 function updateInfoWindow(event) {
     if (!infoWindowVisible) {
