@@ -90,10 +90,10 @@ function initMap() {
             "color": "#a2daf2"
         }]
     }], {
-        name: 'Custom Style'
+        name: 'map style'
     });
 
-    var customMapTypeId = 'custom_style';
+    var customMapTypeId = 'map_style';
     var map = new google.maps.Map(document.getElementById('map'), {
         center: {
             lat: 0,
@@ -108,8 +108,6 @@ function initMap() {
     map.mapTypes.set(customMapTypeId, customMapType);
     map.setMapTypeId(customMapTypeId);
 
-
-    // Try HTML5 geolocation.
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
@@ -127,5 +125,6 @@ function initMap() {
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    alert('rip');
+    alert('Error getting location');
+    console.log(browserHasGeolocation, infoWindow, pos);
 }
