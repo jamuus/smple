@@ -166,6 +166,7 @@ function setupMarkers() {
 
     marker.addListener('click', function() {
         map.panTo(marker.getPosition());
+        // map.setCenter(marker.getPosition());
         updateInfoWindow(event1);
     });
 
@@ -178,7 +179,6 @@ function setupMarkers() {
     //     });
     //     console.log(event.latLng.lat(), event.latLng.lng());
     // });
-
 }
 
 var infopanel = document.getElementById('infopanel');
@@ -186,8 +186,8 @@ var infoWindowVisible = false;
 
 function mapMoved(event) {
     if (infoWindowVisible) {
-        infopanel.style['animation-name'] = 'infoslideout';
-        infopanel.style['right'] = '-33%';
+        infopanel.classList.remove('infoslidein');
+        infopanel.classList.add('infoslideout');
         infoWindowVisible = false;
     }
 }
@@ -198,10 +198,8 @@ function updateInfoWindowContents(event) {
 
 function updateInfoWindow(event) {
     if (!infoWindowVisible) {
-
-        infopanel.style['animation-name'] = 'infoslidein';
-        // infopanel.style['-webkit-animation-name'] = 'infoslidein';
-        infopanel.style['right'] = '0%';
+        infopanel.classList.remove('infoslideout');
+        infopanel.classList.add('infoslidein');
         infoWindowVisible = true;
     }
     updateInfoWindowContents(event);

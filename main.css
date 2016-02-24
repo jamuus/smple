@@ -56,16 +56,12 @@ body {
 
 .infopanel {
     box-sizing: border-box;
-    position: absolute;
+    position: fixed;
     top: 0px;
     width: 33%;
-    /*height: 100%;*/
     right: -33%;
     padding: 1% 2% 1% 2%;
     overflow-y: scroll;
-    animation-duration: 0.5s;
-    animation-timing-function: ease-in;
-    /*-webkit-animation-duration: 1s;*/
 }
 
 
@@ -101,20 +97,12 @@ body {
     height: 15em;
 }
 
-@keyframes infoslidein {
-    0% {
-        right: -33%;
-    }
-    100% {
-        right: 0%;
-    }
+.infoslidein {
+    right: 0%;
+    transition: 0.5s;
 }
 
-@keyframes infoslideout {
-    0% {
-        right: 0%;
-    }
-    100% {
-        right: -33%;
-    }
+.infoslideout {
+    right: -33%;
+    transition: 0.5s;
 }
