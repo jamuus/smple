@@ -84,7 +84,7 @@ body {
     margin: 0 1em 0 1em;
 }
 
-.bandpics center {
+.bandpics>div {
     margin: auto;
 }
 
