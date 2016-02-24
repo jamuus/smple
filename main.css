@@ -108,3 +108,12 @@ body {
         right: 0%;
     }
 }
+
+@keyframes infoslideout {
+    0% {
+        right: 0%;
+    }
+    100% {
+        right: -33%;
+    }
+}

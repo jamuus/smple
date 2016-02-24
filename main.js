@@ -169,6 +169,8 @@ function setupMarkers() {
         updateInfoWindow(event1);
     });
 
+    google.maps.event.addListener(map, 'drag', mapMoved);
+
     // google.maps.event.addListener(map, 'click', function(event) {
     //     marker = new google.maps.Marker({
     //         position: event.latLng,
@@ -179,20 +181,30 @@ function setupMarkers() {
 
 }
 
+var infopanel = document.getElementById('infopanel');
+
+function mapMoved(event) {
+    if (infoWindowVisible) {
+        infopanel.style['animation-name'] = 'infoslideout';
+        infopanel.style['right'] = '-33%';
+        infoWindowVisible = false;
+    }
+}
+
 function updateInfoWindowContents(event) {
 
 }
 
 var infoWindowVisible = false;
 
+
 function updateInfoWindow(event) {
-    if (infoWindowVisible) {
-        updateInfoWindowContents(event);
-    } else {
-        var panel = document.getElementById('infopanel');
-        panel.style['animation-name'] = 'infoslidein';
-        // panel.style['-webkit-animation-name'] = 'infoslidein';
-        panel.style['right'] = '0%';
+    if (!infoWindowVisible) {
+
+        infopanel.style['animation-name'] = 'infoslidein';
+        // infopanel.style['-webkit-animation-name'] = 'infoslidein';
+        infopanel.style['right'] = '0%';
         infoWindowVisible = true;
     }
+    updateInfoWindowContents(event);
 }
