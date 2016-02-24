@@ -1,3 +1,7 @@
+"use strict";
+
+var map;
+
 function initMap() {
     var customMapType = new google.maps.StyledMapType([{
         "featureType": "landscape.man_made",
@@ -94,7 +98,7 @@ function initMap() {
     });
 
     var customMapTypeId = 'map_style';
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
         center: {
             lat: 0,
             lng: 0
@@ -122,9 +126,73 @@ function initMap() {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
     }
+
+    setupMarkers();
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     alert('Error getting location');
     console.log(browserHasGeolocation, infoWindow, pos);
+}
+
+var event1 = {
+    title: "eyyyyy",
+    location: {
+        lat: 51.45436,
+        lng: -2.599961
+    },
+    bands: {
+        "The Lumineers": {
+            desc: "The Lumineers are an American folk rock band based in Denver, Colorado, who formed as early as 2005 but didn’t release their self-titled debut record until April of 2012."
+        },
+        "Supporting Band": {
+            desc: "hey boss"
+        }
+    },
+    eventInfo: {
+        desc: "ey boss",
+        address: "O2 Academy Bristol\nFrogmore Street\nBS1 5NA\nBristol, UK\n0117 927 9227",
+        venueUrl: "www.o2academybristol.co.uk",
+        ticketUrl: "http://www.songkick.com/tickets/20220218"
+    }
+};
+
+function setupMarkers() {
+    var marker = new google.maps.Marker({
+        position: event1.location,
+        map: map,
+        title: event1.title
+    });
+
+    marker.addListener('click', function() {
+        map.panTo(marker.getPosition());
+        updateInfoWindow(event1);
+    });
+
+    // google.maps.event.addListener(map, 'click', function(event) {
+    //     marker = new google.maps.Marker({
+    //         position: event.latLng,
+    //         map: map
+    //     });
+    //     console.log(event.latLng.lat(), event.latLng.lng());
+    // });
+
+}
+
+function updateInfoWindowContents(event) {
+
+}
+
+var infoWindowVisible = false;
+
+function updateInfoWindow(event) {
+    if (infoWindowVisible) {
+        updateInfoWindowContents(event);
+    } else {
+        var panel = document.getElementById('infopanel');
+        panel.style['animation-name'] = 'infoslidein';
+        // panel.style['-webkit-animation-name'] = 'infoslidein';
+        panel.style['right'] = '0%';
+        infoWindowVisible = true;
+    }
 }

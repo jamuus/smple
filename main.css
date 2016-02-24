@@ -3,6 +3,7 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 #map {
@@ -59,9 +60,11 @@ body {
     top: 0px;
     width: 33%;
     height: 100%;
-    right: 0px;
+    right: -33%;
     padding: 1% 2% 1% 2%;
     overflow-y: scroll;
+    animation-duration: 0.5s;
+    /*-webkit-animation-duration: 1s;*/
 }
 
 
@@ -79,7 +82,7 @@ body {
 .bandimage {
     width: 120px;
     height: 120px;
-    /*border-radius: 50%;*/
+    border-radius: 50%;
     display: inline-block;
     margin: 0 1em 0 1em;
 }
@@ -95,4 +98,13 @@ body {
 
 .eventinfo {
     height: 15em;
+}
+
+@keyframes infoslidein {
+    0% {
+        right: -33%;
+    }
+    100% {
+        right: 0%;
+    }
 }
