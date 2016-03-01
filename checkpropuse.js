@@ -32,3 +32,4 @@ args.forEach((val, index, somet) => {
 
 var numCSSPropertiesUsed = cssprops.length - csspropsaft.length;
 var unusedCSSProperties = csspropsaft;
+console.log(numCSSPropertiesUsed, unusedCSSProperties.length);
