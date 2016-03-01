@@ -164,11 +164,14 @@ function setupMarkers() {
         title: event1.title
     });
 
-    marker.addListener('click', function() {
+    marker.addListener('click', onMarkerClick);
+
+    function onMarkerClick() {
         map.panTo(marker.getPosition());
-        // map.setCenter(marker.getPosition());
         updateInfoWindow(event1);
-    });
+    }
+
+    onMarkerClick();
 
     google.maps.event.addListener(map, 'drag', mapMoved);
 

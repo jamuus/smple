@@ -4,6 +4,7 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 #map {
@@ -72,6 +73,11 @@ body {
     margin-bottom: 1em;
 }
 
+.infopanel h1 {
+    /*text-align: center;*/
+    /*border-top: 3em;*/
+}
+
 .bandpics {
     overflow: auto;
 }
@@ -81,7 +87,8 @@ body {
     height: 120px;
     border-radius: 50%;
     display: inline-block;
-    margin: 0 1em 0 1em;
+    margin: 0 0.5em 0 0.5em;
+    border: 5px solid #f3f3f3;
 }
 
 .bandpics>div {
@@ -90,11 +97,20 @@ body {
 }
 
 .bandinfo {
-    height: 15em;
+    height: 30em;
+    overflow: hidden;
+}
+
+.bandinfo img {
+    width: 100%;
 }
 
 .eventinfo {
     height: 15em;
+}
+
+.infocontent {
+    /*padding: 3em 3em 3em 3em;*/
 }
 
 .infoslidein {
@@ -105,4 +121,10 @@ body {
 .infoslideout {
     right: -33%;
     transition: 0.5s;
+}
+
+.shadowbox {
+    opacity: 0.8;
+    background-color: #222;
+    color: #FFF;
 }
