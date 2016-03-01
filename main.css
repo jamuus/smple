@@ -128,3 +128,10 @@ body {
     background-color: #222;
     color: #FFF;
 }
+
+.imagewithoverlay {
+    /*width: auto;*/
+    /*height: auto;*/
+    background-size: 100%;
+    background-image: url('band1.jpg');
+}
