@@ -105,14 +105,15 @@ var event1 = {
         lat: 51.45436,
         lng: -2.599961
     },
-    bands: {
-        "The Lumineers": {
-            desc: "The Lumineers are an American folk rock band based in Denver, Colorado, who formed as early as 2005 but didn’t release their self-titled debut record until April of 2012."
-        },
-        "Supporting Band": {
-            desc: "hey boss"
-        }
-    },
+    bands: [{
+        name: "The Lumineers",
+        desc: "The Lumineers are an American folk rock band based in Denver, Colorado, who formed as early as 2005 but didn’t release their self-titled debut record until April of 2012.",
+        fullimage: "images/bg.jpg",
+        thumbnail: "images/circle.jpg"
+    }, {
+        name: "Supporting Band",
+        desc: "hey boss"
+    }],
     eventInfo: {
         desc: "ey boss",
         address: "O2 Academy Bristol\nFrogmore Street\nBS1 5NA\nBristol, UK\n0117 927 9227",
@@ -138,6 +139,7 @@ function setupMarkers() {
     onMarkerClick();
 
     google.maps.event.addListener(map, 'drag', mapMoved);
+    google.maps.event.addListener(map, 'zoom_changed', mapMoved);
 
     // google.maps.event.addListener(map, 'click', function(event) {
     //     marker = new google.maps.Marker({
@@ -160,7 +162,32 @@ function mapMoved(event) {
 }
 
 function updateInfoWindowContents(event) {
+    // set thumbnails
+    var thumbnailContainer = document.querySelector('.bandpics');
+    thumbnailContainer.innerHTML = "";
+    for (var i in event.bands) {
+        var band = event.bands[i];
+        var bandThumbnail = band.thumbnail;
 
+        var cont = document.createElement('div');
+        cont.className = "bandimage materialbox shadowbox";
+        var img = document.createElement('img');
+        img.src = bandThumbnail;
+
+        cont.appendChild(img);
+        thumbnailContainer.appendChild(cont);
+    }
+
+    // set band info
+    var defaultBand = event.bands[0];
+    var bandimage = document.querySelector('.imagewithoverlay > img');
+    bandimage.src = defaultBand.fullimage;
+
+    var name = document.querySelector('.imagewithoverlay > div');
+    name.innerHTML = defaultBand.name;
+
+    var description = document.querySelector('.bandinfo > p');
+    description.innerHTML = defaultBand.desc;
 }
 
 function updateInfoWindow(event) {
