@@ -51,6 +51,8 @@ var event1 = {
         lat: 51.45436,
         lng: -2.599961
     },
+    mainArtist:"The Lumineers",
+    supportingArtist:"Papa Frank",
     bands: {
         "The Lumineers": {
             desc: "The Lumineers are an American folk rock band based in Denver, Colorado, who formed as early as 2005 but didn’t release their self-titled debut record until April of 2012."
@@ -117,3 +119,26 @@ function updateInfoWindow(event) {
     }
     updateInfoWindowContents(event);
 }
+
+function search(artist, array){
+    for (var i=0; i < array.length; i++) {
+        alert(artist);
+        if (array[i].mainArtist === artist) {
+        }
+    }
+}
+
+var eventList = [];
+eventList[0] = event1;
+
+
+function searchKey(event) {
+    event = event || window;
+    if (event.keyCode == 13){
+     var string = document.getElementById("search").value
+     search(string, eventList)
+    }
+    return false;
+
+}
+
