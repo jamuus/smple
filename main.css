@@ -27,6 +27,7 @@ body {
     color: #FFF;
     /*background-color: #FFF;*/
     /*color: #222;*/
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
 
@@ -69,7 +70,11 @@ body {
     top: 0px;
     width: 33%;
     right: -33%;
-    padding: 5% 2% 1% 2%;
+    /*padding: 5% 2% 1% 2%;*/
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: auto;
+    padding-bottom: auto;
     overflow-y: scroll;
 }
 
@@ -81,10 +86,8 @@ body {
     margin-bottom: 1em;
 }
 
-.infopanel h1 {
-    /*text-align: center;*/
-    /*border-top: 3em;*/
-}
+
+/*band thumbnails*/
 
 .bandpics {
     text-align: center;
@@ -96,7 +99,7 @@ body {
     border-radius: 50%;
     display: inline-block;
     margin: 0 0.5em 0 0.5em;
-    border: 5px solid #f3f3f3;
+    /*border: 5px solid #f3f3f3;*/
     overflow: hidden;
 }
 
@@ -104,21 +107,52 @@ body {
     width: 100%;
 }
 
-.bandinfo {
-    height: 30em;
-    /*overflow: hidden;*/
-}
-
 .bandinfo p {
-    padding-left: 1em;
+    padding: 0em 1em 1em 1em;
 }
 
-.eventinfo {
-    height: 15em;
+
+/* band image and name overlayed */
+
+.imagewithoverlay {
+    position: relative;
+    width: 100%;
+    display: table;
 }
 
-.infocontent {
-    /*padding: 3em 3em 3em 3em;*/
+.imagewithoverlay>div {
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding-left: 0.5em;
+    padding-bottom: 0.5em;
+    /*padding-right: 0.5em;*/
+    padding-top: 0.5em;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+    width: 100%;
+    font-size: 2em;
+    color: #FFF;
+}
+
+.imagewithoverlay img {
+    width: 100%;
+    display: table-row;
+}
+
+
+/*event section*/
+
+.eventlocation {
+    padding: 1em 1em 1em 1em;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.eventtickets {
+    padding: 1em 1em 1em 1em;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .infoslidein {
@@ -129,25 +163,4 @@ body {
 .infoslideout {
     right: -33%;
     transition: 0.5s;
-}
-
-
-/* band image and name overlayed */
-
-.imagewithoverlay {
-    position: relative;
-    width: 100%;
-}
-
-.imagewithoverlay>div {
-    position: absolute;
-    bottom: 0.5em;
-    left: 0.5em;
-    width: 100%;
-    font-size: 2em;
-    color: #FFF;
-}
-
-.imagewithoverlay img {
-    width: 100%;
 }
