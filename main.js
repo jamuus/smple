@@ -200,13 +200,13 @@ function updateInfoWindow(event) {
     updateInfoWindowContents(event);
 }
 
-function search(artist, array){
-    for (var i=0; i < array.length; i++) {
-        alert(artist);
-        if (array[i].mainArtist === artist) {
-        }
-    }
-}
+// function search(artist, array){
+//     for (var i=0; i < array.length; i++) {
+//         alert(artist);
+//         if (array[i].mainArtist === artist) {
+//         }
+//     }
+// }
 
 var eventList = [];
 eventList[0] = event1;
@@ -215,8 +215,11 @@ eventList[0] = event1;
 function searchKey(event) {
     event = event || window;
     if (event.keyCode == 13){
+        alert('Error getting location');
+
      var string = document.getElementById("search").value
      search(string, eventList)
+     alert
     }
     return false;
 
