@@ -21,6 +21,25 @@ body {
     background-color: #FFF;
 }
 
+.redbox {
+    background-color: rgba(255, 0, 0, 1);
+    float: left;
+    width: 3.5em;
+    margin-top: 0.7em;
+    text-align: center;
+    font-size: 0.7em;
+}
+
+.whitebox {
+    /*background-color: red;*/
+    width: 100%;
+    padding: 0px 0px 0.3em 0px;
+    background-color: rgba(255, 255, 255, 1);
+    color: black;
+    text-align: center;
+    font-size: 2em;
+}
+
 .shadowbox {
     opacity: 0.8;
     background-color: #222;
@@ -200,6 +219,7 @@ body {
     height: 4em;
     list-style-type: none;
     border-bottom: 1px solid #DDD;
+    padding: 0.6% 0 0% 5%;
     /*margin: 0% -5% 0% -5%;*/
 }
 
