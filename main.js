@@ -164,11 +164,12 @@ function mapMoved(event) {
         infoWindowVisible = false;
     }
 }
+
 function updateSearchResults(events) {
-    events = [0,0,0,0];
+    events = [0, 0, 0, 0];
     var resultContainer = document.querySelector('#tableresults ul')
     resultContainer.innerHTML = "";
-    for (var i in events){
+    for (var i in events) {
         // var eventName = events.bands[i]
         // var month = events.month
         // var day = events.day
@@ -247,7 +248,7 @@ function updateInfoWindow(event) {
 //     }
 // }
 
-// var eventList = [];
+var eventList = [];
 eventList[0] = event1;
 
 
