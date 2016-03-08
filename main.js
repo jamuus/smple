@@ -114,13 +114,13 @@ var event1 = {
     }, {
         name: "Supporting Band",
         desc: "hey boss",
-        // fullimage: "https://pbs.twimg.com/profile_images/642798007621185536/Y6x_U5gS.jpg",
-        // thumbnail: "https://pbs.twimg.com/profile_images/642798007621185536/Y6x_U5gS.jpg"
+        fullimage: "https://pbs.twimg.com/profile_images/642798007621185536/Y6x_U5gS.jpg",
+        thumbnail: "https://pbs.twimg.com/profile_images/642798007621185536/Y6x_U5gS.jpg"
     }],
     eventInfo: {
         title: "O2 Academy Bristol",
         address: "O2 Academy Bristol\nFrogmore Street\nBS1 5NA\nBristol, UK\n0117 927 9227",
-        venueUrl: "www.o2academybristol.co.uk",
+        venueUrl: "http://www.o2academybristol.co.uk",
         ticketUrl: "http://www.songkick.com/tickets/20220218"
     }
 };
@@ -230,14 +230,13 @@ eventList[0] = event1;
 
 function searchKey(event) {
     event = event || window;
-    if (event.keyCode == 13){
+    if (event.keyCode == 13) {
         alert('Error getting location');
 
-     var string = document.getElementById("search").value
-     search(string, eventList)
-     alert
+        var string = document.getElementById("search").value
+        search(string, eventList)
+        alert
     }
     return false;
 
 }
-
