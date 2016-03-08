@@ -125,6 +125,7 @@ var event1 = {
     }
 };
 
+
 function setupMarkers() {
     var marker = new google.maps.Marker({
         position: event1.location,
@@ -161,6 +162,26 @@ function mapMoved(event) {
         infopanel.classList.remove('infoslidein');
         infopanel.classList.add('infoslideout');
         infoWindowVisible = false;
+    }
+}
+function updateSearchResults(events) {
+    events = [0,0,0,0];
+    var resultContainer = document.querySelector('#tableresults ul')
+    resultContainer.innerHTML = "";
+    for (var i in events){
+        // var eventName = events.bands[i]
+        // var month = events.month
+        // var day = events.day
+        var red = document.createElement('div');
+        red.innerHTML = "Jun";
+        red.className = "redbox";
+        var whit = document.createElement('div');
+        whit.innerHTML = "19"
+        whit.className = "whitebox";
+        var li = document.createElement('li');
+        red.appendChild(whit);
+        li.appendChild(red);
+        resultContainer.appendChild(li);
     }
 }
 
@@ -205,6 +226,8 @@ function updateInfoWindowContents(event) {
 
     var venueTicketUrl = document.querySelector('#venueTicketUrl');
     venueTicketUrl.href = event.eventInfo.ticketUrl;
+
+    updateSearchResults();
 }
 
 function updateInfoWindow(event) {
@@ -224,7 +247,7 @@ function updateInfoWindow(event) {
 //     }
 // }
 
-var eventList = [];
+// var eventList = [];
 eventList[0] = event1;
 
 

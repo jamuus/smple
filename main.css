@@ -21,27 +21,33 @@ body {
     background-color: #FFF;
 }
 
-.whitebox {
-    background-color: #FFF;
-    float: left;
-    width: 3em;
-    padding-bottom: 3.3em;
-    margin-top: 0.1em;
-
-
-
-}
 .redbox {
-    /*background-color: red;*/
-    border: 0px solid green;
-    float: left;
-    width: 100%;
-    padding: 0px 0px 1.2em 0px;
     background-color: rgba(255,0,0,1);
-    margin-bottom: -2.5em;
+    float: left;
+    width: 3.5em;
+    margin-top: 0.7em;
+    text-align: center;
+    font-size: 0.7em;
+
+}
+
+
+.whitebox {
+    /*background-color: red;*/
+    width: 100%;
+    padding: 0px 0px 0.3em 0px;
+    background-color: rgba(255,255,255,1);
+    color: black;
+    text-align: center;
+    font-size: 2em;
+
 
 
 }
+
+
+
+
 .shadowbox {
     opacity: 0.8;
     background-color: #222;
@@ -197,7 +203,7 @@ body {
     height: 4em;
     list-style-type: none;
     border-bottom: 1px solid #DDD;
-    padding: 3% 0 0% 5%;
+    padding: 0.6% 0 0% 5%;
 
 
     /*margin: 0% -5% 0% -5%;*/
