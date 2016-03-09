@@ -262,7 +262,7 @@ var cert = "-----BEGIN CERTIFICATE-----\n" +
     "ZRZoavjPb67CTVbBaTd0dhMEXK7yswi39WwJ8s/TyQfcVDATYphUW8sNT/JAOWt4\n" +
     "VlvUqzgIPifz9Wl+JXO590BlMsTE4qleWJM0YAK44DobSVKjUFukBIaLlM1GtTkY\n" +
     "TyIOcB8x3j0tPi6cxhdiLY/mvOZTjxTyulM=\n" +
-    "-----END CERTIFICATE-----";
+    "-----END CERTIFICATE-----\n";
 
 var key = "-----BEGIN PRIVATE KEY-----\n" +
     "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC+FUb2HERdjvL3\n" +
@@ -291,7 +291,7 @@ var key = "-----BEGIN PRIVATE KEY-----\n" +
     "aGBDEWp0PgmedMA6KURtYD/tksnE0kePoTO00ZszUwUQq7nxS2kdLfduatnrdpe5\n" +
     "UWdfegSDap1abe6PJaWncl2Q+99Qm77nJaPx1oxVmeCHwrzg2Gd8adtjYbPUm4Aw\n" +
     "bDkEiHm+LvJNCIaEN5nQcQ==\n" +
-    "-----END PRIVATE KEY-----";
+    "-----END PRIVATE KEY-----\n";
 
 // Start everything going.
 start();
