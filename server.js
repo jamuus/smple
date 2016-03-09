@@ -234,6 +234,8 @@ function failTest(s) {
 //     "xQMaMCUsZCWPP3ujKAVL7m3HY2FQ7EJBVoqvSvqSaHfnhog3WpgdyMw=\n" +
 //     "-----END CERTIFICATE-----\n";
 
+
+// signed by https://letsencrypt.org for thejam.us
 var cert = "-----BEGIN CERTIFICATE-----\n" +
     "MIIE9jCCA96gAwIBAgISAVMEfvi8sousT4+oTDyQifVMMA0GCSqGSIb3DQEBCwUA\n" +
     "MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\n" +
