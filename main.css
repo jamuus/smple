@@ -1,6 +1,7 @@
 html,
 body {
     height: 100%;
+    width: 100%;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -33,6 +34,9 @@ body {
 }
 */
 
+
+/* :3 */
+
 .shadowbox {
     opacity: 0.9;
     background-color: #FFF;
@@ -50,14 +54,26 @@ body {
         width: 100%;
         /*height: 60%;*/
     }
+    .infoslidein {
+        margin-right: 0%;
+    }
+    .infoslideout {
+        margin-right: -100%;
+    }
 }
 
-@media (min-width: 800px) {
+@media (min-width: 800px) and (max-width: 1400px) {
     .searchpanel {
         width: 50%;
     }
     .infopanel {
         width: 50%;
+    }
+    .infoslidein {
+        margin-right: 0%;
+    }
+    .infoslideout {
+        margin-right: -50%;
     }
 }
 
@@ -67,6 +83,12 @@ body {
     }
     .infopanel {
         width: 33%;
+    }
+    .infoslidein {
+        margin-right: 0%;
+    }
+    .infoslideout {
+        margin-right: -33%;
     }
 }
 
@@ -269,25 +291,16 @@ body {
 }
 
 .eventtickets a {
-    /*position: absolute;*/
+    position: absolute;
     /*display: inline-block;*/
     /*vertical-align: middle;*/
-    /*top: 0;*/
+    top: 0;
+    left: 0;
     /*float: left;*/
     /*margin: 0 auto;*/
     /*flex-shrink: 0;*/
     /*display: block;*/
     /*margin: 0 auto;*/
-}
-
-.infoslidein {
-    right: 0%;
-    /*transition: 0.5s;*/
-}
-
-.infoslideout {
-    right: -33%;
-    /*transition: 0.5s;*/
 }
 
 
