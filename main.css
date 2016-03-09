@@ -39,14 +39,16 @@ body {
     color: #222;
 }
 
-@media (min-width: 0px) {
+@media (min-width: 0px) and (max-width: 800px) {
     .searchpanel {
         width: 100%;
-        position: relative;
+        max-height: 40%;
+        overflow: hidden;
+        overflow-y: scroll;
     }
     .infopanel {
         width: 100%;
-        position: relative;
+        /*height: 60%;*/
     }
 }
 
@@ -161,8 +163,9 @@ body {
     top: 0px;
     right: -33%;
     padding: 2% 2% 2% 2%;
-    /*overflow-y: scroll;*/
+    overflow-y: scroll;
     transition: 0.5s;
+    max-height: 100%;
 }
 
 

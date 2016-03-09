@@ -166,7 +166,7 @@ function mapMoved(event) {
 }
 
 function updateSearchResults(events) {
-    events = [0, 0, 0, 0];
+    events = [0, 0, 0, 0, 0, 0, 0, 0];
     var resultContainer = document.querySelector('#tableresults ul')
     resultContainer.innerHTML = "";
     for (var i in events) {
