@@ -166,7 +166,8 @@ function mapMoved(event) {
 }
 
 function updateSearchResults(events) {
-    events = [0, 0, 0, 0, 0, 0, 0, 0];
+    // events = [0, 0, 0, 0, 0, 0, 0, 0];
+
     var resultContainer = document.querySelector('#tableresults ul')
     resultContainer.innerHTML = "";
     for (var i in events) {
@@ -228,7 +229,6 @@ function updateInfoWindowContents(event) {
     var venueTicketUrl = document.querySelector('#venueTicketUrl');
     venueTicketUrl.href = event.eventInfo.ticketUrl;
 
-    updateSearchResults();
 }
 
 function updateInfoWindow(event) {
@@ -248,19 +248,28 @@ function updateInfoWindow(event) {
 //     }
 // }
 
-var eventList = [];
-eventList[0] = event1;
+// var eventList = [];
+// eventList[0] = event1;
 
 
-function searchKey(event) {
-    event = event || window;
-    if (event.keyCode == 13) {
-        alert('Error getting location');
+// function searchKey(event) {
+//     event = event || window;
+//     if (event.keyCode == 13) {
+//         alert('Error getting location');
 
-        var string = document.getElementById("search").value
-        search(string, eventList)
-        alert
+//         var string = document.getElementById("search").value
+//         search(string, eventList)
+//         alert
+//     }
+//     return false;
+
+// }
+
+window.addEventListener('load', function() {
+    var searchBar = document.querySelector('#search');
+    searchBar.addEventListener('keypress', newSearch);
+
+    function newSearch(event) {
+        console.log(searchBar.value);
     }
-    return false;
-
-}
+});
