@@ -1,6 +1,7 @@
 "use strict";
 
 var map;
+var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
 function initMap() {
     var customMapType = new google.maps.StyledMapType([{
@@ -121,9 +122,38 @@ var event1 = {
         title: "O2 Academy Bristol",
         address: "O2 Academy Bristol\nFrogmore Street\nBS1 5NA\nBristol, UK\n0117 927 9227",
         venueUrl: "http://www.o2academybristol.co.uk",
-        ticketUrl: "http://www.songkick.com/tickets/20220218"
+        ticketUrl: "http://www.songkick.com/tickets/20220218",
+        date: "2016-03-01"
     }
 };
+var event2 = {
+    title: "eyyyyy",
+    location: {
+        lat: 51.45436,
+        lng: -2.599961
+    },
+
+    bands: [{
+        name: "The Lumineers",
+        desc: "The Lumineers are an American folk rock band based in Denver, Colorado, who formed as early as 2005 but didn’t release their self-titled debut record until April of 2012.",
+        fullimage: "images/bg.jpg",
+        thumbnail: "images/circle.jpg"
+    }, {
+        name: "Supporting Band",
+        desc: "hey boss",
+        fullimage: "https://pbs.twimg.com/profile_images/642798007621185536/Y6x_U5gS.jpg",
+        thumbnail: "https://pbs.twimg.com/profile_images/642798007621185536/Y6x_U5gS.jpg"
+    }],
+    eventInfo: {
+        title: "O2 Academy Bristol",
+        address: "O2 Academy Bristol\nFrogmore Street\nBS1 5NA\nBristol, UK\n0117 927 9227",
+        venueUrl: "http://www.o2academybristol.co.uk",
+        ticketUrl: "http://www.songkick.com/tickets/20220218",
+        date: "2016-09-02"
+    }
+};
+
+var eventList = [event1, event2];
 
 
 function setupMarkers() {
@@ -171,14 +201,17 @@ function updateSearchResults(events) {
     var resultContainer = document.querySelector('#tableresults ul')
     resultContainer.innerHTML = "";
     for (var i in events) {
+        var event = events[i];
+        var eDate = new Date(event.eventInfo.date);
         // var eventName = events.bands[i]
         // var month = events.month
         // var day = events.day
         var red = document.createElement('div');
-        red.innerHTML = "Jun";
+
+        red.innerHTML = month[eDate.getMonth()];
         red.className = "redbox";
         var whit = document.createElement('div');
-        whit.innerHTML = "19"
+        whit.innerHTML = eDate.getDate();
         whit.className = "whitebox";
         var li = document.createElement('li');
         red.appendChild(whit);
@@ -250,6 +283,7 @@ function updateInfoWindow(event) {
 
 // var eventList = [];
 // eventList[0] = event1;
+
 
 
 // function searchKey(event) {
