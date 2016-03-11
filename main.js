@@ -325,7 +325,7 @@ function fuzzySearch(pattern, text) {
 
     for (var i = 0; i < text.length && j <= pattern.length; i++) {
         if (patternLower[j] === textLower[i]) {
-            result += '<b>' + pattern[j] + '</b>';
+            result += '<b>' + text[i] + '</b>';
             j++;
         } else {
             result += text[i];
@@ -369,7 +369,7 @@ function search(query, events) {
 // window.addEventListener('load', function() {
 function setupSearch() {
     var searchBar = document.querySelector('#search');
-    searchBar.addEventListener('keypress', newSearch);
+    searchBar.addEventListener('keyup', newSearch);
 
     function newSearch(event) {
         var query = searchBar.value;
