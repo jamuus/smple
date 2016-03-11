@@ -261,8 +261,6 @@ h6 {
 .eventinfo {
     display: flex;
     width: 100%;
-
-
 }
 
 .eventlocation {
@@ -270,7 +268,6 @@ h6 {
     width: 50%;
     margin: 0;
     position: relative;
-
 }
 
 .eventlocation h2 {
@@ -279,22 +276,17 @@ h6 {
 
 .eventtickets {
     width: 50%;
-    float:right;
+    float: right;
     display: flex;
     align-items: center;
     position: relative;
-
-
-
 }
 
 .eventtickets img {
     min-width: 100%;
     min-height: 100%;
     position: relative;
-
 }
-
 
 .eventtickets a {
     position: relative;
