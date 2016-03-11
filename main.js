@@ -298,7 +298,6 @@ function updateInfoWindow(event) {
 // eventList[0] = event1;
 
 
-
 // function searchKey(event) {
 //     event = event || window;
 //     if (event.keyCode == 13) {

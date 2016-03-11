@@ -259,15 +259,18 @@ h6 {
 /*event section*/
 
 .eventinfo {
-    display: table;
+    display: flex;
+    width: 100%;
+
+
 }
 
 .eventlocation {
-    box-sizing: border-box;
     padding: 1em 1em 1em 1em;
     width: 50%;
     margin: 0;
-    float: left;
+    position: relative;
+
 }
 
 .eventlocation h2 {
@@ -275,41 +278,26 @@ h6 {
 }
 
 .eventtickets {
-    /*box-sizing: border-box;*/
-    /*padding: 1em 1em 1em 1em;*/
     width: 50%;
+    float:right;
     display: flex;
-    justify-content: center;
-    /*align-items: center;*/
-    overflow: hidden;
-    /*overflow: overlay;*/
-    /*margin: 0;*/
-    float: right;
-    overflow: hidden;
+    align-items: center;
     position: relative;
+
+
+
 }
 
 .eventtickets img {
-    flex-shrink: 0;
     min-width: 100%;
     min-height: 100%;
+    position: relative;
+
 }
+
 
 .eventtickets a {
-    position: absolute;
-    /*display: inline-block;*/
-    /*vertical-align: middle;*/
-    /*top: 50%;*/
-    /*left: 0;*/
-    /*margin: auto;*/
-    /*float: left;*/
-    /*margin: 0 auto;*/
-    /*flex-shrink: 0;*/
-    /*display: block;*/
-    /*margin: 0 auto;*/
+    position: relative;
+    left: -60%;
+    font-size: 1em;
 }
-
-
-/*
-li::before { 
-}*/
