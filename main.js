@@ -93,6 +93,7 @@ function initMap() {
     }
 
     setupMarkers();
+    setupSearch();
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -134,12 +135,12 @@ var event2 = {
     },
 
     bands: [{
-        name: "The Lumineers",
+        name: "The Lmaos",
         desc: "The Lumineers are an American folk rock band based in Denver, Colorado, who formed as early as 2005 but didn’t release their self-titled debut record until April of 2012.",
         fullimage: "images/bg.jpg",
         thumbnail: "images/circle.jpg"
     }, {
-        name: "Supporting Band",
+        name: "popo",
         desc: "hey boss",
         fullimage: "https://pbs.twimg.com/profile_images/642798007621185536/Y6x_U5gS.jpg",
         thumbnail: "https://pbs.twimg.com/profile_images/642798007621185536/Y6x_U5gS.jpg"
@@ -196,13 +197,16 @@ function mapMoved(event) {
 }
 
 function updateSearchResults(events) {
-    // events = [0, 0, 0, 0, 0, 0, 0, 0];
-
+    console.log(events);
     var resultContainer = document.querySelector('#tableresults ul')
     resultContainer.innerHTML = "";
     for (var i in events) {
         var event = events[i];
-        var eDate = new Date(event.eventInfo.date);
+
+        var bandName0 = event.bands[0].name;
+        var bandName1 = event.bands[1].name;
+
+        var eDate = new Date(event.date);
         // var eventName = events.bands[i]
         // var month = events.month
         // var day = events.day
@@ -217,6 +221,15 @@ function updateSearchResults(events) {
         red.appendChild(whit);
         li.appendChild(red);
         resultContainer.appendChild(li);
+
+        var band0Container = document.createElement('div');
+        band0Container.innerHTML = bandName0 + '<br /><i>' + bandName1 + '</i>';
+        // var band1Container = document.createElement('h6');
+        // band1Container.innerHTML = bandName1;
+
+
+        li.appendChild(band0Container);
+        // li.appendChild(band1Container);
     }
 }
 
@@ -291,19 +304,77 @@ function updateInfoWindow(event) {
 //     if (event.keyCode == 13) {
 //         alert('Error getting location');
 
-//         var string = document.getElementById("search").value
+//         var string = document.getElementById("search").ue
 //         search(string, eventList)
-//         alert
+//         
 //     }
 //     return false;
 
 // }
 
-window.addEventListener('load', function() {
+function fuzzySearch(pattern, text) {
+
+    var patternLower = pattern.toLowerCase().split('');
+    var textLower = text.toLowerCase().split('');
+
+    pattern = pattern.split('');
+    text = text.split('');
+
+    var result = "";
+
+    var j = 0;
+
+    for (var i = 0; i < text.length && j <= pattern.length; i++) {
+        if (patternLower[j] === textLower[i]) {
+            result += '<b>' + pattern[j] + '</b>';
+            j++;
+        } else {
+            result += text[i];
+        }
+    }
+    return {
+        result: result,
+        match: j === pattern.length
+    };
+}
+
+function search(query, events) {
+    var results = events.map(function(event) {
+        var match = false;
+
+        var bands = event.bands.map(function(band) {
+            var result = fuzzySearch(query, band.name);
+            if (result.match)
+                match = true;
+            return {
+                name: result.result,
+            };
+        });
+
+        return {
+            match: match,
+            data: {
+                bands: bands,
+                date: event.eventInfo.date
+            }
+        };
+    }).filter(function(event) {
+        return event.match;
+    }).map(function(event) {
+        return event.data;
+    });
+
+    return results;
+}
+
+// window.addEventListener('load', function() {
+function setupSearch() {
     var searchBar = document.querySelector('#search');
     searchBar.addEventListener('keypress', newSearch);
 
     function newSearch(event) {
-        console.log(searchBar.value);
+        var query = searchBar.value;
+        var results = search(query, eventList);
+        updateSearchResults(results);
     }
-});
+}
