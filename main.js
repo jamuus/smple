@@ -283,15 +283,15 @@ function updateInfoWindow(event) {
 // eventList[0] = event1;
 
 
-function searchKey(event) {
-    event = event || window;
-    if (event.keyCode == 15) {
-        updateSearchResults(eventList);
-        var string = document.getElementById("search").value;
-        var regex = new RegExp(string);
-        alert(regex);
-        // search(string, eventList);
-    }
-    return false;
+// function searchKey(event) {
+//     event = event || window;
+//     if (event.keyCode == 15) {
+//         updateSearchResults(eventList);
+//         var string = document.getElementById("search").value;
+//         var regex = new RegExp(string);
+//         alert(regex);
+//         // search(string, eventList);
+//     }
+//     return false;
 
-}
+// }
