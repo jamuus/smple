@@ -64,16 +64,16 @@ body {
 
 @media (min-width: 800px) and (max-width: 1200px) {
     .searchpanel {
-        width: 50%;
+        width: 33%;
     }
     .infopanel {
-        width: 50%;
+        width: 33%;
     }
     .infoslidein {
         margin-right: 0%;
     }
     .infoslideout {
-        margin-right: -50%;
+        margin-right: -33%;
     }
 }
 
@@ -210,6 +210,9 @@ h6 {
 .bandpics {
     text-align: center;
 }
+.bandinfo {
+    width: 100%;
+}
 
 .bandimage {
     width: 120px;
@@ -259,8 +262,9 @@ h6 {
 /*event section*/
 
 .eventinfo {
-    display: table;
+    display: flex;
     width: 100%;
+
 }
 
 .eventlocation {
@@ -269,6 +273,7 @@ h6 {
     width: 50%;
     margin: 0;
     float: left;
+
 }
 
 .eventlocation h2 {
@@ -276,6 +281,7 @@ h6 {
 }
 
 .eventtickets {
+    box-sizing: border-box;
     width: 50%;
     margin: 0;
     float: right;
