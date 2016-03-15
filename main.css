@@ -264,7 +264,7 @@ h6 {
 }
 
 .eventlocation {
-    padding: 1em 1em 1em 1em;
+    padding: 1% 1% 1% 1%;
     width: 40%;
     margin: 0;
     position: relative;
@@ -275,17 +275,21 @@ h6 {
 }
 
 .eventtickets {
-    width: 60%;
+    width: 30%;
+    margin: 0;
     float: right;
     display: flex;
     align-items: center;
     position: relative;
+    /*padding: -1em -1em -1em -1em;*/
+
 }
 
 .eventtickets img {
     min-width: 100%;
     min-height: 100%;
     position: relative;
+
 }
 
 .eventtickets a {
@@ -293,20 +297,12 @@ h6 {
     left: -60%;
     font-size: 1em;
 }
-/*
 .playmusic {
-    width: 60%;
-    float: left;
+    width: 30%;
     display: flex;
-    align-items: center;
-    position: relative;
-    font-size: 1em;
-
 }
-
 .playmusic img {
     min-width: 100%;
     min-height: 100%;
     position: relative;
-
-}*/
+}
