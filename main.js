@@ -109,15 +109,15 @@ var event1 = {
     },
 
     bands: [{
+        name: "FKA Twigs",
+        desc: "FKA twigs is a pseudonym of singer,songwriter, producer and dancer Tahliah Debrett Barnett.",
+        fullimage: "images/bandimages/fkatwigs.jpg",
+        thumbnail: "images/thumbnails/fkatwigs.jpg"
+    }, {
         name: "The Lumineers",
         desc: "The Lumineers are an American folk rock band based in Denver, Colorado, who formed as early as 2005 but didn’t release their self-titled debut record until April of 2012.",
-        fullimage: "images/bg.jpg",
-        thumbnail: "images/circle.jpg"
-    }, {
-        name: "Supporting Band",
-        desc: "hey boss",
-        fullimage: "https://pbs.twimg.com/profile_images/642798007621185536/Y6x_U5gS.jpg",
-        thumbnail: "https://pbs.twimg.com/profile_images/642798007621185536/Y6x_U5gS.jpg"
+        fullimage: "images/bandimages/thelumineers.jpg",
+        thumbnail: "images/thumbnails/thelumineers.jpg"
     }],
     eventInfo: {
         title: "O2 Academy Bristol",
