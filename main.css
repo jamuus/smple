@@ -265,7 +265,7 @@ h6 {
 
 .eventlocation {
     padding: 1em 1em 1em 1em;
-    width: 50%;
+    width: 40%;
     margin: 0;
     position: relative;
 }
@@ -275,7 +275,7 @@ h6 {
 }
 
 .eventtickets {
-    width: 50%;
+    width: 60%;
     float: right;
     display: flex;
     align-items: center;
@@ -292,4 +292,21 @@ h6 {
     position: relative;
     left: -60%;
     font-size: 1em;
+}
+
+.playmusic {
+    width: 60%;
+    float: left;
+    display: flex;
+    align-items: center;
+    position: relative;
+    font-size: 1em;
+
+}
+
+.playmusic img {
+    min-width: 100%;
+    min-height: 100%;
+    position: relative;
+
 }

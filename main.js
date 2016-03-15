@@ -130,7 +130,7 @@ var event1 = {
 var event2 = {
     title: "eyyyyy",
     location: {
-        lat: 51.45436,
+        lat: 51.3436,
         lng: -2.599961
     },
 
@@ -196,41 +196,35 @@ function mapMoved(event) {
     }
 }
 
-function updateSearchResults(events) {
-    console.log(events);
-    var resultContainer = document.querySelector('#tableresults ul')
-    resultContainer.innerHTML = "";
-    for (var i in events) {
-        var event = events[i];
 
-        var bandName0 = event.bands[0].name;
-        var bandName1 = event.bands[1].name;
+function selectBand(event) {
 
-        var eDate = new Date(event.date);
-        // var eventName = events.bands[i]
-        // var month = events.month
-        // var day = events.day
-        var red = document.createElement('div');
+    var defaultBand = eventList[0].bands[event.value];
+    var bandimage = document.querySelector('.imagewithoverlay > img');
+    bandimage.src = defaultBand.fullimage;
 
-        red.innerHTML = month[eDate.getMonth()];
-        red.className = "redbox";
-        var whit = document.createElement('div');
-        whit.innerHTML = eDate.getDate();
-        whit.className = "whitebox";
-        var li = document.createElement('li');
-        red.appendChild(whit);
-        li.appendChild(red);
-        resultContainer.appendChild(li);
+    var name = document.querySelector('.imagewithoverlay > div');
+    name.innerHTML = defaultBand.name;
 
-        var band0Container = document.createElement('div');
-        band0Container.innerHTML = bandName0 + '<br /><i>' + bandName1 + '</i>';
-        // var band1Container = document.createElement('h6');
-        // band1Container.innerHTML = bandName1;
+    var description = document.querySelector('.bandinfo > p');
+    description.innerHTML = defaultBand.desc;
 
+    var venueTitle = document.querySelector('#venuetitle');
+    venueTitle.innerHTML = event.eventInfo.title;
 
-        li.appendChild(band0Container);
-        // li.appendChild(band1Container);
-    }
+    var venueAddress = document.querySelector('#venueAddress');
+    venueAddress.innerHTML = event.eventInfo.address.replace(/(?:\r\n|\r|\n)/g, '<br />');
+
+    var venueWebsite = document.querySelector('#venueWebsite');
+    venueWebsite.href = event.eventInfo.venueUrl;
+
+    var venueTicketUrl = document.querySelector('#venueTicketUrl');
+    venueTicketUrl.href = event.eventInfo.ticketUrl;
+}
+
+function selectResult(event) {
+    alert(event.value);
+    
 }
 
 function updateInfoWindowContents(event) {
@@ -243,6 +237,10 @@ function updateInfoWindowContents(event) {
 
         var cont = document.createElement('div');
         cont.className = "bandimage materialbox shadowbox";
+        cont.addEventListener("click", function(){
+                            selectBand(this);
+                            }, false);
+        cont.value = i;
         var img = document.createElement('img');
         img.src = bandThumbnail;
 
@@ -310,6 +308,44 @@ function updateInfoWindow(event) {
 //     return false;
 
 // }
+function updateSearchResults(events) {
+    console.log(events);
+    var resultContainer = document.querySelector('#tableresults ul')
+    resultContainer.innerHTML = "";
+    for (var i in events) {
+        var event = events[i];
+
+        var bandName0 = event.bands[0].name;
+        var bandName1 = event.bands[1].name;
+
+        var eDate = new Date(event.date);
+
+        var red = document.createElement('div');
+
+        red.innerHTML = month[eDate.getMonth()];
+        red.className = "redbox";
+        var whit = document.createElement('div');
+        whit.innerHTML = eDate.getDate();
+        whit.className = "whitebox";
+        var li = document.createElement('li');
+        li.addEventListener("click", function(){
+                            selectResult(this);
+                            }, false);
+        red.appendChild(whit);
+        li.appendChild(red);
+        resultContainer.appendChild(li);
+
+        var band0Container = document.createElement('div');
+        band0Container.innerHTML = bandName0 + '<br /><i>' + bandName1 + '</i>';
+        // var band1Container = document.createElement('h6');
+        // band1Container.innerHTML = bandName1;
+
+
+        li.appendChild(band0Container);
+        // li.appendChild(band1Container);
+    }
+}
+
 
 function fuzzySearch(pattern, text) {
 
