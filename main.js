@@ -101,60 +101,6 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     console.log(browserHasGeolocation, infoWindow, pos);
 }
 
-var event1 = {
-    title: "eyyyyy",
-    location: {
-        lat: 51.45436,
-        lng: -2.599961
-    },
-
-    bands: [{
-        name: "FKA Twigs",
-        desc: "FKA twigs is a pseudonym of singer,songwriter, producer and dancer Tahliah Debrett Barnett.",
-        fullimage: "images/bandimages/fkatwigs.jpg",
-        thumbnail: "images/thumbnails/fkatwigs.jpg"
-    }, {
-        name: "The Lumineers",
-        desc: "The Lumineers are an American folk rock band based in Denver, Colorado, who formed as early as 2005 but didn’t release their self-titled debut record until April of 2012.",
-        fullimage: "images/bandimages/thelumineers.jpg",
-        thumbnail: "images/thumbnails/thelumineers.jpg"
-    }],
-    eventInfo: {
-        title: "O2 Academy Bristol",
-        address: "O2 Academy Bristol\nFrogmore Street\nBS1 5NA\nBristol, UK\n0117 927 9227",
-        venueUrl: "http://www.o2academybristol.co.uk",
-        ticketUrl: "http://www.songkick.com/tickets/20220218",
-        date: "2016-03-01"
-    }
-};
-var event2 = {
-    title: "eyyyyy",
-    location: {
-        lat: 51.3436,
-        lng: -2.599961
-    },
-
-    bands: [{
-        name: "The Lmaos",
-        desc: "The Lumineers are an American folk rock band based in Denver, Colorado, who formed as early as 2005 but didn’t release their self-titled debut record until April of 2012.",
-        fullimage: "images/bg.jpg",
-        thumbnail: "images/circle.jpg"
-    }, {
-        name: "popo",
-        desc: "hey boss",
-        fullimage: "https://pbs.twimg.com/profile_images/642798007621185536/Y6x_U5gS.jpg",
-        thumbnail: "https://pbs.twimg.com/profile_images/642798007621185536/Y6x_U5gS.jpg"
-    }],
-    eventInfo: {
-        title: "O2 Academy Bristol",
-        address: "O2 Academy Bristol\nFrogmore Street\nBS1 5NA\nBristol, UK\n0117 927 9227",
-        venueUrl: "http://www.o2academybristol.co.uk",
-        ticketUrl: "http://www.songkick.com/tickets/20220218",
-        date: "2016-09-02"
-    }
-};
-
-var eventList = [event1, event2];
 
 
 function setupMarkers() {
@@ -224,7 +170,7 @@ function selectBand(event) {
 
 function selectResult(event) {
     alert(event.value);
-    
+
 }
 
 function updateInfoWindowContents(event) {
@@ -237,9 +183,9 @@ function updateInfoWindowContents(event) {
 
         var cont = document.createElement('div');
         cont.className = "bandimage materialbox shadowbox";
-        cont.addEventListener("click", function(){
-                            selectBand(this);
-                            }, false);
+        cont.addEventListener("click", function() {
+            selectBand(this);
+        }, false);
         cont.value = i;
         var img = document.createElement('img');
         img.src = bandThumbnail;
@@ -328,9 +274,9 @@ function updateSearchResults(events) {
         whit.innerHTML = eDate.getDate();
         whit.className = "whitebox";
         var li = document.createElement('li');
-        li.addEventListener("click", function(){
-                            selectResult(this);
-                            }, false);
+        li.addEventListener("click", function() {
+            selectResult(this);
+        }, false);
         red.appendChild(whit);
         li.appendChild(red);
         resultContainer.appendChild(li);
