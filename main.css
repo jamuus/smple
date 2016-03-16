@@ -273,10 +273,7 @@ h6 {
 
 .eventinfo {
     width: 100%;
-
 }
-
-
 
 .eventlocation {
     position: relative;
@@ -285,7 +282,6 @@ h6 {
     padding-top: 45%;
     float: left;
     font-size: 0.7em;
-
 }
 
 .eventlocation-content {
@@ -303,20 +299,17 @@ h6 {
     width: 45%;
     float: right;
     position: relative;
-
 }
 
 .eventtickets img {
     width: 100%;
     display: block;
-
 }
 
 .eventtickets a {
-    position:absolute;
+    position: absolute;
     top: 50%;
     width: 100%;
     text-align: center;
     font-size: 0.7em;
 }
-
