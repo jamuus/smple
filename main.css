@@ -64,16 +64,16 @@ body {
 
 @media (min-width: 800px) and (max-width: 1200px) {
     .searchpanel {
-        width: 33%;
+        width: 40%;
     }
     .infopanel {
-        width: 33%;
+        width: 40%;
     }
     .infoslidein {
         margin-right: 0%;
     }
     .infoslideout {
-        margin-right: -33%;
+        margin-right: -40%;
     }
 }
 
@@ -226,6 +226,7 @@ h6 {
 
 .bandimage img {
     width: 100%;
+    display: block;
 }
 
 .bandinfo p {
@@ -238,7 +239,7 @@ h6 {
 .imagewithoverlay {
     position: relative;
     width: 100%;
-    display: table;
+    display: block;
 }
 
 .imagewithoverlay>div {
@@ -262,9 +263,8 @@ h6 {
 /*event section*/
 
 .eventinfo {
-    display: flex;
+    display: table;
     width: 100%;
-
 }
 
 .eventlocation {
@@ -273,7 +273,6 @@ h6 {
     width: 50%;
     margin: 0;
     float: left;
-
 }
 
 .eventlocation h2 {
@@ -281,20 +280,22 @@ h6 {
 }
 
 .eventtickets {
-    box-sizing: border-box;
     width: 50%;
     margin: 0;
     float: right;
     display: flex;
     align-items: center;
     position: relative;
+    height: 100%;
 
 }
 
 .eventtickets img {
-    min-width: 100%;
-    min-height: 100%;
-    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
 
 }
 
