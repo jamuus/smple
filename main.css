@@ -222,7 +222,14 @@ h6 {
 }
 
 .bandimage img {
+    display: block;
     width: 100%;
+}
+
+.bandinfo {
+    width: 100%;
+    border: 0;
+    overflow: hidden;
 }
 
 .bandinfo p {
@@ -234,8 +241,9 @@ h6 {
 
 .imagewithoverlay {
     position: relative;
+    border: 0;
     width: 100%;
-    display: table;
+    display: block;
 }
 
 .imagewithoverlay>div {
@@ -252,7 +260,7 @@ h6 {
 
 .imagewithoverlay img {
     width: 100%;
-    display: table-row;
+    display: block;
 }
 
 
@@ -268,7 +276,6 @@ h6 {
     width: 30%;
     margin: 0;
     position: relative;
-
 }
 
 .eventlocation h2 {
@@ -283,14 +290,12 @@ h6 {
     align-items: center;
     position: relative;
     /*padding: -1em -1em -1em -1em;*/
-
 }
 
 .eventtickets img {
     min-width: 100%;
     min-height: 100%;
     position: relative;
-
 }
 
 .eventtickets a {
@@ -298,10 +303,12 @@ h6 {
     left: -60%;
     font-size: 1em;
 }
+
 .playmusic {
     width: 35%;
     display: flex;
 }
+
 .playmusic img {
     min-width: 100%;
     min-height: 100%;
