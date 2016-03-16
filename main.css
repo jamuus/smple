@@ -62,22 +62,22 @@ body {
     }
 }
 
-@media (min-width: 800px) and (max-width: 1400px) {
+@media (min-width: 800px) and (max-width: 1200px) {
     .searchpanel {
-        width: 50%;
+        width: 33%;
     }
     .infopanel {
-        width: 50%;
+        width: 33%;
     }
     .infoslidein {
         margin-right: 0%;
     }
     .infoslideout {
-        margin-right: -50%;
+        margin-right: -33%;
     }
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1200px) {
     .searchpanel {
         width: 33%;
     }
@@ -211,6 +211,10 @@ h6 {
     text-align: center;
 }
 
+.bandinfo {
+    width: 100%;
+}
+
 .bandimage {
     width: 120px;
     height: 120px;
@@ -272,10 +276,11 @@ h6 {
 }
 
 .eventlocation {
+    box-sizing: border-box;
     padding: 2% 2% 2% 2%;
-    width: 30%;
+    width: 50%;
     margin: 0;
-    position: relative;
+    float: left;
 }
 
 .eventlocation h2 {
@@ -283,13 +288,13 @@ h6 {
 }
 
 .eventtickets {
-    width: 35%;
+    box-sizing: border-box;
+    width: 50%;
     margin: 0;
     float: right;
     display: flex;
     align-items: center;
     position: relative;
-    /*padding: -1em -1em -1em -1em;*/
 }
 
 .eventtickets img {
