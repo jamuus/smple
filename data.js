@@ -8,8 +8,8 @@ var event1 = {
     bands: [{
         name: "The Lumineers",
         desc: "The Lumineers are an American folk rock band based in Denver, Colorado, who formed as early as 2005 but didn’t release their self-titled debut record until April of 2012.",
-        fullimage: "images/bg.jpg",
-        thumbnail: "images/circle.jpg"
+        fullimage: "images/bandimages/fkatwigs.jpg",
+        thumbnail: "images/thumbnails/fkatwigs.jpg"
     }, {
         name: "Supporting Band",
         desc: "hey boss",

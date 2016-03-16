@@ -289,10 +289,8 @@ h6 {
 }
 
 .eventtickets {
-    width: 50%;
-    margin: 0;
+    max-width: 50%;
     float: right;
-    display: flex;
     align-items: center;
     position: relative;
     height: 100%;
