@@ -114,16 +114,20 @@ function setupMarkers() {
 
         event.marker = marker;
 
-        marker.addListener('click', (function(event, marker) {
+        marker.addListener('click', (function(event) {
             return function() {
-                map.panTo(marker.getPosition());
-                updateInfoWindow(event);
+                openEvent(event);
             }
-        })(event, marker));
+        })(event));
     }
 
     google.maps.event.addListener(map, 'drag', mapMoved);
     google.maps.event.addListener(map, 'zoom_changed', mapMoved);
+}
+
+function openEvent(event) {
+    map.panTo(event.marker.getPosition());
+    updateInfoWindow(event);
 }
 
 var infopanel = document.getElementById('infopanel');
@@ -164,8 +168,8 @@ function selectBand(event) {
 }
 
 function selectResult(event) {
-    alert(event.value);
-
+    console.log(event);
+    openEvent(event);
 }
 
 function updateInfoWindowContents(event) {
@@ -180,6 +184,7 @@ function updateInfoWindowContents(event) {
         cont.className = "bandimage materialbox shadowbox";
         cont.addEventListener("click", function() {
             selectBand(this);
+            band
         }, false);
         cont.value = i;
         var img = document.createElement('img');
@@ -225,34 +230,12 @@ function updateInfoWindow(event) {
     updateInfoWindowContents(event);
 }
 
-// function search(artist, array){
-//     for (var i=0; i < array.length; i++) {
-//         alert(artist);
-//         if (array[i].mainArtist === artist) {
-//         }
-//     }
-// }
-
-// var eventList = [];
-// eventList[0] = event1;
 
 
-// function searchKey(event) {
-//     event = event || window;
-//     if (event.keyCode == 13) {
-//         alert('Error getting location');
-
-//         var string = document.getElementById("search").ue
-//         search(string, eventList)
-//         
-//     }
-//     return false;
-
-// }
 function updateSearchResults(events) {
-    console.log(events);
     var resultContainer = document.querySelector('#tableresults ul')
     resultContainer.innerHTML = "";
+
     for (var i in events) {
         var event = events[i];
 
@@ -268,10 +251,14 @@ function updateSearchResults(events) {
         var whit = document.createElement('div');
         whit.innerHTML = eDate.getDate();
         whit.className = "whitebox";
+
         var li = document.createElement('li');
-        li.addEventListener("click", function() {
-            selectResult(this);
-        }, false);
+        li.addEventListener("click", (function(event) {
+            return function() {
+                selectResult(event);
+            }
+        })(event.event), false);
+
         red.appendChild(whit);
         li.appendChild(red);
         resultContainer.appendChild(li);
@@ -289,7 +276,6 @@ function updateSearchResults(events) {
 
 
 function fuzzySearch(pattern, text) {
-
     var patternLower = pattern.toLowerCase().split('');
     var textLower = text.toLowerCase().split('');
 
@@ -331,7 +317,8 @@ function search(query, events) {
             match: match,
             data: {
                 bands: bands,
-                date: event.eventInfo.date
+                date: event.eventInfo.date,
+                event: event
             }
         };
     }).filter(function(event) {
