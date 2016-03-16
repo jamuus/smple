@@ -1,5 +1,5 @@
 var event1 = {
-    title: "eyyyyy",
+    title: "eyyyyy1",
     location: {
         lat: 51.45436,
         lng: -2.599961
@@ -25,7 +25,7 @@ var event1 = {
     }
 };
 var event2 = {
-    title: "eyyyyy",
+    title: "eyyyyy2",
     location: {
         lat: 51.3436,
         lng: -2.599961

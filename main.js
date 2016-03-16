@@ -104,31 +104,26 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 
 function setupMarkers() {
-    var marker = new google.maps.Marker({
-        position: event1.location,
-        map: map,
-        title: event1.title
-    });
+    for (var i in eventList) {
+        var event = eventList[i];
+        var marker = new google.maps.Marker({
+            position: event.location,
+            map: map,
+            title: event.title
+        });
 
-    marker.addListener('click', onMarkerClick);
+        event.marker = marker;
 
-    function onMarkerClick() {
-        map.panTo(marker.getPosition());
-        updateInfoWindow(event1);
+        marker.addListener('click', (function(event, marker) {
+            return function() {
+                map.panTo(marker.getPosition());
+                updateInfoWindow(event);
+            }
+        })(event, marker));
     }
-
-    onMarkerClick();
 
     google.maps.event.addListener(map, 'drag', mapMoved);
     google.maps.event.addListener(map, 'zoom_changed', mapMoved);
-
-    // google.maps.event.addListener(map, 'click', function(event) {
-    //     marker = new google.maps.Marker({
-    //         position: event.latLng,
-    //         map: map
-    //     });
-    //     console.log(event.latLng.lat(), event.latLng.lng());
-    // });
 }
 
 var infopanel = document.getElementById('infopanel');

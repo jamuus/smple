@@ -189,7 +189,7 @@ h6 {
     box-sizing: border-box;
     float: right;
     top: 0px;
-    right: -33%;
+    /*margin-right: -33%;*/
     padding: 2% 2% 2% 2%;
     overflow-y: scroll;
     transition: 0.5s;
