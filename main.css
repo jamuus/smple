@@ -92,11 +92,13 @@ body {
     }
 }
 
-h5,
+
+/*h5,
 h6 {
     margin: 0 !important;
     padding: 0 !important;
 }
+*/
 
 
 /*Search panel*/
@@ -144,6 +146,7 @@ h6 {
     width: 3.5em;
     text-align: center;
     font-size: 0.7em;
+    display: inline-block;
     /*border: 1px solid #DDD;*/
 }
 
@@ -154,6 +157,27 @@ h6 {
     color: black;
     text-align: center;
     font-size: 2em;
+}
+
+.bandnames {
+    margin-left: 1em;
+    clear: left;
+}
+
+.bandnames1 {
+    margin-left: 1em;
+    clear: left;
+    font-size: 0.9em;
+    color: #DDD;
+}
+
+.bandnamescontainer {
+    float: left;
+}
+
+.walktime {
+    margin-left: 1em;
+    float: left;
 }
 
 

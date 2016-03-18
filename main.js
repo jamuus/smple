@@ -1,6 +1,7 @@
 "use strict";
 
 var map;
+var currentPositionMarker;
 var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
 function initMap() {
@@ -79,14 +80,25 @@ function initMap() {
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-            map.setCenter(pos);
-        }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-        });
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                map.setCenter(pos);
+
+                currentPositionMarker = new google.maps.Marker({
+                    position: pos,
+                    map: map,
+                    title: "u r here",
+                    icon: "http://maps.google.com/mapfiles/marker" + String.fromCharCode("A".charCodeAt(0)) + ".png",
+                    animation: google.maps.Animation.DROP
+                });
+
+                calculateDistanceAway(pos);
+            },
+            function() {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
     } else {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
@@ -94,6 +106,32 @@ function initMap() {
 
     setupMarkers();
     setupSearch();
+
+    function calculateDistanceAway(pos) {
+        var origin = pos;
+        var destinations = [];
+        for (var i in eventList) {
+            var event = eventList[i];
+            destinations.push(event.location);
+        }
+
+        var service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix({
+            origins: [origin],
+            destinations: destinations,
+            travelMode: google.maps.TravelMode.WALKING,
+        }, callback);
+
+        function callback(response, status) {
+            var results = response.rows[0].elements;
+            console.log(JSON.stringify(results, null, '    '));
+
+            for (var i in results) {
+                var result = results[i];
+                eventList[i].distance = result;
+            }
+        }
+    }
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -143,7 +181,6 @@ function mapMoved(event) {
 
 
 function selectBand(event) {
-
     var defaultBand = eventList[0].bands[event.value];
     var bandimage = document.querySelector('.imagewithoverlay > img');
     bandimage.src = defaultBand.fullimage;
@@ -184,7 +221,6 @@ function updateInfoWindowContents(event) {
         cont.className = "bandimage materialbox shadowbox";
         cont.addEventListener("click", function() {
             selectBand(this);
-            band
         }, false);
         cont.value = i;
         var img = document.createElement('img');
@@ -263,14 +299,33 @@ function updateSearchResults(events) {
         li.appendChild(red);
         resultContainer.appendChild(li);
 
-        var band0Container = document.createElement('div');
-        band0Container.innerHTML = bandName0 + '<br /><i>' + bandName1 + '</i>';
+        var bandNamesContainer = document.createElement('div');
+        bandNamesContainer.className = "bandnamescontainer";
+
+        var bandName0elem = document.createElement('div');
+        bandName0elem.className = "bandnames";
+        bandName0elem.innerHTML = bandName0;
+
+        var bandName1elem = document.createElement('div');
+        bandName1elem.className = "bandnames1";
+        bandName1elem.innerHTML = bandName1;
         // var band1Container = document.createElement('h6');
         // band1Container.innerHTML = bandName1;
 
 
-        li.appendChild(band0Container);
-        // li.appendChild(band1Container);
+        bandNamesContainer.appendChild(bandName0elem);
+        // li.appendChild(document.createElement('br'));
+        bandNamesContainer.appendChild(bandName1elem);
+
+        li.appendChild(bandNamesContainer);
+
+        var walkTime = event.walkTime;
+
+        var walkTimeElem = document.createElement('div');
+        walkTimeElem.className = "walktime";
+        walkTimeElem.innerHTML = walkTime;
+
+        li.appendChild(walkTimeElem);
     }
 }
 
@@ -318,6 +373,7 @@ function search(query, events) {
             data: {
                 bands: bands,
                 date: event.eventInfo.date,
+                walkTime: event.distance.duration.text,
                 event: event
             }
         };

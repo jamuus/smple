@@ -4,7 +4,6 @@ var event1 = {
         lat: 51.45436,
         lng: -2.599961
     },
-
     bands: [{
         name: "The Lumineers",
         desc: "The Lumineers are an American folk rock band based in Denver, Colorado, who formed as early as 2005 but didn’t release their self-titled debut record until April of 2012.",
@@ -30,7 +29,6 @@ var event2 = {
         lat: 51.3436,
         lng: -2.599961
     },
-
     bands: [{
         name: "The Lmaos",
         desc: "The Lumineers are an American folk rock band based in Denver, Colorado, who formed as early as 2005 but didn’t release their self-titled debut record until April of 2012.",
