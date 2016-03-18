@@ -158,7 +158,7 @@ function setupMarkers() {
             }
         })(event));
     }
-
+    openEvent(eventList[0]);
     google.maps.event.addListener(map, 'drag', mapMoved);
     google.maps.event.addListener(map, 'zoom_changed', mapMoved);
 }

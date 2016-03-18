@@ -26,7 +26,7 @@ var event1 = {
 var event2 = {
     title: "eyyyyy2",
     location: {
-        lat: 51.3436,
+        lat: 51.45300,
         lng: -2.599961
     },
     bands: [{
