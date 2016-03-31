@@ -194,8 +194,7 @@ h6 {
 }
 
 #tableresults li:hover {
-    box-shadow: 0 0 10px 100px #2DC0D6 inset;
-    /*background-color:  #DDD;*/
+    background-color:  #2DC0D6;
 }
 
 #tableresults ul {
@@ -261,7 +260,10 @@ h6 {
 
 .bandimage:hover{
     transform: scale(1.1); 
+    cursor: hand;
+    cursor: pointer;
 }
+
 .bandinfo {
     width: 100%;
     border: 0;
@@ -310,10 +312,27 @@ h6 {
     position: relative;
     width: 45%;
     float: left;
-    font-size: 0.7em;
+    font-size: 2.5em;
+}
+
+.eventlocation a{
+    font-size: 5em;
+    color: #FFF;
+    text-decoration: none;
+}
+
+.eventlocation:hover {
+    cursor: hand;
+    cursor: pointer;
+}
+
+.eventlocation:hover img{
+    opacity: 0.3;
 }
 
 .eventlocation-content {
+    width: 100%;
+    height: 100%;
     padding: 10% 10% 10% 10%;
     font-size: 10%;
     top: 0;
@@ -321,21 +340,47 @@ h6 {
     z-index: 1;
 }
 
-.eventlocation h2 {
-    margin-top: 0px !important;
+
+.graybackground {
+    -webkit-transition: all 0.5s linear;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+    z-index: 0;
+    width: 100%;
+    display: block;
+    top: 0;
+    z-index: 0;
+}
+
+.boxClickUrl {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .eventtickets {
     width: 45%;
     float: right;
     position: relative;
+
 }
+
+.eventtickets:hover {
+    cursor: hand;
+    cursor: pointer;
+}
+
+.eventtickets:hover #ticketbg{
+    opacity: 0.3;
+}
+
 
 .ticketoverlay {
     position: absolute;
     width: 100%;
     z-index: 1;
-
 }
 
 .ticketoverlay img {
@@ -344,30 +389,7 @@ h6 {
 }
 
 
-.ticketoverlay a {
-    position: absolute;
-    top: 70%;
-    width: 100%;
-    text-align: center;
-    font-size: 1em;
-    color: #fff;
-    font-weight: 400;
-    text-decoration: none;
 
-}
-.graybackground {
-    opacity: 0.6;
-    filter: alpha(opacity=60);
-    z-index: 0;
-    width: 100%;
-    display: block;
-    top: 0;
-    z-index: 0;
 
-}
 
-#venueWebsite{
-    font-size: 20.5em;
-    color: #FFF;
-}
 

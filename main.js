@@ -124,7 +124,7 @@ function initMap() {
 
         function callback(response, status) {
             var results = response.rows[0].elements;
-            console.log(JSON.stringify(results, null, '    '));
+            // console.log(JSON.stringify(results, null, '    '));
 
             for (var i in results) {
                 var result = results[i];
@@ -232,7 +232,7 @@ function updateInfoWindowContents(event) {
 
     // set event info
 
-    var venueTitle = document.querySelector('#venueWebsite');
+    var venueTitle = document.querySelector('#venueTitle');
     venueTitle.innerHTML = event.eventInfo.title;
 
     var venueAddress = document.querySelector('#venueAddress');
