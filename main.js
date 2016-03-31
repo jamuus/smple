@@ -191,17 +191,6 @@ function selectBand(event) {
     var description = document.querySelector('.bandinfo > p');
     description.innerHTML = defaultBand.desc;
 
-    var venueTitle = document.querySelector('#venuetitle');
-    venueTitle.innerHTML = event.eventInfo.title;
-
-    var venueAddress = document.querySelector('#venueAddress');
-    venueAddress.innerHTML = event.eventInfo.address.replace(/(?:\r\n|\r|\n)/g, '<br />');
-
-    var venueWebsite = document.querySelector('#venueWebsite');
-    venueWebsite.href = event.eventInfo.venueUrl;
-
-    var venueTicketUrl = document.querySelector('#venueTicketUrl');
-    venueTicketUrl.href = event.eventInfo.ticketUrl;
 }
 
 function selectResult(event) {
@@ -243,7 +232,7 @@ function updateInfoWindowContents(event) {
 
     // set event info
 
-    var venueTitle = document.querySelector('#venuetitle');
+    var venueTitle = document.querySelector('#venueWebsite');
     venueTitle.innerHTML = event.eventInfo.title;
 
     var venueAddress = document.querySelector('#venueAddress');
