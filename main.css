@@ -54,8 +54,6 @@ body {
     }
     .infopanel {
         width: 100%;
-        max-height: 90%;
-
     }
     .infoslidein {
         margin-right: 0%;
@@ -253,6 +251,7 @@ h6 {
 
 /*Information panel*/
 
+
 .infopanel {
     box-sizing: border-box;
     float: right;
@@ -261,6 +260,7 @@ h6 {
     padding: 2% 2% 2% 2%;
     overflow-y: scroll;
     transition: 0.5s;
+    max-height: 100%;
 }
 
 
