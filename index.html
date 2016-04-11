@@ -12,19 +12,16 @@
 
 <body>
     <div id="map"></div>
-    
-<div id="loginpanel" class="loginbox">
-    <div id="closebutton"></div>
-    <br>
-    <h1>Log-in</h1></br>
-    <form>
-        <input type="text" name="user" placeholder="Username" />
-        <input type="password" name="pass" placeholder="Password" />
-        <input type="submit" name="login" class="login loginsubmit" value="login" />
-    </form>
-</div>
-
-        
+    <div id="loginpanel" class="loginbox">
+        <div id="closebutton"></div>
+        <br>
+        <h1>Log-in</h1></br>
+        <form>
+            <input type="text" name="user" placeholder="Username" />
+            <input type="password" name="pass" placeholder="Password" />
+            <input type="submit" name="login" class="login loginsubmit" value="login" />
+        </form>
+    </div>
     <div class="searchpanel">
         <div class="searchbar materialbox shadowbox">
             <i class="material-icons">search</i>
@@ -39,27 +36,34 @@
         <div class="debugbackground bandpics">
         </div>
         <div class="bandinfo materialbox shadowbox">
+            <div class="ticketoverlay">
+                <img id="lmao" src="svg/playplaceholder.svg" />
+                <a target="_blank" class="boxClickUrl" id="venueTicketUrl" href="#" />
+            </div>
             <div class="imagewithoverlay">
                 <img src="images/placeholder.png" />
                 <div>Test Band</div>
             </div>
             <p>Test description</p>
         </div>
+        <!-- <div class="materialbox shadowbox musicbox">
+            <iframe src="https://embed.spotify.com/?uri=spotify:user:spotify:playlist:3rgsDhGHZxZ9sB9DQWQfuf" style="width: 100%; height:100%;" frameborder="0" allowtransparency="true"></iframe>
+        </div> -->
         <div class="eventinfo">
             <div class="materialbox shadowbox eventlocation">
-            <div class="locationoverlay">
-                    <a target="_blank" class ="boxClickUrl" id="venueWebsite" href="#"/>
-                    <h1 id = "venueTitle">Title</h1>
+                <div class="locationoverlay">
+                    <a target="_blank" class="boxClickUrl" id="venueWebsite" href="#" />
+                    <h1 id="venueTitle">Title</h1>
                     <p id="venueAddress">address</p>
-                    </div>
-                <img class ="graybackground" src="images/placebackground.jpg" />
+                </div>
+                <img class="graybackground" src="images/placebackground.jpg" />
             </div>
             <div class="materialbox shadowbox eventtickets">
                 <div class="ticketoverlay">
                     <img src="images/ticklogo.svg" />
-                    <a target="_blank" class ="boxClickUrl" id="venueTicketUrl" href="#"/>
+                    <a target="_blank" class="boxClickUrl" id="venueTicketUrl" href="#" />
                 </div>
-                <img class = "graybackground" id = "ticketbg" src="images/tickbackground.jpg" />
+                <img class="graybackground" id="ticketbg" src="images/tickbackground.jpg" />
             </div>
         </div>
     </div>

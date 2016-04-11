@@ -8,7 +8,6 @@ body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     position: fixed;
     -webkit-font-smoothing: antialiased;
-
 }
 
 #map {
@@ -61,10 +60,8 @@ body {
     .infoslideout {
         margin-right: -100%;
     }
-
     .locationoverlay {
         padding: 2em 2em 2em 2em;
-
     }
     .eventlocation p {
         font-size: 2em;
@@ -75,13 +72,11 @@ body {
     }
     .imagewithoverlay {
         font-size: 1em;
-        font-weight: normal; 
-
+        font-weight: normal;
     }
-    .bandinfo{
+    .bandinfo {
         font-size: 3em;
-        font-weight: normal; 
-
+        font-weight: normal;
     }
 }
 
@@ -235,7 +230,7 @@ h6 {
 }
 
 #tableresults li:hover {
-    background-color:  #2DC0D6;
+    background-color: #2DC0D6;
 }
 
 #tableresults ul {
@@ -250,7 +245,6 @@ h6 {
 
 
 /*Information panel*/
-
 
 .infopanel {
     box-sizing: border-box;
@@ -296,12 +290,12 @@ h6 {
 .bandimage img {
     display: block;
     width: 100%;
-/*    filter: grayscale(1);
+    /*    filter: grayscale(1);
     -webkit-filter: grayscale(1);*/
 }
 
-.bandimage:hover{
-    transform: scale(1.1); 
+.bandimage:hover {
+    transform: scale(1.1);
     cursor: hand;
     cursor: pointer;
 }
@@ -343,6 +337,18 @@ h6 {
     display: block;
 }
 
+.musicbox {
+    height: 300px;
+}
+
+#statusbutton {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    margin-top: 10px;
+    position: relative;
+}
+
 
 /*event section*/
 
@@ -356,24 +362,21 @@ h6 {
     float: left;
 }
 
-
 .eventlocation:hover {
     cursor: hand;
     cursor: pointer;
 }
 
-.eventlocation:hover img{
+.eventlocation:hover img {
     opacity: 0.3;
 }
 
-.locationoverlay{
+.locationoverlay {
     position: absolute;
     width: 100%;
     z-index: 1;
-    box-sizing:border-box;
-
+    box-sizing: border-box;
 }
-
 
 .graybackground {
     -webkit-transition: all 0.5s linear;
@@ -398,7 +401,6 @@ h6 {
     width: 45%;
     float: right;
     position: relative;
-
 }
 
 .eventtickets:hover {
@@ -406,10 +408,9 @@ h6 {
     cursor: pointer;
 }
 
-.eventtickets:hover #ticketbg{
+.eventtickets:hover #ticketbg {
     opacity: 0.3;
 }
-
 
 .ticketoverlay {
     position: absolute;
@@ -422,78 +423,72 @@ h6 {
     display: block;
 }
 
-
-
 .loginbox {
-  padding: 40px;
-  width: 274px;
-  background-color: #F7F7F7;
-  margin: 0 auto 10px;
-  border-radius: 2px;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-  position: absolute;
-  z-index: 2;
-  top: 50%;
-
+    padding: 40px;
+    width: 274px;
+    background-color: #F7F7F7;
+    margin: 0 auto 10px;
+    border-radius: 2px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    position: absolute;
+    z-index: 2;
+    top: 50%;
 }
 
 .loginbox h1 {
-  font-weight: 100;
-  text-align: center;
-  font-size: 2.3em;
+    font-weight: 100;
+    text-align: center;
+    font-size: 2.3em;
 }
 
 .loginbox input[type=submit] {
-  width: 100%;
-  display: block;
-  margin-bottom: 10px;
-  position: relative;
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    position: relative;
 }
 
 .loginbox input[type=text],
 input[type=password] {
-  height: 44px;
-  font-size: 16px;
-  width: 100%;
-  margin-bottom: 10px;
-  -webkit-appearance: none;
-  background: #fff;
-  border: 1px solid #d9d9d9;
-  border-top: 1px solid #c0c0c0;
-  /* border-radius: 2px; */
-  padding: 0 8px;
-  box-sizing: border-box;
+    height: 44px;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 10px;
+    -webkit-appearance: none;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    border-top: 1px solid #c0c0c0;
+    /* border-radius: 2px; */
+    padding: 0 8px;
+    box-sizing: border-box;
 }
 
 .loginbox input[type=text]:hover,
 input[type=password]:hover {
-  border: 1px solid #b9b9b9;
-  border-top: 1px solid #a0a0a0;
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    border: 1px solid #b9b9b9;
+    border-top: 1px solid #a0a0a0;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .login {
-  text-align: center;
-  font-size: 14px;
-  font-weight: 700;
-  height: 36px;
-  padding: 0 8px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    height: 36px;
+    padding: 0 8px;
 }
 
 .loginsubmit {
-  border: 0px;
-  color: #fff;
-  text-shadow: 0 1px rgba(0, 0, 0, 0.1);
-  background-color: #4d90fe;
+    border: 0px;
+    color: #fff;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+    background-color: #4d90fe;
 }
 
 .loginsubmit:hover {
-  border: 0px;
-  text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-  background-color: #357ae8;
+    border: 0px;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+    background-color: #357ae8;
 }
-
-
-
