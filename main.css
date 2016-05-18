@@ -161,9 +161,9 @@ h6 {
     height: 40px;
     line-height: 40px;
     width: 100%;
-    height: 100%;
     background-color: rgba(0, 0, 0, 0);
     color: #fff;
+
 }
 
 .searchresult {
@@ -342,8 +342,8 @@ h6 {
 }
 
 #statusbutton {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 30px;
     margin-left: 10px;
     margin-top: 10px;
     position: relative;

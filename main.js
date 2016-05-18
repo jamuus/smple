@@ -180,8 +180,8 @@ function mapMoved(event) {
 }
 
 
-function selectBand(event) {
-    var defaultBand = eventList[0].bands[event.value];
+function selectBand(event, index) {
+    var defaultBand = event.bands[index.value];
     var bandimage = document.querySelector('.imagewithoverlay > img');
     bandimage.src = defaultBand.fullimage;
 
@@ -209,7 +209,7 @@ function updateInfoWindowContents(event) {
         var cont = document.createElement('div');
         cont.className = "bandimage materialbox shadowbox";
         cont.addEventListener("click", function() {
-            selectBand(this);
+            selectBand(event, this);
         }, false);
         cont.value = i;
         var img = document.createElement('img');
