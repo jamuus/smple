@@ -27,7 +27,7 @@ body {
 }
 
 .shadowbox {
-    opacity: 0.8;
+    opacity: 0.85;
     background-color: #000;
     color: #FFF;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
@@ -341,14 +341,7 @@ h6 {
     height: 300px;
 }
 
-#statusbutton {
-    width: 40px;
-    height: 30px;
-    margin-left: 10px;
-    margin-top: 10px;
-    position: relative;
-    z-index: 10000;
-}
+
 
 
 /*event section*/
@@ -411,6 +404,24 @@ h6 {
 
 .eventtickets:hover #ticketbg {
     opacity: 0.3;
+}
+
+#button {
+    width: 90px;
+    height: 40px;
+    margin-left: 20px;
+    position: relative;
+    z-index: 10000;
+
+}
+.playButton {
+    /*top: 0;*/
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25), 0 2px 3px rgba(0, 0, 0, 0.22);
+    /*box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.7);*/
+    background-color: #ff3686;
+    color: #FFF;
+
+    z-index: 10000;   /*border: 5px solid #f3f3f3;*/
 }
 
 .ticketoverlay {
