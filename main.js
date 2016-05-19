@@ -106,6 +106,24 @@ function initMap() {
 
     setupMarkers();
     setupSearch();
+    var musicPanel = document.querySelector("#samplebutton")
+
+    musicPanel.addEventListener('click', musicDisplay);
+    
+    var musicWindowVisible = false;
+    var spotifyPlayer = document.querySelector("#spotifyplayer")
+
+    function musicDisplay(event) {
+            if (!musicWindowVisible) {
+                spotifyPlayer.classList.remove('musichide');
+                spotifyPlayer.classList.add('musicshow');
+                musicWindowVisible = true;
+            }else{                
+                spotifyPlayer.classList.remove('musicshow');
+                spotifyPlayer.classList.add('musichide');
+                musicWindowVisible = false;}
+        }
+            
 
     function calculateDistanceAway(pos) {
         var origin = pos;
