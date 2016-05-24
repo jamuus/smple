@@ -78,6 +78,9 @@ body {
         font-size: 3em;
         font-weight: normal;
     }
+    #resizer {
+        font-size: 5em;
+    }
 }
 
 @media (min-width: 800px) and (max-width: 1200px) {
@@ -407,12 +410,15 @@ h6 {
 }
 
 #samplebutton {
-    width: 500px;
-    height: 100px;
+    width: 100%;
     margin-left: 20px;
     position: relative;
     z-index: 10000;
 
+}
+
+#resizer {
+    width: 15em;
 }
 
 
