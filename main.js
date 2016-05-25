@@ -3,6 +3,7 @@
 var map;
 var currentPositionMarker;
 var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+var currentPos;
 
 function initMap() {
     var customMapType = new google.maps.StyledMapType([{
@@ -79,12 +80,16 @@ function initMap() {
     map.setMapTypeId(customMapTypeId);
 
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
                 var pos = {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
                 map.setCenter(pos);
+
+                currentPos = pos;
+                sendPosToServer();
 
                 currentPositionMarker = new google.maps.Marker({
                     position: pos,
@@ -98,7 +103,8 @@ function initMap() {
             },
             function() {
                 handleLocationError(true, infoWindow, map.getCenter());
-            });
+            }
+        );
     } else {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
@@ -106,10 +112,12 @@ function initMap() {
 
     setupMarkers();
     setupSearch();
+
+
     var musicPanel = document.querySelector("#samplebutton")
 
     musicPanel.addEventListener('click', musicDisplay);
-    
+
     var musicWindowVisible = false;
     var spotifyPlayer = document.querySelector("#spotifyplayer")
 
@@ -118,15 +126,16 @@ function initMap() {
             spotifyPlayer.classList.remove('musichide');
             spotifyPlayer.classList.add('musicshow');
             musicWindowVisible = true;
-        }else{                
+        } else {
             initPlay(event);
             spotifyPlayer.classList.remove('musicshow');
             spotifyPlayer.classList.add('musichide');
-            musicWindowVisible = false;}
+            musicWindowVisible = false;
+        }
     }
     var svgDocument;
-    function initPlay(evt)
-    {
+
+    function initPlay(evt) {
         // if ( window.svgDocument == null )
         // {
         //     svgDocument = evt.target.ownerDocument;
@@ -137,27 +146,26 @@ function initMap() {
         addRotateTransform('gear-4', 10, -1);
     }
 
-    function addRotateTransform(target_id, speed, direction)
-    {
+    function addRotateTransform(target_id, speed, direction) {
         var element_to_rotate = svgDocument.getElementById(target_id);
         var my_transform = svgDocument.createElementNS(svgNS, "animateTransform");
 
         var bb = element_to_rotate.getBBox();
-        var cx = bb.x + bb.width/2;
-        var cy = bb.y + bb.height/2;
+        var cx = bb.x + bb.width / 2;
+        var cy = bb.y + bb.height / 2;
 
         my_transform.setAttributeNS(null, "attributeName", "transform");
         my_transform.setAttributeNS(null, "attributeType", "XML");
         my_transform.setAttributeNS(null, "type", "rotate");
         my_transform.setAttributeNS(null, "dur", speed + "s");
         my_transform.setAttributeNS(null, "repeatCount", "indefinite");
-        my_transform.setAttributeNS(null, "from", "0 "+cx+" "+cy);
-        my_transform.setAttributeNS(null, "to", 360*direction+" "+cx+" "+cy);
+        my_transform.setAttributeNS(null, "from", "0 " + cx + " " + cy);
+        my_transform.setAttributeNS(null, "to", 360 * direction + " " + cx + " " + cy);
 
         element_to_rotate.appendChild(my_transform);
         my_transform.beginElement();
     }
-            
+
 
     function calculateDistanceAway(pos) {
         var origin = pos;
@@ -191,7 +199,38 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     console.log(browserHasGeolocation, infoWindow, pos);
 }
 
+var serverConnection;
 
+function setupWebSocket() {
+    window.WebSocket = window.WebSocket || window.MozWebSocket;
+
+    serverConnection = new WebSocket('ws://127.0.0.1:8081', 'p1');
+
+    serverConnection.onopen = function() {
+        sendPosToServer();
+    };
+
+    serverConnection.onerror = function(error) {
+        console.log('web socket error', error);
+    };
+
+    serverConnection.onmessage = function(message) {
+        console.log('new websocket message', message.data);
+    };
+}
+
+var callsToWaitFor = 2;
+
+function sendPosToServer() {
+    callsToWaitFor--;
+    if (callsToWaitFor === 0) {
+        serverConnection.send(JSON.stringify({
+            initialPos: currentPos
+        }));
+    }
+}
+
+setupWebSocket();
 
 function setupMarkers() {
     for (var i in eventList) {
@@ -210,9 +249,11 @@ function setupMarkers() {
             }
         })(event));
     }
+    // for testing
     openEvent(eventList[0]);
     google.maps.event.addListener(map, 'drag', mapMoved);
     google.maps.event.addListener(map, 'zoom_changed', mapMoved);
+    google.maps.event.addListener(map, 'dragend', updateMarkers);
 }
 
 function openEvent(event) {
@@ -222,6 +263,20 @@ function openEvent(event) {
 
 var infopanel = document.getElementById('infopanel');
 var infoWindowVisible = false;
+
+
+function updateMarkers() {
+    var pos = {
+        lat: map.getCenter().lat(),
+        lng: map.getCenter().lng()
+    };
+
+    if (serverConnection) {
+        serverConnection.send(JSON.stringify({
+            newPos: pos
+        }));
+    }
+}
 
 function mapMoved(event) {
     if (infoWindowVisible) {
@@ -440,7 +495,7 @@ function setupSearch() {
 }
 
 
-document.body.setScaledFont = function (f) {
+document.body.setScaledFont = function(f) {
     var s = this.offsetWidth,
         fs = s * f;
     this.style.fontSize = fs + '%';
@@ -448,6 +503,6 @@ document.body.setScaledFont = function (f) {
 };
 
 document.body.setScaledFont(0.07);
-window.onresize = function () {
+window.onresize = function() {
     document.body.setScaledFont(0.07);
 }
