@@ -472,7 +472,7 @@ function search(query, events) {
             data: {
                 bands: bands,
                 date: event.eventInfo.date,
-                walkTime: event.distance.duration.text,
+                walkTime: event.distance ? event.distance.duration.text : 'unknown',
                 event: event
             }
         };
