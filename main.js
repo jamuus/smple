@@ -1,17 +1,21 @@
 "use strict";
 
-var map;
-var currentPositionMarker;
 var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
-var currentPos;
-
-var svg = document.getElementById("samplebutton");
-var svgDoc;
+var currentPos, map, currentPositionMarker, svgDoc, svg, spotifyPlayer, musicWindowVisible;
 var svgNS = "http://www.w3.org/2000/svg";
-svg.addEventListener('click', musicDisplay);
 
-var musicWindowVisible = false;
-var spotifyPlayer = document.querySelector("#spotifyplayer")
+window.onload = function() {
+    svg = document.getElementById("samplebutton");
+    musicWindowVisible = false;
+    spotifyPlayer = document.querySelector("#spotifyplayer")
+    svgDoc = svg.contentDocument;
+
+    var playClickRegion = svgDoc.getElementById("clickRegion");
+    playClickRegion.onclick = function(evt) {
+        musicDisplay();
+        initPlay();
+    };
+};
 
 function musicDisplay(event) {
     if (!musicWindowVisible) {
@@ -19,44 +23,21 @@ function musicDisplay(event) {
         spotifyPlayer.classList.add('musicshow');
         musicWindowVisible = true;
     } else {
-        // initPlay(event);
         spotifyPlayer.classList.remove('musicshow');
         spotifyPlayer.classList.add('musichide');
         musicWindowVisible = false;
     }
 }
 
-svg.addEventListener('load', function() {
-    svgDoc = svg.contentDocument;
-
-    var supr = svgDoc.getElementById("supersafe");
-    console.log(supr);
-    supr.onclick = function(evt) {
-        console.log(evt);
-        initPlay(evt);
-        musicDisplay()
-    };
-});
 
 var spotifyPanelVisible = false;
 
-function initPlay(evt) {
-
-
-    // svgDocument = document.querySelector('#samplebuttonsvg').ownerDocument;
-    // console.log(svgDocument);
-
-
-
-    addRotateTransform('gear-3', 0.8, 1);
-    addRotateTransform('gear-4', 0.5, 1);
-
-    if (spotifyPanelVisible == false) spotifyPanelVisible = true;
-    else spotifyPanelVisible = false;
+function initPlay() {
+    addRotateTransform('t1', 0.7, 1);
+    addRotateTransform('t2', 0.5, 1);
 }
 
 function addRotateTransform(target_id, speed, direction) {
-
     var element_to_rotate = svgDoc.getElementById(target_id);
     var my_transform = svgDoc.createElementNS(svgNS, "animateTransform");
 
@@ -68,9 +49,9 @@ function addRotateTransform(target_id, speed, direction) {
     my_transform.setAttributeNS(null, "attributeType", "XML");
     my_transform.setAttributeNS(null, "type", "rotate");
     my_transform.setAttributeNS(null, "dur", speed + "s");
-    if (spotifyPanelVisible == false) {
+    if (musicWindowVisible) {
         my_transform.setAttributeNS(null, "from", 0 + " " + cx + " " + cy);
-        my_transform.setAttributeNS(null, "to", 115 + " " + cx + " " + cy);
+        my_transform.setAttributeNS(null, "to", 120 + " " + cx + " " + cy);
     } else {
         my_transform.setAttributeNS(null, "from", 120 + " " + cx + " " + cy);
         my_transform.setAttributeNS(null, "to", 0 + " " + cx + " " + cy);

@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="73.424553mm"
-   height="17.732079mm"
-   viewBox="0 0 260.16574 62.830199"
+   width="260"
+   height="62"
+   viewBox="0 0 260 62"
    id="svg5357"
    version="1.1"
    inkscape:version="0.91 r13725"
@@ -74,7 +74,7 @@
          id="g4224">
         <path
            inkscape:connector-curvature="0"
-           id="gear-3"
+           id="t1"
            d="M 26.3206,22.814 26.264,76.4687 C 42.3867,67.5415 58.5098,58.615 74.6334,49.689 58.529,40.731 42.4247,31.7723 26.3206,22.814 Z m 2.8267,4.4568 c 13.6557,7.5964 27.3113,15.193 40.9672,22.789 -13.672,7.5688 -27.3438,15.138 -41.0152,22.708 l 0.048,-45.497 z M 54.0796,47.685 43.3864,28.221 Z m 0.0364,11.1932 -26.0553,13.393 z" />
       </g>
       <g
@@ -82,7 +82,7 @@
          id="g4227">
         <path
            inkscape:connector-curvature="0"
-           id="gear-4"
+           id="t2"
            d="M 72.5386,72.3394 61.8083,62.8752 Z M 31.87,31.9894 c 16.104,8.9585 32.2082,17.917 48.3127,26.875 -16.1235,8.926 -32.2467,17.8525 -48.3694,26.7798 0.019,-17.885 0.0378,-35.77 0.0566,-53.6548 z" />
       </g>
       <text
@@ -105,12 +105,12 @@
            id="tspan4232">P L A Y</tspan>
       </text>
       <rect
-         id="supersafe"
+         id="clickRegion"
          class="btn"
          x="0"
          y="0"
-         width="260"
-         height="62"
+         width="500"
+         height="120"
          style="fill:#ffffff;fill-opacity:0;stroke:#ffffff;stroke-opacity:0" />
     </g>
   </g>
