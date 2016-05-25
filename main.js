@@ -159,59 +159,16 @@ function initMap() {
                 calculateDistanceAway(pos);
             },
             function() {
-                handleLocationError(true, infoWindow, map.getCenter());
+                handleLocationError(true, map.getCenter());
             }
         );
     } else {
         // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
+        handleLocationError(false, map.getCenter());
     }
 
     setupMarkers();
     setupSearch();
-
-
-    var musicPanel = document.querySelector("#samplebutton")
-
-    musicPanel
-    var spotifyPanelVisible = false;
-
-
-
-    // var svgDocument;
-    // function initPlay(evt)
-    // {
-    //     // if ( window.svgDocument == null )
-    //     // {
-    //     //     svgDocument = evt.target.ownerDocument;
-    //     // }
-    //     svgDocument = document.querySelector('#samplebutton > svg');
-    //     console.log(svgDocument);
-    //     addRotateTransform('gear-3', 10, -1);
-    //     addRotateTransform('gear-4', 10, -1);
-    // }
-
-    // function addRotateTransform(target_id, speed, direction)
-    // {
-    //     var element_to_rotate = svgDocument.getElementById(target_id);
-    //     var my_transform = svgDocument.createElementNS(svgNS, "animateTransform");
-
-    //     var bb = element_to_rotate.getBBox();
-    //     var cx = bb.x + bb.width/2;
-    //     var cy = bb.y + bb.height/2;
-
-    //     my_transform.setAttributeNS(null, "attributeName", "transform");
-    //     my_transform.setAttributeNS(null, "attributeType", "XML");
-    //     my_transform.setAttributeNS(null, "type", "rotate");
-    //     my_transform.setAttributeNS(null, "dur", speed + "s");
-    //     my_transform.setAttributeNS(null, "repeatCount", "indefinite");
-    //     my_transform.setAttributeNS(null, "from", "0 "+cx+" "+cy);
-    //     my_transform.setAttributeNS(null, "to", 360*direction+" "+cx+" "+cy);
-
-    //     element_to_rotate.appendChild(my_transform);
-    //     my_transform.beginElement();
-    // }
-
 
     function calculateDistanceAway(pos) {
         var origin = pos;
@@ -240,7 +197,7 @@ function initMap() {
     }
 }
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+function handleLocationError(browserHasGeolocation, pos) {
     alert('Error getting location');
     console.log(browserHasGeolocation, infoWindow, pos);
 }
