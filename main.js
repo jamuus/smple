@@ -5,6 +5,82 @@ var currentPositionMarker;
 var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 var currentPos;
 
+var svg = document.getElementById("samplebutton");
+var svgDoc;
+var svgNS = "http://www.w3.org/2000/svg";
+svg.addEventListener('click', musicDisplay);
+
+var musicWindowVisible = false;
+var spotifyPlayer = document.querySelector("#spotifyplayer")
+
+function musicDisplay(event) {
+    if (!musicWindowVisible) {
+        spotifyPlayer.classList.remove('musichide');
+        spotifyPlayer.classList.add('musicshow');
+        musicWindowVisible = true;
+    } else {
+        // initPlay(event);
+        spotifyPlayer.classList.remove('musicshow');
+        spotifyPlayer.classList.add('musichide');
+        musicWindowVisible = false;
+    }
+}
+
+svg.addEventListener('load', function() {
+    svgDoc = svg.contentDocument;
+
+    var supr = svgDoc.getElementById("supersafe");
+    console.log(supr);
+    supr.onclick = function(evt) {
+        console.log(evt);
+        initPlay(evt);
+        musicDisplay()
+    };
+});
+
+var spotifyPanelVisible = false;
+
+function initPlay(evt) {
+
+
+    // svgDocument = document.querySelector('#samplebuttonsvg').ownerDocument;
+    // console.log(svgDocument);
+
+
+
+    addRotateTransform('gear-3', 0.8, 1);
+    addRotateTransform('gear-4', 0.5, 1);
+
+    if (spotifyPanelVisible == false) spotifyPanelVisible = true;
+    else spotifyPanelVisible = false;
+}
+
+function addRotateTransform(target_id, speed, direction) {
+
+    var element_to_rotate = svgDoc.getElementById(target_id);
+    var my_transform = svgDoc.createElementNS(svgNS, "animateTransform");
+
+    var bb = element_to_rotate.getBBox();
+    var cx = bb.x + bb.width / 3;
+    var cy = bb.y + bb.height / 2;
+
+    my_transform.setAttributeNS(null, "attributeName", "transform");
+    my_transform.setAttributeNS(null, "attributeType", "XML");
+    my_transform.setAttributeNS(null, "type", "rotate");
+    my_transform.setAttributeNS(null, "dur", speed + "s");
+    if (spotifyPanelVisible == false) {
+        my_transform.setAttributeNS(null, "from", 0 + " " + cx + " " + cy);
+        my_transform.setAttributeNS(null, "to", 115 + " " + cx + " " + cy);
+    } else {
+        my_transform.setAttributeNS(null, "from", 120 + " " + cx + " " + cy);
+        my_transform.setAttributeNS(null, "to", 0 + " " + cx + " " + cy);
+    }
+
+    element_to_rotate.appendChild(my_transform);
+    my_transform.beginElement();
+}
+
+
 function initMap() {
     var customMapType = new google.maps.StyledMapType([{
         "featureType": "landscape",
@@ -116,55 +192,44 @@ function initMap() {
 
     var musicPanel = document.querySelector("#samplebutton")
 
-    musicPanel.addEventListener('click', musicDisplay);
+    musicPanel
+    var spotifyPanelVisible = false;
 
-    var musicWindowVisible = false;
-    var spotifyPlayer = document.querySelector("#spotifyplayer")
 
-    function musicDisplay(event) {
-        if (!musicWindowVisible) {
-            spotifyPlayer.classList.remove('musichide');
-            spotifyPlayer.classList.add('musicshow');
-            musicWindowVisible = true;
-        } else {
-            initPlay(event);
-            spotifyPlayer.classList.remove('musicshow');
-            spotifyPlayer.classList.add('musichide');
-            musicWindowVisible = false;
-        }
-    }
-    var svgDocument;
 
-    function initPlay(evt) {
-        // if ( window.svgDocument == null )
-        // {
-        //     svgDocument = evt.target.ownerDocument;
-        // }
-        svgDocument = document.querySelector('#samplebutton > svg');
-        console.log(svgDocument);
-        addRotateTransform('gear-3', 10, -1);
-        addRotateTransform('gear-4', 10, -1);
-    }
+    // var svgDocument;
+    // function initPlay(evt)
+    // {
+    //     // if ( window.svgDocument == null )
+    //     // {
+    //     //     svgDocument = evt.target.ownerDocument;
+    //     // }
+    //     svgDocument = document.querySelector('#samplebutton > svg');
+    //     console.log(svgDocument);
+    //     addRotateTransform('gear-3', 10, -1);
+    //     addRotateTransform('gear-4', 10, -1);
+    // }
 
-    function addRotateTransform(target_id, speed, direction) {
-        var element_to_rotate = svgDocument.getElementById(target_id);
-        var my_transform = svgDocument.createElementNS(svgNS, "animateTransform");
+    // function addRotateTransform(target_id, speed, direction)
+    // {
+    //     var element_to_rotate = svgDocument.getElementById(target_id);
+    //     var my_transform = svgDocument.createElementNS(svgNS, "animateTransform");
 
-        var bb = element_to_rotate.getBBox();
-        var cx = bb.x + bb.width / 2;
-        var cy = bb.y + bb.height / 2;
+    //     var bb = element_to_rotate.getBBox();
+    //     var cx = bb.x + bb.width/2;
+    //     var cy = bb.y + bb.height/2;
 
-        my_transform.setAttributeNS(null, "attributeName", "transform");
-        my_transform.setAttributeNS(null, "attributeType", "XML");
-        my_transform.setAttributeNS(null, "type", "rotate");
-        my_transform.setAttributeNS(null, "dur", speed + "s");
-        my_transform.setAttributeNS(null, "repeatCount", "indefinite");
-        my_transform.setAttributeNS(null, "from", "0 " + cx + " " + cy);
-        my_transform.setAttributeNS(null, "to", 360 * direction + " " + cx + " " + cy);
+    //     my_transform.setAttributeNS(null, "attributeName", "transform");
+    //     my_transform.setAttributeNS(null, "attributeType", "XML");
+    //     my_transform.setAttributeNS(null, "type", "rotate");
+    //     my_transform.setAttributeNS(null, "dur", speed + "s");
+    //     my_transform.setAttributeNS(null, "repeatCount", "indefinite");
+    //     my_transform.setAttributeNS(null, "from", "0 "+cx+" "+cy);
+    //     my_transform.setAttributeNS(null, "to", 360*direction+" "+cx+" "+cy);
 
-        element_to_rotate.appendChild(my_transform);
-        my_transform.beginElement();
-    }
+    //     element_to_rotate.appendChild(my_transform);
+    //     my_transform.beginElement();
+    // }
 
 
     function calculateDistanceAway(pos) {
