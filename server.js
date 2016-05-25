@@ -9,6 +9,9 @@ var https = require('https');
 var fs = require('fs');
 var path = require('path');
 
+var clientService = require('./websocket.js');
+
+
 // The default port numbers are the standard ones [80,443] for convenience.
 // Change them to e.g. [8080,8443] to avoid privilege or clash problems.
 var ports = [8081, 8443];
@@ -46,6 +49,12 @@ function start() {
     test();
     var httpService = http.createServer(serve);
     httpService.listen(ports[0], '0.0.0.0');
+
+    var clients = clientService(httpService);
+    clients.onNewPos(function(pos, fn) {
+        console.log(pos, fn(pos));
+    });
+
     var options = {
         key: key,
         cert: cert
