@@ -7,40 +7,39 @@ let currentpos = {
 
 let songikickApikey = 'QNx6YgjKNSA5gGs5';
 
-let songkickLocationUrl = 'http://api.songkick.com/api/3.0/search/locations.json?location=geo:' +
-    currentpos.lat + ',' + currentpos.lng +
-    '&apikey=' + songikickApikey;
 
 var fs = require('fs');
 
 
 let request = require('request');
 
-function getSongkickLocations() {
+function getSongkickLocations(pos) {
+    let songkickLocationUrl = 'http://api.songkick.com/api/3.0/search/locations.json?location=geo:' +
+        pos.lat + ',' + pos.lng +
+        '&apikey=' + songikickApikey;
     request(songkickLocationUrl, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             let data = JSON.parse(body);
             if (data.resultsPage.status = 'ok') {
-                parseLocations(data.resultsPage.results);
+                parseLocations(pos, data.resultsPage.results);
             } else {
                 console.log('ERROR getting nearby locations');
             }
-
         } else {
             console.log('ERROR', error, response.statusCode);
         }
     });
 }
 
-getSongkickLocations();
+// getSongkickLocations();
 
-function parseLocations(data) {
+function parseLocations(pos, data) {
     var areasToGet = {};
     for (var i in data.location) {
         let loc = data.location[i];
         let metroArea = loc.metroArea;
         let city = loc.city;
-        let distToArea = getDistanceFromLatLonInKm(metroArea.lat, metroArea.lng, currentpos.lat, currentpos.lng);
+        let distToArea = getDistanceFromLatLonInKm(metroArea.lat, metroArea.lng, pos.lat, pos.lng);
         if (distToArea < 10) {
             areasToGet[metroArea.displayName] = metroArea;
         }
@@ -180,7 +179,7 @@ var event1 = {
 
 
 
-function parseEventData(events) {
+function parseEventData(events, callback) {
     for (var i in events) {
         let event = events[i];
         let artistSpotifyUri;
@@ -212,16 +211,15 @@ function parseEventData(events) {
                         name: bandName,
                         desc: artistBio,
                         fullimage: 'images/placeholder.jpg',
-                        thumbnail: 'images/placeholder.jpg'
+                        thumbnail: 'images/placeholder.jpg',
                     });
+
+                    callback(eventInfo);
+                    db[event.displayName] = eventInfo;
                 });
             });
         }
-
-
-        db[event.displayName] = event;
     }
-    // console.log(db);
 }
 
 
@@ -313,16 +311,12 @@ function deg2rad(deg) {
     return deg * (Math.PI / 180)
 }
 
-
+getArtistSongs('The Lumineers', function(err, bio) {
+    console.log(err, bio);
+})
 
 /*
-
-    user opens page >
-    sends position to server via websockets >
-    server finds nearby events >
-    sends them to client
-
-    when user pans the page send new center coordinate >
-    get db entries for new nearby events
-
-*/
+ 
+ 
+ 
+ */
