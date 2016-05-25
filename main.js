@@ -199,7 +199,7 @@ function initMap() {
 
 function handleLocationError(browserHasGeolocation, pos) {
     alert('Error getting location');
-    console.log(browserHasGeolocation, infoWindow, pos);
+    console.log(browserHasGeolocation, pos);
 }
 
 var serverConnection;
