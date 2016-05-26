@@ -2,10 +2,10 @@
 
 let currentpos = {
     lat: 51.45589225421975,
-    lng: -2.602995037387154
+    lng: -2.602995037387154,
 };
 
-let songikickApikey = 'QNx6YgjKNSA5gGs5';
+let songkickApikey = 'QNx6YgjKNSA5gGs5';
 
 
 var fs = require('fs');
@@ -13,27 +13,73 @@ var fs = require('fs');
 
 let request = require('request');
 
-function getSongkickLocations(pos) {
+function getSongkickLocations(pos, callback) {
     let songkickLocationUrl = 'http://api.songkick.com/api/3.0/search/locations.json?location=geo:' +
         pos.lat + ',' + pos.lng +
-        '&apikey=' + songikickApikey;
+        '&apikey=' + songkickApikey;
     request(songkickLocationUrl, function(error, response, body) {
-        if (!error && response.statusCode == 200) {
+        if (!error && response.statusCode === 200) {
             let data = JSON.parse(body);
-            if (data.resultsPage.status = 'ok') {
-                parseLocations(pos, data.resultsPage.results);
+            if (data.resultsPage.status === 'ok') {
+                callback(null, data.resultsPage.results);
+                // parseLocations(pos, data.resultsPage.results);
             } else {
-                console.log('ERROR getting nearby locations');
+                callback('ERROR getting nearby locations');
             }
         } else {
-            console.log('ERROR', error, response.statusCode);
+            callback('ERROR ' + error + ' apistatus: ' + response.statusCode);
+        }
+    });
+}
+var i = 0;
+
+function getEvents(pos, callback) {
+    var events = [];
+    var cbInit = false;
+    getSongkickLocations(pos, (err, locations) => {
+        if (err) {
+            console.log(err);
+        } else {
+            parseLocations(pos, locations, (areas) => {
+                for (var areaName in areas) {
+                    let areaInfo = areas[areaName];
+
+                    getAreaConcertData(areaInfo, 1, (err, eventInfo) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            events.push(eventInfo);
+
+                            if (!cbInit) {
+                                callback((fn) => {
+                                    parseEventData(events[0], (err, d) => {
+                                        events.splice(0, 1);
+                                        fn(d, events.length);
+                                    });
+                                });
+                                cbInit = true;
+                            }
+                        }
+                    });
+                }
+            });
         }
     });
 }
 
-// getSongkickLocations();
+var db = require('./mongowrapper.js');
 
-function parseLocations(pos, data) {
+getEvents(currentpos, (nextEvent) => {
+    setInterval(() => {
+        nextEvent((event, left) => {
+            db.addEntry(event, (err) => {
+                console.log(err);
+            });
+        });
+    }, 1000);
+});
+
+function parseLocations(pos, data, callback) {
     var areasToGet = {};
     for (var i in data.location) {
         let loc = data.location[i];
@@ -44,55 +90,37 @@ function parseLocations(pos, data) {
             areasToGet[metroArea.displayName] = metroArea;
         }
     }
-
-    for (var areaName in areasToGet) {
-        let areaInfo = areasToGet[areaName];
-        getAreaConcertData(areaInfo);
-    }
+    callback(areasToGet);
 }
 
 function eventUrl(id, page) {
     if (!page) page = 1;
-    return 'http://api.songkick.com/api/3.0/metro_areas/' + id + '/calendar.json?apikey=' + songikickApikey + '&page=' + page;
+    return 'http://api.songkick.com/api/3.0/metro_areas/' + id + '/calendar.json?apikey=' + songkickApikey + '&page=' + page;
 }
 
-function getAreaConcertData(area, page) {
-    if (!page) page = 1;
+function getAreaConcertData(area, page, callback) {
     request(eventUrl(area.id, page), function(err, resp, body) {
         if (err) {
-            console.log('ERROR getting are info', err);
+            callback('ERROR getting event info ' + err);
         } else {
             let events = JSON.parse(body);
             if (events.resultsPage.status === 'ok') {
-                parseEventData(events.resultsPage.results.event);
+                for (var i in events.resultsPage.results.event) {
+                    callback(null, events.resultsPage.results.event[i]);
+                }
+
                 let numEvents = events.resultsPage.totalEntries;
                 let numPages = Math.ceil(numEvents / events.resultsPage.perPage);
                 if (page < numPages) {
-                    getAreaConcertData(area, page + 1);
+                    getAreaConcertData(area, page + 1, callback);
                 }
             } else {
-                console.log('ERROR area event response', events.resultsPage.status);
+                callback('ERROR area event response ' + events.resultsPage.status);
             }
         }
     });
 }
 
-var db = {};
-
-function extractEventInfo(event) {
-    var ret = {};
-    ret.title = event.displayName;
-    ret.location = event.location;
-    ret.bands = [];
-    for (var i in event.performance) {
-        var band = event.performance[i];
-        let bandName = band.artist.displayName;
-        // let description = TODO
-        // let fullimage = 
-
-    }
-    return ret;
-}
 /*
 var event1 = {
     title: "eyyyyy1",
@@ -121,104 +149,59 @@ var event1 = {
 };
 */
 
-/*
-"Simon McBride at The Tunnels (May 18, 2016)": {
-    "type": "Concert",
-    "displayName": "Simon McBride at The Tunnels (May 18, 2016)",
-    "ageRestriction": null,
-    "status": "ok",
-    "start": {
-        "datetime": "2016-05-18T19:30:00+0100",
-        "time": "19:30:00",
-        "date": "2016-05-18"
-    },
-    "location": {
-        "city": "Bristol, UK",
-        "lat": 51.453,
-        "lng": -2.593
-    },
-    "performance": [
-        {
-            "artist": {
-                "displayName": "Simon McBride",
-                "uri": "http://www.songkick.com/artists/747545-simon-mcbride?utm_source=38892&utm_medium=partner",
-                "identifier": [
-                    {
-                        "href": "http://api.songkick.com/api/3.0/artists/mbid:cfa59bd9-af11-4dc3-8204-00c58bd009ba.json",
-                        "mbid": "cfa59bd9-af11-4dc3-8204-00c58bd009ba"
-                    }
-                ],
-                "id": 747545
-            },
-            "displayName": "Simon McBride",
-            "billing": "headline",
-            "id": 50249309,
-            "billingIndex": 1
-        }
-    ],
-    "venue": {
-        "displayName": "The Tunnels",
-        "lat": null,
-        "lng": null,
-        "uri": "http://www.songkick.com/venues/500681-tunnels?utm_source=38892&utm_medium=partner",
-        "id": 500681,
-        "metroArea": {
-            "displayName": "Bristol",
-            "uri": "http://www.songkick.com/metro_areas/24521-uk-bristol?utm_source=38892&utm_medium=partner",
-            "country": {
-                "displayName": "UK"
-            },
-            "id": 24521
-        }
-    },
-    "uri": "http://www.songkick.com/concerts/25642839-simon-mcbride-at-tunnels?utm_source=38892&utm_medium=partner",
-    "id": 25642839,
-    "popularity": 0.000727
-},
-*/
 
 
+function parseEventData(event, callback) {
+    let eventInfo = {};
+    eventInfo.title = event.displayName;
+    eventInfo.location = event.location;
+    eventInfo.bands = [];
 
-function parseEventData(events, callback) {
-    for (var i in events) {
-        let event = events[i];
-        let artistSpotifyUri;
-        let artistBio;
-        let eventInfo = {};
-        eventInfo.title = event.displayName;
-        eventInfo.location = event.location;
-        eventInfo.bands = [];
-        for (var i in event.performance) {
-            var band = event.performance[i];
-            let bandName = band.artist.displayName;
+    eventInfo.eventInfo = {
+        title: event.venue.displayName,
+        ticketUrl: event.uri,
+        venueUrl: event.venue.uri,
+        address: '',
+        date: event.start.date,
+    };
 
-            getArtistSongs(artist.displayName, (err, uri) => {
+    let j = event.performance.length;
+    for (var i in event.performance) {
+        var band = event.performance[i];
+        let bandName = band.artist.displayName;
+
+        getArtistSongs(bandName, (err, uri) => {
+            let artistSpotifyUri;
+            let artistBio;
+            let artistPic;
+            if (err) {
+                artistSpotifyUri = null;
+            } else {
+                artistSpotifyUri = uri;
+            }
+
+            getArtistInfo(bandName, (err, info) => {
                 if (err) {
-                    artistSpotifyUri = null;
+                    artistBio = null;
+                    artistPic = null;
                 } else {
-                    artistSpotifyUri = uri;
+                    artistBio = info.bio;
+                    artistPic = info.artistPic;
                 }
 
-                getArtistBio(artist.displayName, (err, summary) => {
-                    if (err) {
-                        artistBio = null;
-                    } else {
-                        artistBio = summary;
-                    }
-
-                    console.log(artistSpotifyUri, artistBio);
-                    eventInfo.bands.push({
-                        name: bandName,
-                        desc: artistBio,
-                        fullimage: 'images/placeholder.jpg',
-                        thumbnail: 'images/placeholder.jpg',
-                    });
-
-                    callback(eventInfo);
-                    db[event.displayName] = eventInfo;
+                eventInfo.bands.push({
+                    name: bandName,
+                    desc: artistBio,
+                    spotifyUri: artistSpotifyUri,
+                    fullimage: artistPic ? artistPic : 'images/placeholder.png',
+                    thumbnail: artistPic ? artistPic : 'images/placeholder.png',
                 });
+
+                j--;
+                if (j === 0)
+                    callback(null, eventInfo);
             });
-        }
+        });
     }
 }
 
@@ -229,8 +212,8 @@ function getArtistSongs(artistName, callback) {
 
     request(spotifyUrl, function(err, resp, body) {
         if (err) {
-            console.log('ERROR getting spotify url', err);
-            callback(err);
+            // console.log('ERROR getting spotify url', err);
+            callback('ERROR getting spotify url ' + err);
         } else {
             let data;
 
@@ -242,7 +225,7 @@ function getArtistSongs(artistName, callback) {
 
             if (data) {
                 if (data.error) {
-                    console.log('ERROR in spotify api', data.error);
+                    callback('ERROR in spotify api ' + data.error);
                 } else {
                     if (data.artists.items.length > 0) {
                         let uri = data.artists.items[0].uri;
@@ -252,7 +235,7 @@ function getArtistSongs(artistName, callback) {
                     }
                 }
             } else {
-                console.log('ERROR parsing spotify api body');
+                // console.log('ERROR parsing spotify api body');
                 callback('ERROR parsing spotify api body');
             }
         }
@@ -263,7 +246,7 @@ function getArtistSongs(artistName, callback) {
 
 let lastfmUrl = '87f6734e61f01465bdd78f72d81de0bd';
 //http://ws.audioscrobbler.com/2.0/\?method\=artist.getinfo\&artist\=The%20Lumineers\&api_key\=87f6734e61f01465bdd78f72d81de0bd\&format\=json
-function getArtistBio(artistName, callback) {
+function getArtistInfo(artistName, callback) {
     artistName = escape(artistName);
     var bioUrl = 'http://ws.audioscrobbler.com/2.0/\?method\=artist.getinfo\&artist\=' + artistName + '\&api_key\=' + lastfmUrl + '\&format\=json';
     request(bioUrl, function(err, resp, body) {
@@ -280,10 +263,20 @@ function getArtistBio(artistName, callback) {
             if (data) {
                 if (data.artist) {
                     let bio = data.artist.bio.summary;
-                    callback(null, bio);
+                    let artistPic;
+
+                    for (var i in data.artist.image) {
+                        var img = data.artist.image[i];
+                        if (img.size === 'mega') artistPic = img['#text'];
+                    }
+
+                    callback(null, {
+                        bio,
+                        artistPic
+                    });
                 } else {
                     callback('No artist found');
-                    console.log('ERROR no artist found on last.fm');
+                    // console.log('ERROR no artist found on last.fm');
                 }
             } else {
                 callback('JSON parse error');
@@ -310,13 +303,3 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
 function deg2rad(deg) {
     return deg * (Math.PI / 180)
 }
-
-getArtistSongs('The Lumineers', function(err, bio) {
-    console.log(err, bio);
-})
-
-/*
- 
- 
- 
- */

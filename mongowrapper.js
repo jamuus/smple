@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = (function() {
     'use strict';
     var status = 'init';
 
@@ -57,7 +57,7 @@ module.exports = function() {
     function getNearPlaces(pos, range, callback) {
         if (typeof(range) === 'function') {
             callback = range;
-            range = 10;
+            range = 100;
         }
 
         if (!callback) callback = () => {};
@@ -80,7 +80,7 @@ module.exports = function() {
         addEntry,
         getNearPlaces
     }
-}
+})();
 
 if (!module.parent) {
     var db = module.exports();

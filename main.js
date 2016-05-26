@@ -1,4 +1,4 @@
-"use strict";
+// "use strict";
 
 var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 var currentPos, map, currentPositionMarker, svgDoc, svg, spotifyPlayer, musicWindowVisible;
@@ -187,7 +187,6 @@ function initMap() {
 
         function callback(response, status) {
             var results = response.rows[0].elements;
-            // console.log(JSON.stringify(results, null, '    '));
 
             for (var i in results) {
                 var result = results[i];
@@ -218,7 +217,16 @@ function setupWebSocket() {
     };
 
     serverConnection.onmessage = function(message) {
-        console.log('new websocket message', message.data);
+        var newData;
+        try {
+            newData = JSON.parse(message.data);
+        } catch (e) {
+            console.log('ERROR parsing json', e);
+        }
+        if (newData) {
+            eventList = newData;
+            setupMarkers();
+        }
     };
 }
 
@@ -238,6 +246,11 @@ setupWebSocket();
 function setupMarkers() {
     for (var i in eventList) {
         var event = eventList[i];
+
+        if (event.marker) {
+            event.marker.setMap(null);
+        }
+
         var marker = new google.maps.Marker({
             position: event.location,
             map: map,
@@ -253,7 +266,7 @@ function setupMarkers() {
         })(event));
     }
     // for testing
-    openEvent(eventList[0]);
+    // openEvent(eventList[0]);
     google.maps.event.addListener(map, 'drag', mapMoved);
     google.maps.event.addListener(map, 'zoom_changed', mapMoved);
     google.maps.event.addListener(map, 'dragend', updateMarkers);
@@ -301,10 +314,12 @@ function selectBand(event, index) {
     var description = document.querySelector('.bandinfo > p');
     description.innerHTML = defaultBand.desc;
 
+    var spotifyPlayer = document.querySelector('#spotifyplayerframe');
+    spotifyPlayer.src = 'https://embed.spotify.com/?uri=' + defaultBand.spotifyUri;
+
 }
 
 function selectResult(event) {
-    console.log(event);
     openEvent(event);
 }
 
@@ -339,6 +354,9 @@ function updateInfoWindowContents(event) {
 
     var description = document.querySelector('.bandinfo > p');
     description.innerHTML = defaultBand.desc;
+
+    var spotifyPlayer = document.querySelector('#spotifyplayerframe');
+    spotifyPlayer.src = 'https://embed.spotify.com/?uri=' + defaultBand.spotifyUri;
 
     // set event info
 
@@ -472,7 +490,7 @@ function search(query, events) {
             data: {
                 bands: bands,
                 date: event.eventInfo.date,
-                walkTime: event.distance ? event.distance.duration.text : 'unknown',
+                walkTime: event.distance ? event.distance.duration.text + ' away' : '',
                 event: event
             }
         };

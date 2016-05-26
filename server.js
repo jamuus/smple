@@ -42,6 +42,18 @@ var types = {
         'contains unsharable personal and printer preferences, use .pdf',
 };
 
+var db = require('./mongowrapper');
+
+function updateEvents(pos, fn) {
+    db.getNearPlaces(pos, (err, data) => {
+        if (err) {
+            console.log('ERROR getting nearby events');
+        } else {
+            fn(data);
+        }
+    });
+}
+
 // Start both the http and https services.  Requests can only come from
 // localhost, for security.  (This can be changed to a specific computer, but
 // shouldn't be removed, otherwise the site becomes public.)
@@ -51,9 +63,8 @@ function start() {
     httpService.listen(ports[0], '0.0.0.0');
 
     var clients = clientService(httpService);
-    clients.onNewPos(function(pos, fn) {
-        console.log(pos, fn(pos));
-    });
+
+    clients.onNewPos(updateEvents);
 
     var options = {
         key: key,
