@@ -22,7 +22,6 @@ function getSongkickLocations(pos, callback) {
             let data = JSON.parse(body);
             if (data.resultsPage.status === 'ok') {
                 callback(null, data.resultsPage.results);
-                // parseLocations(pos, data.resultsPage.results);
             } else {
                 callback('ERROR getting nearby locations');
             }
@@ -31,6 +30,7 @@ function getSongkickLocations(pos, callback) {
         }
     });
 }
+
 var i = 0;
 
 function getEvents(pos, callback) {
@@ -69,15 +69,19 @@ function getEvents(pos, callback) {
 
 var db = require('./mongowrapper.js');
 
-getEvents(currentpos, (nextEvent) => {
-    setInterval(() => {
-        nextEvent((event, left) => {
-            db.addEntry(event, (err) => {
-                console.log(err);
-            });
+getEvents(currentpos, getNextEvent);
+
+function getNextEvent(nextEvent) {
+    nextEvent((event, left) => {
+        db.addEntry(event, (err) => {
+            console.log(err);
         });
-    }, 1000);
-});
+        if (left > 0)
+            setTimeout(() => {
+                getNextEvent(nextEvent)
+            }, 200);
+    });
+}
 
 function parseLocations(pos, data, callback) {
     var areasToGet = {};
@@ -165,43 +169,50 @@ function parseEventData(event, callback) {
         date: event.start.date,
     };
 
-    let j = event.performance.length;
-    for (var i in event.performance) {
-        var band = event.performance[i];
-        let bandName = band.artist.displayName;
+    reverseGeocodeLatlng(eventInfo.location, parseBandInfo);
 
-        getArtistSongs(bandName, (err, uri) => {
-            let artistSpotifyUri;
-            let artistBio;
-            let artistPic;
-            if (err) {
-                artistSpotifyUri = null;
-            } else {
-                artistSpotifyUri = uri;
-            }
+    function parseBandInfo(err, stringLocation) {
+        eventInfo.eventInfo.address = stringLocation;
 
-            getArtistInfo(bandName, (err, info) => {
+        let j = event.performance.length;
+        for (var i in event.performance) {
+            var band = event.performance[i];
+            let bandName = band.artist.displayName;
+
+            getArtistSongs(bandName, (err, uri) => {
+                let artistSpotifyUri;
+                let artistBio;
+                let artistPic;
+
                 if (err) {
-                    artistBio = null;
-                    artistPic = null;
+                    artistSpotifyUri = null;
                 } else {
-                    artistBio = info.bio;
-                    artistPic = info.artistPic;
+                    artistSpotifyUri = uri;
                 }
 
-                eventInfo.bands.push({
-                    name: bandName,
-                    desc: artistBio,
-                    spotifyUri: artistSpotifyUri,
-                    fullimage: artistPic ? artistPic : 'images/placeholder.png',
-                    thumbnail: artistPic ? artistPic : 'images/placeholder.png',
-                });
+                getArtistInfo(bandName, (err, info) => {
+                    if (err) {
+                        artistBio = null;
+                        artistPic = null;
+                    } else {
+                        artistBio = info.bio;
+                        artistPic = info.artistPic;
+                    }
 
-                j--;
-                if (j === 0)
-                    callback(null, eventInfo);
+                    eventInfo.bands.push({
+                        name: bandName,
+                        desc: artistBio,
+                        spotifyUri: artistSpotifyUri,
+                        fullimage: artistPic ? artistPic : 'images/placeholder.png',
+                        thumbnail: artistPic ? artistPic : 'images/placeholder.png',
+                    });
+
+                    j--;
+                    if (j === 0)
+                        callback(null, eventInfo);
+                });
             });
-        });
+        }
     }
 }
 
@@ -285,6 +296,23 @@ function getArtistInfo(artistName, callback) {
     });
 }
 
+function reverseGeocodeLatlng(pos, callback) {
+    var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + pos.lat + ',' + pos.lng;
+    request(url, (err, resp, body) => {
+        if (err) {
+            callback(err);
+        } else {
+            callback(null, JSON.parse(body).results[0].formatted_address);
+        }
+    })
+}
+// reverseGeocodeLatlng(currentpos, (err, result) => {
+//     if (err)
+//         console.log(err);
+//     else {
+//         console.log(result);
+//     }
+// })
 
 // http://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {

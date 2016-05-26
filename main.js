@@ -136,6 +136,10 @@ function initMap() {
     map.mapTypes.set(customMapTypeId, customMapType);
     map.setMapTypeId(customMapTypeId);
 
+    google.maps.event.addListener(map, 'drag', mapMoved);
+    google.maps.event.addListener(map, 'zoom_changed', mapMoved);
+    google.maps.event.addListener(map, 'dragend', updateMarkers);
+
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             function(position) {
@@ -197,7 +201,7 @@ function initMap() {
 }
 
 function handleLocationError(browserHasGeolocation, pos) {
-    alert('Error getting location');
+    console.log('Error getting location');
     console.log(browserHasGeolocation, pos);
 }
 
@@ -224,6 +228,10 @@ function setupWebSocket() {
             console.log('ERROR parsing json', e);
         }
         if (newData) {
+            for (var i in eventList) {
+                if (eventList[i].marker)
+                    eventList[i].marker.setMap(null);
+            }
             eventList = newData;
             setupMarkers();
         }
@@ -241,18 +249,30 @@ function sendPosToServer() {
     }
 }
 
+/**
+ * Returns a random number between min (inclusive) and max (exclusive)
+ */
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+
 setupWebSocket();
+
+
+function addRandomLatlng(pos, n) {
+    return {
+        lat: pos.lat + getRandomArbitrary(0, n),
+        lng: pos.lng + getRandomArbitrary(0, n),
+    }
+}
 
 function setupMarkers() {
     for (var i in eventList) {
         var event = eventList[i];
 
-        if (event.marker) {
-            event.marker.setMap(null);
-        }
-
         var marker = new google.maps.Marker({
-            position: event.location,
+            position: addRandomLatlng(event.location, 0.001),
             map: map,
             title: event.title
         });
@@ -265,11 +285,6 @@ function setupMarkers() {
             }
         })(event));
     }
-    // for testing
-    // openEvent(eventList[0]);
-    google.maps.event.addListener(map, 'drag', mapMoved);
-    google.maps.event.addListener(map, 'zoom_changed', mapMoved);
-    google.maps.event.addListener(map, 'dragend', updateMarkers);
 }
 
 function openEvent(event) {
@@ -282,6 +297,7 @@ var infoWindowVisible = false;
 
 
 function updateMarkers() {
+    console.log('sent message');
     var pos = {
         lat: map.getCenter().lat(),
         lng: map.getCenter().lng()
@@ -353,18 +369,18 @@ function updateInfoWindowContents(event) {
     name.innerHTML = defaultBand.name;
 
     var description = document.querySelector('.bandinfo > p');
-    description.innerHTML = defaultBand.desc;
+    description.innerHTML = defaultBand.desc || '';
 
     var spotifyPlayer = document.querySelector('#spotifyplayerframe');
     spotifyPlayer.src = 'https://embed.spotify.com/?uri=' + defaultBand.spotifyUri;
 
-    // set event info
 
+    // set event info
     var venueTitle = document.querySelector('#venueTitle');
     venueTitle.innerHTML = event.eventInfo.title;
 
     var venueAddress = document.querySelector('#venueAddress');
-    venueAddress.innerHTML = event.eventInfo.address.replace(/(?:\r\n|\r|\n)/g, '<br />');
+    venueAddress.innerHTML = event.eventInfo.address.replace(/(?:\r\n|\r|\n|,)/g, '<br />');
 
     var venueWebsite = document.querySelector('#venueWebsite');
     venueWebsite.href = event.eventInfo.venueUrl;
@@ -503,7 +519,6 @@ function search(query, events) {
     return results;
 }
 
-// window.addEventListener('load', function() {
 function setupSearch() {
     var searchBar = document.querySelector('#search');
     searchBar.addEventListener('keyup', newSearch);
