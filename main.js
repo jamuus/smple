@@ -170,7 +170,8 @@ function initMap() {
                 calculateDistanceAway(pos);
             },
             function() {
-                handleLocationError(true, map.getCenter());ƒ
+                handleLocationError(true, map.getCenter());
+                ƒ
             }
         );
     } else {
@@ -267,13 +268,14 @@ function getRandomArbitrary(min, max) {
 setupWebSocket();
 
 function toggleBounce(marker) {
-  if (marker.getAnimation() !== null) {
-    console.log('marker1')
-    marker.setAnimation(null);
-  } else {
-    console.log('marker2')
-    marker.setAnimation(google.maps.Animation.BOUNCE);
-  }
+    if (marker.getAnimation() !== null) {
+        console.log('marker1')
+        marker.setAnimation(null);
+    } else {
+        console.log('marker2')
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+}
 
 
 function addRandomLatlng(pos, n) {
@@ -291,7 +293,7 @@ function setupMarkers() {
             position: addRandomLatlng(event.location, 0.001),
             map: map,
             title: event.title,
-            icon: "/svg/marker.svg", 
+            icon: "/svg/marker.svg",
             animation: null,
             draggable: true
 
@@ -300,7 +302,7 @@ function setupMarkers() {
         event.marker = marker;
 
         marker.addListener('click', (function(event) {
-            return function(){
+            return function() {
                 openEvent(event);
                 toggleBounce(event.marker);
             }
