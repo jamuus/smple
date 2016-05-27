@@ -69,7 +69,10 @@ module.exports = (function() {
                         [pos.lat, pos.lng], range / 6378.1
                     ]
                 }
-            }
+            },
+            // eventInfo: {
+            //     date: 
+            // }
         }, (err, result) => {
             if (err) console.log('[MONGO] Error getting entries from db', err);
             callback(err, result);
@@ -123,10 +126,3 @@ if (!module.parent) {
     //         console.log(results);
     // });
 }
-
-/*
-
-save events, make sure no duplicates
-get events near coords?
-
-*/

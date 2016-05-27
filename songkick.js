@@ -67,21 +67,35 @@ function getEvents(pos, callback) {
     });
 }
 
-var db = require('./mongowrapper.js');
+function getEventDataFromAreas(areas, callback) {
+    var events = [];
+    var cbInit = false;
+    for (var areaName in areas) {
+        let areaInfo = areas[areaName];
 
-getEvents(currentpos, getNextEvent);
+        getAreaConcertData(areaInfo, 1, (err, eventInfo) => {
+            if (err) {
+                console.log(err);
+            } else {
+                events.push(eventInfo);
 
-function getNextEvent(nextEvent) {
-    nextEvent((event, left) => {
-        db.addEntry(event, (err) => {
-            console.log(err);
+                if (!cbInit) {
+                    callback((cb2) => {
+                        parseEventData(events[0], (err, d) => {
+                            events.splice(0, 1);
+                            cb2(d, events.length);
+                        });
+                    });
+                    cbInit = true;
+                }
+            }
         });
-        if (left > 0)
-            setTimeout(() => {
-                getNextEvent(nextEvent)
-            }, 200);
-    });
+    }
 }
+
+
+// getEvents(currentpos, getNextEvent);
+
 
 function parseLocations(pos, data, callback) {
     var areasToGet = {};
@@ -124,35 +138,6 @@ function getAreaConcertData(area, page, callback) {
         }
     });
 }
-
-/*
-var event1 = {
-    title: "eyyyyy1",
-    location: {
-        lat: 51.45436,
-        lng: -2.599961
-    },
-    bands: [{
-        name: "The Lumineers",
-        desc: "The Lumineers are an American folk rock band based in Denver, Colorado, who formed as early as 2005 but didn’t release their self-titled debut record until April of 2012.",
-        fullimage: "images/bandimages/fkatwigs.jpg",
-        thumbnail: "images/thumbnails/fkatwigs.jpg"
-    }, {
-        name: "Supporting Band",
-        desc: "hey boss",
-        fullimage: "https://pbs.twimg.com/profile_images/642798007621185536/Y6x_U5gS.jpg",
-        thumbnail: "https://pbs.twimg.com/profile_images/642798007621185536/Y6x_U5gS.jpg"
-    }],
-    eventInfo: {
-        title: "O2 Academy Bristol",
-        address: "O2 Academy Bristol\nFrogmore Street\nBS1 5NA\nBristol, UK\n0117 927 9227",
-        venueUrl: "http://www.o2academybristol.co.uk",
-        ticketUrl: "http://www.songkick.com/tickets/20220218",
-        date: "2016-03-01"
-    }
-};
-*/
-
 
 
 function parseEventData(event, callback) {
@@ -242,7 +227,7 @@ function getArtistSongs(artistName, callback) {
                         let uri = data.artists.items[0].uri;
                         callback(null, uri);
                     } else {
-                        callback('No resutlts');
+                        callback('No results');
                     }
                 }
             } else {
@@ -306,13 +291,7 @@ function reverseGeocodeLatlng(pos, callback) {
         }
     })
 }
-// reverseGeocodeLatlng(currentpos, (err, result) => {
-//     if (err)
-//         console.log(err);
-//     else {
-//         console.log(result);
-//     }
-// })
+
 
 // http://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
@@ -331,3 +310,82 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
 function deg2rad(deg) {
     return deg * (Math.PI / 180)
 }
+
+function getNextEvent(nextEvent, callback) {
+    nextEvent((event, left) => {
+        callback(false, event);
+        if (left > 0) {
+            setTimeout(() => {
+                getNextEvent(nextEvent, callback);
+            }, 20);
+        } else {
+            callback(true, null);
+        }
+    });
+}
+
+module.exports = (function() {
+    let api = {};
+
+    api.nearestArea = function(coord, callback) {
+        getSongkickLocations(coord, (err, locations) => {
+            if (err) {
+                callback(err);
+            } else {
+                parseLocations(coord, locations, (results) => {
+                    callback(null, results);
+                });
+            }
+        })
+    };
+
+    api.updateAreas = function(areas, db, callback) {
+        // if (!callback) callback = () => {};
+
+        getEventDataFromAreas(areas, (nextEvent) => {
+            getNextEvent(nextEvent, (done, event) => {
+                if (done)
+                    callback();
+                else {
+                    db.addEntry(event, (err) => {
+                        console.log(err);
+                    });
+                }
+            });
+        });
+    }
+
+    return api;
+})();
+
+
+if (!module.parent) {
+    var sk = module.exports;
+
+    sk.nearestArea(currentpos, (err, metroArea) => {
+        console.log(err, metroArea);
+        var db = require('./mongowrapper.js');
+        sk.updateAreas(metroArea, db, () => {
+            console.log('done?');
+        });
+    });
+}
+
+/*
+
+
+    get events for metro area
+
+    need to be able to check if area is cached
+
+
+    user coord comes in > check location > if cache out of date update
+    update metro area
+
+    need to expose 
+        coord -> metro area
+        metro area -> update db
+
+
+
+*/

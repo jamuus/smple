@@ -297,7 +297,6 @@ var infoWindowVisible = false;
 
 
 function updateMarkers() {
-    console.log('sent message');
     var pos = {
         lat: map.getCenter().lat(),
         lng: map.getCenter().lng()
@@ -332,7 +331,6 @@ function selectBand(event, index) {
 
     var spotifyPlayer = document.querySelector('#spotifyplayerframe');
     spotifyPlayer.src = 'https://embed.spotify.com/?uri=' + defaultBand.spotifyUri;
-
 }
 
 function selectResult(event) {
@@ -380,14 +378,13 @@ function updateInfoWindowContents(event) {
     venueTitle.innerHTML = event.eventInfo.title;
 
     var venueAddress = document.querySelector('#venueAddress');
-    venueAddress.innerHTML = event.eventInfo.address.replace(/(?:\r\n|\r|\n|,)/g, '<br />');
+    venueAddress.innerHTML = event.eventInfo.address.replace(/(?:\r\n|\r|\n|,)/g, '<br />') + '<br/>' + event.eventInfo.date;;
 
     var venueWebsite = document.querySelector('#venueWebsite');
     venueWebsite.href = event.eventInfo.venueUrl;
 
     var venueTicketUrl = document.querySelector('#venueTicketUrl');
     venueTicketUrl.href = event.eventInfo.ticketUrl;
-
 }
 
 function updateInfoWindow(event) {
