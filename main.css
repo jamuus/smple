@@ -233,7 +233,7 @@ h6 {
 }
 
 #tableresults li:hover {
-    background-color: #2DC0D6;
+    background-color: #ff5599;
 }
 
 #tableresults ul {
@@ -280,8 +280,8 @@ h6 {
 }
 
 .bandimage {
-    width: 9em;
-    height: 9em;
+    width: 6em;
+    height: 6em;
     border-radius: 50%;
     display: inline-block;
     margin: 0 0.5em 0 0.5em;
@@ -291,10 +291,11 @@ h6 {
 }
 
 .bandimage img {
-    display: block;
-    width: 100%;
-    /*    filter: grayscale(1);
-    -webkit-filter: grayscale(1);*/
+    width: 6em;
+    height: 6em;
+    left: 50%;
+    top: 50%;
+    object-fit: cover;
 }
 
 .bandimage:hover {
@@ -427,10 +428,21 @@ h6 {
     /*top: 0;*/
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25), 0 2px 3px rgba(0, 0, 0, 0.22);
     /*box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.7);*/
-    background-image: url("images/placebackground2.jpg") ;
+    /*background-image: url("images/placebackground2.jpg") ;*/
     color: #FFF;
 
     z-index: 10000;   /*border: 5px solid #f3f3f3;*/
+}
+
+.colorhide{
+    transition: 0.5s;
+    background-color: #40224C ;
+
+}
+
+.colorshow{
+    background-color: #262626;
+    transition: 0.5s;
 }
 
 .ticketoverlay {
@@ -505,13 +517,11 @@ input[type=password]:hover {
     border: 0px;
     color: #fff;
     text-shadow: 0 1px rgba(0, 0, 0, 0.1);
-    background-color: #4d90fe;
 }
 
 .loginsubmit:hover {
     border: 0px;
     text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-    background-color: #357ae8;
 }
 
 

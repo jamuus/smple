@@ -3,11 +3,13 @@
 var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 var currentPos, map, currentPositionMarker, svgDoc, svg, spotifyPlayer, musicWindowVisible;
 var svgNS = "http://www.w3.org/2000/svg";
+var svgButton;
 
 window.onload = function() {
     svg = document.getElementById("samplebutton");
     musicWindowVisible = false;
     spotifyPlayer = document.querySelector("#spotifyplayer")
+    svgButton = document.querySelector("#svgcontainer")
     svgDoc = svg.contentDocument;
 
     var playClickRegion = svgDoc.getElementById("clickRegion");
@@ -21,10 +23,16 @@ function musicDisplay(event) {
     if (!musicWindowVisible) {
         spotifyPlayer.classList.remove('musichide');
         spotifyPlayer.classList.add('musicshow');
+        svgButton.classList.remove('colorhide');
+        svgButton.classList.add('colorshow');
+
         musicWindowVisible = true;
     } else {
         spotifyPlayer.classList.remove('musicshow');
         spotifyPlayer.classList.add('musichide');
+        svgButton.classList.remove('colorshow');
+        svgButton.classList.add('colorhide');
+
         musicWindowVisible = false;
     }
 }
@@ -152,14 +160,13 @@ function initMap() {
                     position: pos,
                     map: map,
                     title: "u r here",
-                    icon: "http://maps.google.com/mapfiles/marker" + String.fromCharCode("A".charCodeAt(0)) + ".png",
-                    animation: google.maps.Animation.DROP
+                    // icon: "http://maps.google.com/mapfiles/marker" + String.fromCharCode("A".charCodeAt(0)) + ".png",
+                    icon: "/svg/marker.svg",
                 });
-
                 calculateDistanceAway(pos);
             },
             function() {
-                handleLocationError(true, map.getCenter());
+                handleLocationError(true, map.getCenter());ƒ
             }
         );
     } else {
@@ -235,20 +242,35 @@ function sendPosToServer() {
 
 setupWebSocket();
 
+function toggleBounce(marker) {
+  if (marker.getAnimation() !== null) {
+    console.log('marker1')
+    marker.setAnimation(null);
+  } else {
+    console.log('marker2')
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+  }
+}
+
 function setupMarkers() {
     for (var i in eventList) {
         var event = eventList[i];
         var marker = new google.maps.Marker({
             position: event.location,
             map: map,
-            title: event.title
+            title: event.title,
+            icon: "/svg/marker.svg", 
+            animation: null,
+            draggable: true
+
         });
 
         event.marker = marker;
 
         marker.addListener('click', (function(event) {
-            return function() {
+            return function(){
                 openEvent(event);
+                toggleBounce(event.marker);
             }
         })(event));
     }
