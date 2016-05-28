@@ -172,7 +172,6 @@ function initMap() {
             },
             function() {
                 handleLocationError(true, map.getCenter());
-                ƒ
             }
         );
     } else {
