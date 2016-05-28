@@ -264,20 +264,6 @@ function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-
-setupWebSocket();
-
-function toggleBounce(marker) {
-    if (marker.getAnimation() !== null) {
-        console.log('marker1')
-        marker.setAnimation(null);
-    } else {
-        console.log('marker2')
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-    }
-}
-
-
 function addRandomLatlng(pos, n) {
     return {
         lat: pos.lat + getRandomArbitrary(0, n),
@@ -285,18 +271,28 @@ function addRandomLatlng(pos, n) {
     }
 }
 
+setupWebSocket();
+
+function toggleBounce(marker) {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(function() {
+        marker.setAnimation(null);
+    }, 720);
+
+}
+
+
+
 function setupMarkers() {
     for (var i in eventList) {
         var event = eventList[i];
 
         var marker = new google.maps.Marker({
-            position: addRandomLatlng(event.location, 0.001),
+            position: event.location,
             map: map,
             title: event.title,
             icon: "/svg/marker.svg",
             animation: null,
-            draggable: true
-
         });
 
         event.marker = marker;
@@ -380,34 +376,37 @@ function updateInfoWindowContents(event) {
         cont.appendChild(img);
         thumbnailContainer.appendChild(cont);
     }
+    try {
+        // set band info
+        var defaultBand = event.bands[0];
+        var bandimage = document.querySelector('.imagewithoverlay > img');
+        bandimage.src = defaultBand.fullimage;
 
-    // set band info
-    var defaultBand = event.bands[0];
-    var bandimage = document.querySelector('.imagewithoverlay > img');
-    bandimage.src = defaultBand.fullimage;
+        var name = document.querySelector('.imagewithoverlay > div');
+        name.innerHTML = defaultBand.name;
 
-    var name = document.querySelector('.imagewithoverlay > div');
-    name.innerHTML = defaultBand.name;
+        var description = document.querySelector('.bandinfo > p');
+        description.innerHTML = defaultBand.desc || '';
 
-    var description = document.querySelector('.bandinfo > p');
-    description.innerHTML = defaultBand.desc || '';
-
-    var spotifyPlayer = document.querySelector('#spotifyplayerframe');
-    spotifyPlayer.src = 'https://embed.spotify.com/?uri=' + defaultBand.spotifyUri;
+        var spotifyPlayer = document.querySelector('#spotifyplayerframe');
+        spotifyPlayer.src = 'https://embed.spotify.com/?uri=' + defaultBand.spotifyUri;
 
 
-    // set event info
-    var venueTitle = document.querySelector('#venueTitle');
-    venueTitle.innerHTML = event.eventInfo.title;
+        // set event info
+        var venueTitle = document.querySelector('#venueTitle');
+        venueTitle.innerHTML = event.eventInfo.title;
 
-    var venueAddress = document.querySelector('#venueAddress');
-    venueAddress.innerHTML = event.eventInfo.address.replace(/(?:\r\n|\r|\n|,)/g, '<br />') + '<br/>' + event.eventInfo.date;;
+        var venueAddress = document.querySelector('#venueAddress');
+        venueAddress.innerHTML = event.eventInfo.address.replace(/(?:\r\n|\r|\n|,)/g, '<br />') + '<br/>' + event.eventInfo.date;;
 
-    var venueWebsite = document.querySelector('#venueWebsite');
-    venueWebsite.href = event.eventInfo.venueUrl;
+        var venueWebsite = document.querySelector('#venueWebsite');
+        venueWebsite.href = event.eventInfo.venueUrl;
 
-    var venueTicketUrl = document.querySelector('#venueTicketUrl');
-    venueTicketUrl.href = event.eventInfo.ticketUrl;
+        var venueTicketUrl = document.querySelector('#venueTicketUrl');
+        venueTicketUrl.href = event.eventInfo.ticketUrl;
+    } catch (e) {
+        console.log('ERROR updating info bar:', e, event);
+    }
 }
 
 function updateInfoWindow(event) {

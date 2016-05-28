@@ -43,13 +43,47 @@ var types = {
 };
 
 var db = require('./mongowrapper');
+var sk = require('./songkick.js');
 
+// called when a client requests a new set of data, either new date or new center position
 function updateEvents(pos, fn) {
     db.getNearPlaces(pos, (err, data) => {
         if (err) {
             console.log('ERROR getting nearby events');
         } else {
             fn(data);
+        }
+    });
+
+    // check whether cache needs updating
+
+    // get nearest area list
+    sk.nearestAreas(pos, (err, areas) => {
+        // go through and check each areas existance or last updated field
+        for (var areaName in areas) {
+            var area = areas[areaName];
+            (function(area, areaName) {
+                db.getAreaLastUpdated(area, (err, _area) => {
+                    if (err) {
+                        console.log('ERROR getting areas', err);
+                    } else {
+                        var updateDate = new Date();
+                        updateDate.setDate(updateDate.getDate() - 1);
+
+                        if (!_area || _area.lastUpdated < updateDate) {
+                            var t = {};
+                            t[areaName] = area;
+                            sk.updateAreas(t, db, () => {});
+                            console.log('Updating area', areaName);
+
+                            db.addArea(area, (err, stats) => {
+                                if (err) console.log('ERROR saving area', err);
+                            });
+                        }
+                    }
+                    // console.log('area2', err, _area);
+                });
+            })(area, areaName);
         }
     });
 }
