@@ -9,8 +9,6 @@ var https = require('https');
 var fs = require('fs');
 var path = require('path');
 
-var clientService = require('./websocket.js');
-
 
 // The default port numbers are the standard ones [80,443] for convenience.
 // Change them to e.g. [8080,8443] to avoid privilege or clash problems.
@@ -42,14 +40,49 @@ var types = {
         'contains unsharable personal and printer preferences, use .pdf',
 };
 
+var clientService = require('./websocket.js');
 var db = require('./mongowrapper');
+var sk = require('./songkick.js');
 
+// called when a client requests a new set of data, either new date or new center position
 function updateEvents(pos, fn) {
     db.getNearPlaces(pos, (err, data) => {
         if (err) {
             console.log('ERROR getting nearby events');
         } else {
             fn(data);
+        }
+    });
+
+    // check whether cache needs updating
+
+    // get nearest area list
+    sk.nearestAreas(pos, (err, areas) => {
+        // go through and check each areas existance or last updated field
+        for (var areaName in areas) {
+            var area = areas[areaName];
+            (function(area, areaName) {
+                db.getAreaLastUpdated(area, (err, _area) => {
+                    if (err) {
+                        console.log('ERROR getting areas', err);
+                    } else {
+                        var updateDate = new Date();
+                        updateDate.setDate(updateDate.getDate() - 1);
+
+                        if (!_area || _area.lastUpdated < updateDate) {
+                            var t = {};
+                            t[areaName] = area;
+                            sk.updateAreas(t, db, () => {});
+                            console.log('Updating area', areaName);
+
+                            db.addArea(area, (err, stats) => {
+                                if (err) console.log('ERROR saving area', err);
+                            });
+                        }
+                    }
+                    // console.log('area2', err, _area);
+                });
+            })(area, areaName);
         }
     });
 }
@@ -62,16 +95,16 @@ function start() {
     var httpService = http.createServer(serve);
     httpService.listen(ports[0], '0.0.0.0');
 
-    var clients = clientService(httpService);
-
-    clients.onNewPos(updateEvents);
-
     var options = {
         key: key,
         cert: cert
     };
     var httpsService = https.createServer(options, serve);
     httpsService.listen(ports[1], '0.0.0.0');
+
+    var clients = clientService(httpsService);
+    clients.onNewPos(updateEvents);
+
     printAddresses();
 }
 
@@ -255,65 +288,65 @@ function failTest(s) {
 //     "-----END CERTIFICATE-----\n";
 
 
-// signed by https://letsencrypt.org for thejam.us
-var cert = "-----BEGIN CERTIFICATE-----\n" +
-    "MIIE9jCCA96gAwIBAgISAVMEfvi8sousT4+oTDyQifVMMA0GCSqGSIb3DQEBCwUA\n" +
-    "MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\n" +
-    "ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMTAeFw0xNjAzMDkxMDE1MDBaFw0x\n" +
-    "NjA2MDcxMDE1MDBaMBQxEjAQBgNVBAMTCXRoZWphbS51czCCASIwDQYJKoZIhvcN\n" +
-    "AQEBBQADggEPADCCAQoCggEBAL4VRvYcRF2O8vc3QzXEDS35hX/0tGhPB838V2jJ\n" +
-    "HTG957OhVc5HFgA4UhGpukCCb3B+hdQNaPHi6kBom3JpjFa9kHhohQnt8fBDHSTX\n" +
-    "24OceyVVdsJEVl2sDCkHIUkK9E00rN0q5wBmIgrFI7MNuJ1L4x1ekfwuAjA6Dkg+\n" +
-    "ylPm8wm2A8UWWHGsx8PJKLPEks8HqYlo+L+9GCnRmsSoDq4vZyTV2MErjRMPIHkF\n" +
-    "F6jcyFm+cFlvVDapIYc1BIBO0Cjtqo2MbU+GQQtfV/z3X2nZEohkfLZ5eHM0YvxU\n" +
-    "Oish6/RE3Yldwqjxdwe2wFSB00sbC/LtkBbpRyh4KsfgjnMCAwEAAaOCAgowggIG\n" +
-    "MA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIw\n" +
-    "DAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQUM/ts2B5W0KorH77TwqX8nKJYOgowHwYD\n" +
-    "VR0jBBgwFoAUqEpqYwR93brm0Tm3pkVl7/Oo7KEwcAYIKwYBBQUHAQEEZDBiMC8G\n" +
-    "CCsGAQUFBzABhiNodHRwOi8vb2NzcC5pbnQteDEubGV0c2VuY3J5cHQub3JnLzAv\n" +
-    "BggrBgEFBQcwAoYjaHR0cDovL2NlcnQuaW50LXgxLmxldHNlbmNyeXB0Lm9yZy8w\n" +
-    "FAYDVR0RBA0wC4IJdGhlamFtLnVzMIH+BgNVHSAEgfYwgfMwCAYGZ4EMAQIBMIHm\n" +
-    "BgsrBgEEAYLfEwEBATCB1jAmBggrBgEFBQcCARYaaHR0cDovL2Nwcy5sZXRzZW5j\n" +
-    "cnlwdC5vcmcwgasGCCsGAQUFBwICMIGeDIGbVGhpcyBDZXJ0aWZpY2F0ZSBtYXkg\n" +
-    "b25seSBiZSByZWxpZWQgdXBvbiBieSBSZWx5aW5nIFBhcnRpZXMgYW5kIG9ubHkg\n" +
-    "aW4gYWNjb3JkYW5jZSB3aXRoIHRoZSBDZXJ0aWZpY2F0ZSBQb2xpY3kgZm91bmQg\n" +
-    "YXQgaHR0cHM6Ly9sZXRzZW5jcnlwdC5vcmcvcmVwb3NpdG9yeS8wDQYJKoZIhvcN\n" +
-    "AQELBQADggEBABfZOCQOvcfEhKIZo/ROyfznHDERSMd2DhrhTXsM9pqWAuWlyFa0\n" +
-    "s/Gcr0DaQF/z8C3qqIKS0yY8J5rgcHEtz3LPqD7+ACWNgnG9hRTyGKX1sJTiXOwC\n" +
-    "aLX5IheUN4/FRFkfd41QEHdlKfPBAzCGtJlMADj7hHJ+CWSAunWegYUW54kw5Zs5\n" +
-    "ZRZoavjPb67CTVbBaTd0dhMEXK7yswi39WwJ8s/TyQfcVDATYphUW8sNT/JAOWt4\n" +
-    "VlvUqzgIPifz9Wl+JXO590BlMsTE4qleWJM0YAK44DobSVKjUFukBIaLlM1GtTkY\n" +
-    "TyIOcB8x3j0tPi6cxhdiLY/mvOZTjxTyulM=\n" +
-    "-----END CERTIFICATE-----\n";
 
-var key = "-----BEGIN PRIVATE KEY-----\n" +
-    "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC+FUb2HERdjvL3\n" +
-    "N0M1xA0t+YV/9LRoTwfN/FdoyR0xveezoVXORxYAOFIRqbpAgm9wfoXUDWjx4upA\n" +
-    "aJtyaYxWvZB4aIUJ7fHwQx0k19uDnHslVXbCRFZdrAwpByFJCvRNNKzdKucAZiIK\n" +
-    "xSOzDbidS+MdXpH8LgIwOg5IPspT5vMJtgPFFlhxrMfDySizxJLPB6mJaPi/vRgp\n" +
-    "0ZrEqA6uL2ck1djBK40TDyB5BReo3MhZvnBZb1Q2qSGHNQSATtAo7aqNjG1PhkEL\n" +
-    "X1f8919p2RKIZHy2eXhzNGL8VDorIev0RN2JXcKo8XcHtsBUgdNLGwvy7ZAW6Uco\n" +
-    "eCrH4I5zAgMBAAECggEAUrsYA44SA1ZwUUDwM7p8sgHkJOjwjGW5U+H8eVLvLfMl\n" +
-    "oX0ax4kQ/k+FCMMCmYkrz56ByOV9Q6oropTk80sVFbuz4XQ8UzIJFzVeveZlWEcH\n" +
-    "Ihysb6kmneZ/9GtyBUSLR/8hLbG6kOXi8yUSgJ/8NhoNY38BsuyjbzIVfUQ284TU\n" +
-    "m/mhWAIRwePrROEyQ6+PBqP13dKeB8ZaG1hBUkgaAqBkVq93yLskUwY73TAEXS5E\n" +
-    "p7ZpY6j4xjCu+XaksITKiMWNl63XPcrvUx24tc3WR4ZzvLTanCwCE2Mg+EY1GqYu\n" +
-    "8P0J/hh//O8o9pGY0IHFH+0672US8wrU4Fqm+lp8wQKBgQDvqxi6pDH4EN4gtvwT\n" +
-    "ze45msN6n0yMH6SI9FBPLuXuRcB2wbQnvPU6QyT8ngRx5a3dqrBmCUZo9cnpbkDf\n" +
-    "FNvViipyVIzKlvEOp/9Ee6I3YG6a4mrA2eomctfZ1QQI+NYg6K1SK1uUayJyHpCS\n" +
-    "Zps8Oxbwz54fGuBGYvakS/qV6QKBgQDLCTBtHv6jnlL30SG9lQLNwBq29TxN8hZR\n" +
-    "FmUSe1v9WG+8846yRWpeUQXBv0DSclmDWNUX+OcTQMl9SulSMaxkFELbe6IgewgH\n" +
-    "k9SSah5fdBpYmk2HlSHOb1D5DtZM+Z3z+m6gxWmyRGv9tx43GchiRmH+YHJ+hIJq\n" +
-    "if0ZBGAb+wKBgBLmOxz8tbQKIHoT8+zb4F1Khv+0cCTcmezy1yJnYFpZxcOXos0/\n" +
-    "aVce1FvXWiJhKkTAoQhq0tKUD0gJGbR9wJgmPRKm+DNBk+DD/q030qLrR82O7Twn\n" +
-    "8v71L3BOC/NpK/mMX56LLL2XdS/qmRvyW2t0fWqf9KgfRnBGfYyXMTuBAoGAHf+O\n" +
-    "kyDYOK6Eza6tkIg6sNGoYM3dChsxputrJY7qaYUuhTlrJPXSoHrSIe0zE6TnituO\n" +
-    "KIuTAKo62vM9g/Jo6SSBOFKNAsWKyyvRZYyeTjYmSl8KA3VKWGjkCthhW2AqMUkY\n" +
-    "HVLtqfQoDIWIxlVd4P9LLT1szTqg1kLrDU4zMQ8CgYBOo0gElS1n8EKZox0CDWFF\n" +
-    "aGBDEWp0PgmedMA6KURtYD/tksnE0kePoTO00ZszUwUQq7nxS2kdLfduatnrdpe5\n" +
-    "UWdfegSDap1abe6PJaWncl2Q+99Qm77nJaPx1oxVmeCHwrzg2Gd8adtjYbPUm4Aw\n" +
-    "bDkEiHm+LvJNCIaEN5nQcQ==\n" +
-    "-----END PRIVATE KEY-----\n";
+// signed by letsencrypt for smple.uk
+var cert = '-----BEGIN CERTIFICATE-----\n' +
+    'MIIE9DCCA9ygAwIBAgISAzAOjysm7KpQH9yOFEVs2PT2MA0GCSqGSIb3DQEBCwUA\n' +
+    'MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\n' +
+    'ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xNjA1MjgxMzU2MDBaFw0x\n' +
+    'NjA4MjYxMzU2MDBaMBMxETAPBgNVBAMTCHNtcGxlLnVrMIIBIjANBgkqhkiG9w0B\n' +
+    'AQEFAAOCAQ8AMIIBCgKCAQEAwUtL/BQoeoihiRfx6WdJxFSpE9teCIXwaVN/WuzW\n' +
+    'bq+pEghQ3gluV9H4GPoh6IXYo+saSw1+iliTRpturLOJv7LvHBdJ2h1ttzonNrta\n' +
+    '094kPBC/S1tiyieiVdkeyM10tb4dFhPNKw+Loak1o1XYVwzgFNd3jaqMoxNUV3D7\n' +
+    'MQGebuKI3xkeZVjIGtdBq/vBmwtg039emHUnj0lewRkIZ8a7dJlvvZnp1vOzMm8u\n' +
+    '87GthUpyJ0D2RYvCRbcm5c7LS8rM7Cy97nQQjaHOv2LZMv1OLV1YbLmFRRz5N4s+\n' +
+    'USb86DMaD9LZV++DBL5iws8ZrxMEGBa+Y7ppo3m2u0AhtQIDAQABo4ICCTCCAgUw\n' +
+    'DgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMBBggrBgEFBQcDAjAM\n' +
+    'BgNVHRMBAf8EAjAAMB0GA1UdDgQWBBS91hzYYo6vXWXkGU6XL+1rrhoRkDAfBgNV\n' +
+    'HSMEGDAWgBSoSmpjBH3duubRObemRWXv86jsoTBwBggrBgEFBQcBAQRkMGIwLwYI\n' +
+    'KwYBBQUHMAGGI2h0dHA6Ly9vY3NwLmludC14My5sZXRzZW5jcnlwdC5vcmcvMC8G\n' +
+    'CCsGAQUFBzAChiNodHRwOi8vY2VydC5pbnQteDMubGV0c2VuY3J5cHQub3JnLzAT\n' +
+    'BgNVHREEDDAKgghzbXBsZS51azCB/gYDVR0gBIH2MIHzMAgGBmeBDAECATCB5gYL\n' +
+    'KwYBBAGC3xMBAQEwgdYwJgYIKwYBBQUHAgEWGmh0dHA6Ly9jcHMubGV0c2VuY3J5\n' +
+    'cHQub3JnMIGrBggrBgEFBQcCAjCBngyBm1RoaXMgQ2VydGlmaWNhdGUgbWF5IG9u\n' +
+    'bHkgYmUgcmVsaWVkIHVwb24gYnkgUmVseWluZyBQYXJ0aWVzIGFuZCBvbmx5IGlu\n' +
+    'IGFjY29yZGFuY2Ugd2l0aCB0aGUgQ2VydGlmaWNhdGUgUG9saWN5IGZvdW5kIGF0\n' +
+    'IGh0dHBzOi8vbGV0c2VuY3J5cHQub3JnL3JlcG9zaXRvcnkvMA0GCSqGSIb3DQEB\n' +
+    'CwUAA4IBAQCUnG3MSxeZCBtf5Y0Zf6yo/mcBeiX+r6J6U8HvlFG5TmbHl/lhhiRv\n' +
+    'naTDidH90aS1KZw3iRHytG1fcC2rwgZPFr51j90IkSo1YuSuI5JmD63i7q8Fc3NV\n' +
+    'hNAtwDK1nBMg+Plgec76YL7xc3ILvYrxKujC0CrkdUZ/NJqqUjssjVsbFxFTuuUW\n' +
+    '9H2uZv9xcsIfXVfsTGWya3Z2EOnBaIO59/dQMTqErIOP+2KoPJIdnepWn4hjFQxR\n' +
+    'v62vJMk/1S8vWswHu12KPELfNd8WQ0qMjMD6iEg8ouCmwvGdayULhQcYqq+yj96E\n' +
+    'VycP9I9DhoJDpg6dDT8jUph1kTzurAZs\n' +
+    '-----END CERTIFICATE-----\n';
+var key = '-----BEGIN PRIVATE KEY-----\n' +
+    'MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDBS0v8FCh6iKGJ\n' +
+    'F/HpZ0nEVKkT214IhfBpU39a7NZur6kSCFDeCW5X0fgY+iHohdij6xpLDX6KWJNG\n' +
+    'm26ss4m/su8cF0naHW23Oic2u1rT3iQ8EL9LW2LKJ6JV2R7IzXS1vh0WE80rD4uh\n' +
+    'qTWjVdhXDOAU13eNqoyjE1RXcPsxAZ5u4ojfGR5lWMga10Gr+8GbC2DTf16YdSeP\n' +
+    'SV7BGQhnxrt0mW+9menW87Myby7zsa2FSnInQPZFi8JFtyblzstLyszsLL3udBCN\n' +
+    'oc6/Ytky/U4tXVhsuYVFHPk3iz5RJvzoMxoP0tlX74MEvmLCzxmvEwQYFr5jummj\n' +
+    'eba7QCG1AgMBAAECggEAUilAXiDvZ85F43EjKdP2nhZiXAdlu/e6zfpo6uw65YeT\n' +
+    'NRAF16tolLmyXGOOIDkscdiQL5DH1eR6jYuqCoyyI6LaUjVv9d+GcFiurGwM2nvV\n' +
+    'KRbxSQXKQyV/sj/8/tueHVZ3JJg8IG6WKpwzKX9m2vGlGhbQQY5aA0NHGXfzvcs1\n' +
+    'wvnoxrN62KQGl1XAha8ByvzOydA9N5JuxGXtUzPtSP0XpOi44TfOl6dXtzJ9YoGK\n' +
+    'TPBjLyq1m44HEsFk55RWGRVH/azoJ2pbzMhukEpzHabC/8Lt0kRiahrESsVjWSfo\n' +
+    'me5+GHgVDQHmaA4wJGmwh/mCpZ30jtN8WNYH4RkpLQKBgQDvJWVouU1VblQQTnL5\n' +
+    'fzrziLN4w85GsdzbaEEuH+accOmDLZx6MO/s/WrJuSPVCTWy8tV2nNl1hDzI0NFM\n' +
+    's3DRwiv+eHdvFSixwXuxg9QwGs+8smHQFzUICcqWc4Lf/z1gVt8cU/o3r31ropiz\n' +
+    'qn8hp0XI0NZC/w4/MbLlCOb5fwKBgQDO6qc1OTF+GpDSyRblYWyV2TuFcvpfWmYQ\n' +
+    'HfuclxOhpt9raMaOvBFdil2IZadkDWWhiXjjGZKycR8p0xIO7+w1RsxCK5QZALt3\n' +
+    'I9E+SBxDJFiuSRw3HOW4WFwh7UUtGohSTnP/unKeucJ61fE6ERAsgdwv06Es5WS9\n' +
+    'vEZZNUi2ywKBgHV75ang/sDthpbMM2emvYtOqPy3FOteDaYsPXkvateIEO/ExI6y\n' +
+    '4+uFQ6T+M0BBWgQjkALJY3t8D3CIRYpszQv/XCWTgPktZ+SLrPy0StWnFk8ZQzw7\n' +
+    'am4cgU4QSUdJ2RkvFESSbOZWbEMoieQZ6oLZ7kqNbfVT3+fjvoMOMIp5AoGADVh/\n' +
+    'LmSg95Q5EQ9dRbAx87xOJX5T/cBz4sg8SU5JOtzrfh8E54Hj0NeyzrBXypE+o9ud\n' +
+    'C3DD0HSRYP43JPV+k7UcSYxMAgzVCosp3M2D3STD/4HBqyBXBLvWPW3zT0Rt1Hkw\n' +
+    '7CaXa/tpOsj/xRICrAw4KnGI7L9i7wXst6ZDKV8CgYBu+jl7Sy8/3xdotjMogOe4\n' +
+    'ln9iWwuy1p8K0vu2ThUaPYniOVJ9NKWHyizYj7vaW/sABYmbW3PHxLfh6G0ezsf1\n' +
+    'dvGV23ym4Z85iFbHdjFwGkns9bHaPUcrjixeQTvnjpJMrDQv7gQ5fp61gMIK4aCf\n' +
+    '0ojh5ISJGvmItQoMtw3/5Q==\n' +
+    '-----END PRIVATE KEY-----\n';
 
 // Start everything going.
 start();

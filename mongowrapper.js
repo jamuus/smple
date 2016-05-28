@@ -35,7 +35,7 @@ module.exports = (function() {
             address: String,
             venueUrl: String,
             ticketUrl: String,
-            date: String,
+            date: Date,
         }
     });
 
@@ -45,19 +45,58 @@ module.exports = (function() {
 
     var Event = mongoose.model('Event', eventSchema);
 
-    function addEntry(e, callback) {
+    var areaSchema = new Schema({
+        name: String,
+        lat: Number,
+        lng: Number,
+        id: Number,
+        lastCached: Date
+    });
+
+    var Area = mongoose.model('Area', areaSchema);
+
+
+
+    function addEvent(e, callback) {
         if (!callback) callback = () => {};
-        var t = new Event(e);
-        t.save(err => {
-            if (err) console.log('[MONGO] Error saving entry to db', err);
+        Event.update({
+            title: e.title
+        }, e, {
+            upsert: true
+        }, (err, stats) => {
             callback(err);
+        });
+    }
+
+    function addArea(area, callback) {
+        area.lastCached = new Date();
+        Area.update({
+            id: area.id
+        }, area, {
+            upsert: true
+        }, (err, stats) => {
+            if (err) {
+                console.log('MONGO ERROR upserting', err)
+                callback(err);
+            } else {
+                callback(null, stats);
+            }
+        });
+    }
+
+
+    function getAreaLastUpdated(area, callback) {
+        Area.findOne({
+            id: area.id
+        }, (err, area) => {
+            callback(err, area);
         });
     }
 
     function getNearPlaces(pos, range, callback) {
         if (typeof(range) === 'function') {
             callback = range;
-            range = 100;
+            range = 1000;
         }
 
         if (!callback) callback = () => {};
@@ -79,9 +118,12 @@ module.exports = (function() {
         });
     }
 
+
     return {
-        addEntry,
-        getNearPlaces
+        addEvent,
+        getNearPlaces,
+        addArea,
+        getAreaLastUpdated
     }
 })();
 
@@ -91,7 +133,7 @@ if (!module.parent) {
     //     title: "eyyyyy1",
     //     location: {
     //         lat: 51.5,
-    //         lng: -2.599961
+    //         lng: -2.6
     //     },
     //     bands: [{
     //         name: "The Lumineers",

@@ -1,24 +1,12 @@
 module.exports = function(httpServer) {
     var WebSocketServer = require('websocket').server;
-    var http = require('http');
-
-    // var server = http.createServer(function(request, response) {
-    //     console.log((new Date()) + ' Received request for ' + request.url);
-    //     response.writeHead(404);
-    //     response.end();
-    // });
-    // server.listen(8080, function() {
-    //     console.log((new Date()) + ' Server is listening on port 8080');
-    // });
 
     wsServer = new WebSocketServer({
-        httpServer: httpServer
+        httpServer: httpServer,
+        options: {
+            secure: true
+        }
     });
-
-    function originIsAllowed(origin) {
-        // put logic here to detect whether the specified origin is allowed. 
-        return true;
-    }
 
     wsServer.on('request', function(request) {
         var connection = request.accept('p1', request.origin);
@@ -44,12 +32,7 @@ module.exports = function(httpServer) {
         });
     });
 
-    // called when a web client needs updated event data
-    // fn will be a function to call with the events to send back
-
-    var posUpdateCallback = function(pos, fn) {
-        console.log('Dummy', pos, fn);
-    }
+    var posUpdateCallback = function(pos, fn) {}
 
     function posUpdate(pos, con) {
         if (pos.initialPos) {

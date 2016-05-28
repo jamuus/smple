@@ -17,6 +17,8 @@ window.onload = function() {
         musicDisplay();
         initPlay();
     };
+
+    setupWebSocket();
 };
 
 function musicDisplay(event) {
@@ -164,14 +166,12 @@ function initMap() {
                     position: pos,
                     map: map,
                     title: "u r here",
-                    // icon: "http://maps.google.com/mapfiles/marker" + String.fromCharCode("A".charCodeAt(0)) + ".png",
                     icon: "/svg/marker.svg",
                 });
                 calculateDistanceAway(pos);
             },
             function() {
                 handleLocationError(true, map.getCenter());
-                ƒ
             }
         );
     } else {
@@ -181,35 +181,39 @@ function initMap() {
 
     setupMarkers();
     setupSearch();
+}
 
-    function calculateDistanceAway(pos) {
-        var origin = pos;
-        var destinations = [];
-        for (var i in eventList) {
-            var event = eventList[i];
-            destinations.push(event.location);
-        }
 
-        var service = new google.maps.DistanceMatrixService();
-        service.getDistanceMatrix({
-            origins: [origin],
-            destinations: destinations,
-            travelMode: google.maps.TravelMode.WALKING,
-        }, callback);
+function calculateDistanceAway(pos) {
+    var origin = pos;
+    var destinations = [];
+    for (var i = 0; i < Math.min(eventList.length, 25); i++) {
+        var event = eventList[i];
+        destinations.push(event.location);
+    }
 
-        function callback(response, status) {
+    var service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix({
+        origins: [origin],
+        destinations: destinations,
+        travelMode: google.maps.TravelMode.WALKING,
+    }, callback);
+
+    function callback(response, status) {
+        if (response) {
             var results = response.rows[0].elements;
-
             for (var i in results) {
                 var result = results[i];
                 eventList[i].distance = result;
             }
+        } else {
+            console.log('ERROR getting travel times', status);
         }
     }
 }
 
 function handleLocationError(browserHasGeolocation, pos) {
-    console.log('Error getting location');
+    console.log('ERROR getting location');
     console.log(browserHasGeolocation, pos);
 }
 
@@ -218,7 +222,7 @@ var serverConnection;
 function setupWebSocket() {
     window.WebSocket = window.WebSocket || window.MozWebSocket;
 
-    serverConnection = new WebSocket('ws://127.0.0.1:8081', 'p1');
+    serverConnection = new WebSocket('wss://' + location.hostname + ':8443', 'p1');
 
     serverConnection.onopen = function() {
         sendPosToServer();
@@ -233,7 +237,7 @@ function setupWebSocket() {
         try {
             newData = JSON.parse(message.data);
         } catch (e) {
-            console.log('ERROR parsing json', e);
+            console.log('ERROR parsing json from socket', e);
         }
         if (newData) {
             for (var i in eventList) {
@@ -242,6 +246,7 @@ function setupWebSocket() {
             }
             eventList = newData;
             setupMarkers();
+            calculateDistanceAway(currentPos);
         }
     };
 }
@@ -264,20 +269,6 @@ function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-
-setupWebSocket();
-
-function toggleBounce(marker) {
-    if (marker.getAnimation() !== null) {
-        console.log('marker1')
-        marker.setAnimation(null);
-    } else {
-        console.log('marker2')
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-    }
-}
-
-
 function addRandomLatlng(pos, n) {
     return {
         lat: pos.lat + getRandomArbitrary(0, n),
@@ -285,18 +276,28 @@ function addRandomLatlng(pos, n) {
     }
 }
 
+
+function toggleBounce(marker) {
+    marker.setAnimation(null);
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(function() {
+        marker.setAnimation(null);
+    }, 720);
+}
+
+
+
 function setupMarkers() {
+    if (!map) return;
     for (var i in eventList) {
         var event = eventList[i];
 
         var marker = new google.maps.Marker({
-            position: addRandomLatlng(event.location, 0.001),
+            position: event.location,
             map: map,
             title: event.title,
             icon: "/svg/marker.svg",
-            animation: null,
-            draggable: true
-
+            // animation: google.maps.Animation.DROP,
         });
 
         event.marker = marker;
@@ -380,17 +381,16 @@ function updateInfoWindowContents(event) {
         cont.appendChild(img);
         thumbnailContainer.appendChild(cont);
     }
-
     // set band info
     var defaultBand = event.bands[0];
     var bandimage = document.querySelector('.imagewithoverlay > img');
     bandimage.src = defaultBand.fullimage;
 
     var name = document.querySelector('.imagewithoverlay > div');
-    name.innerHTML = defaultBand.name;
+    name.innerHTML = funkyHtmlEscape(defaultBand.name);
 
     var description = document.querySelector('.bandinfo > p');
-    description.innerHTML = defaultBand.desc || '';
+    description.innerHTML = funkyHtmlEscape(defaultBand.desc) || '';
 
     var spotifyPlayer = document.querySelector('#spotifyplayerframe');
     spotifyPlayer.src = 'https://embed.spotify.com/?uri=' + defaultBand.spotifyUri;
@@ -419,6 +419,9 @@ function updateInfoWindow(event) {
     updateInfoWindowContents(event);
 }
 
+function funkyHtmlEscape(body) {
+    return body ? body.replace(/&/g, '&amp;') : '';
+}
 
 
 function updateSearchResults(events) {
@@ -429,7 +432,9 @@ function updateSearchResults(events) {
         var event = events[i];
 
         var bandName0 = event.bands[0].name;
-        var bandName1 = event.bands[1].name;
+        var bandName1 = '';
+        if (event.bands[1])
+            bandName1 = event.bands[1].name;
 
         var eDate = new Date(event.date);
 
@@ -457,17 +462,13 @@ function updateSearchResults(events) {
 
         var bandName0elem = document.createElement('div');
         bandName0elem.className = "bandnames";
-        bandName0elem.innerHTML = bandName0;
+        bandName0elem.innerHTML = funkyHtmlEscape(bandName0);
 
         var bandName1elem = document.createElement('div');
         bandName1elem.className = "bandnames1";
-        bandName1elem.innerHTML = bandName1;
-        // var band1Container = document.createElement('h6');
-        // band1Container.innerHTML = bandName1;
-
+        bandName1elem.innerHTML = funkyHtmlEscape(bandName1);
 
         bandNamesContainer.appendChild(bandName0elem);
-        // li.appendChild(document.createElement('br'));
         bandNamesContainer.appendChild(bandName1elem);
 
         li.appendChild(bandNamesContainer);
@@ -531,7 +532,7 @@ function search(query, events) {
             }
         };
     }).filter(function(event) {
-        return event.match;
+        return event.match && query.length > 0;
     }).map(function(event) {
         return event.data;
     });

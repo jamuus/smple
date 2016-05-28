@@ -157,6 +157,8 @@ function parseEventData(event, callback) {
     reverseGeocodeLatlng(eventInfo.location, parseBandInfo);
 
     function parseBandInfo(err, stringLocation) {
+        if (err)
+            console.log('SK ERROR reverse geo', err);
         eventInfo.eventInfo.address = stringLocation;
 
         let j = event.performance.length;
@@ -208,7 +210,6 @@ function getArtistSongs(artistName, callback) {
 
     request(spotifyUrl, function(err, resp, body) {
         if (err) {
-            // console.log('ERROR getting spotify url', err);
             callback('ERROR getting spotify url ' + err);
         } else {
             let data;
@@ -216,12 +217,12 @@ function getArtistSongs(artistName, callback) {
             try {
                 data = JSON.parse(body);
             } catch (e) {
-                console.log('JSON parse error', e);
+                console.log('SPOTIFY ERROR JSON parse', e);
             }
 
             if (data) {
                 if (data.error) {
-                    callback('ERROR in spotify api ' + data.error);
+                    callback('SPOTIFY ERROR api ' + data.error);
                 } else {
                     if (data.artists.items.length > 0) {
                         let uri = data.artists.items[0].uri;
@@ -231,8 +232,7 @@ function getArtistSongs(artistName, callback) {
                     }
                 }
             } else {
-                // console.log('ERROR parsing spotify api body');
-                callback('ERROR parsing spotify api body');
+                callback('SPOTIFY ERROR parsing api body');
             }
         }
     });
@@ -280,14 +280,21 @@ function getArtistInfo(artistName, callback) {
         }
     });
 }
+var googleApiKey = 'AIzaSyDbgYeUer3RCMYNeRR5yMV_t6RtNug_Hu4';
 
 function reverseGeocodeLatlng(pos, callback) {
-    var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + pos.lat + ',' + pos.lng;
+    var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + pos.lat + ',' + pos.lng + '&key=' + googleApiKey;
     request(url, (err, resp, body) => {
         if (err) {
             callback(err);
         } else {
-            callback(null, JSON.parse(body).results[0].formatted_address);
+            var res = JSON.parse(body);
+            if (res.error_message) {
+                callback(res.error_message);
+            } else if (res.results[0])
+                callback(null, res.results[0].formatted_address);
+            else
+                callback('No reverse geo results');
         }
     })
 }
@@ -324,10 +331,24 @@ function getNextEvent(nextEvent, callback) {
     });
 }
 
+/**
+ * Returns a random number between min (inclusive) and max (exclusive)
+ */
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+function addRandomLatlng(pos, n) {
+    return {
+        lat: pos.lat + getRandomArbitrary(0, n),
+        lng: pos.lng + getRandomArbitrary(0, n),
+    }
+}
+
 module.exports = (function() {
     let api = {};
 
-    api.nearestArea = function(coord, callback) {
+    api.nearestAreas = function(coord, callback) {
         getSongkickLocations(coord, (err, locations) => {
             if (err) {
                 callback(err);
@@ -340,21 +361,24 @@ module.exports = (function() {
     };
 
     api.updateAreas = function(areas, db, callback) {
-        // if (!callback) callback = () => {};
-
         getEventDataFromAreas(areas, (nextEvent) => {
             getNextEvent(nextEvent, (done, event) => {
-                if (done)
+                if (done) {
                     callback();
-                else {
-                    db.addEntry(event, (err) => {
-                        console.log(err);
-                    });
+                } else {
+                    if (event.location.lat && event.location.lng) {
+                        event.location = addRandomLatlng(event.location, 0.001);
+                        event.eventInfo.date = new Date(event.eventInfo.date);
+
+                        db.addEvent(event, (err) => {
+                            if (err)
+                                console.log(err);
+                        });
+                    }
                 }
             });
         });
     }
-
     return api;
 })();
 
@@ -362,30 +386,11 @@ module.exports = (function() {
 if (!module.parent) {
     var sk = module.exports;
 
-    sk.nearestArea(currentpos, (err, metroArea) => {
-        console.log(err, metroArea);
-        var db = require('./mongowrapper.js');
-        sk.updateAreas(metroArea, db, () => {
-            console.log('done?');
-        });
-    });
+    // sk.nearestArea(currentpos, (err, metroArea) => {
+    //     console.log(err, metroArea);
+    //     var db = require('./mongowrapper.js');
+    //     sk.updateAreas(metroArea, db, () => {
+    //         console.log('done?');
+    //     });
+    // });
 }
-
-/*
-
-
-    get events for metro area
-
-    need to be able to check if area is cached
-
-
-    user coord comes in > check location > if cache out of date update
-    update metro area
-
-    need to expose 
-        coord -> metro area
-        metro area -> update db
-
-
-
-*/
