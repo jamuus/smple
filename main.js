@@ -223,7 +223,7 @@ var serverConnection;
 function setupWebSocket() {
     window.WebSocket = window.WebSocket || window.MozWebSocket;
 
-    serverConnection = new WebSocket('ws://127.0.0.1:8081', 'p1');
+    serverConnection = new WebSocket('wss://127.0.0.1:8081', 'p1');
 
     serverConnection.onopen = function() {
         sendPosToServer();
