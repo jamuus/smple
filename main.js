@@ -282,7 +282,7 @@ function toggleBounce(marker) {
     marker.setAnimation(google.maps.Animation.BOUNCE);
     setTimeout(function() {
         marker.setAnimation(null);
-    }, 720);
+    }, 740);
 }
 
 
@@ -556,7 +556,7 @@ document.body.setScaledFont = function(f) {
     var s = this.offsetWidth,
         fs = s * f;
     this.style.fontSize = fs + '%';
-    return this
+    return this;
 };
 
 document.body.setScaledFont(0.07);
