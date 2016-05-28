@@ -9,8 +9,6 @@ var https = require('https');
 var fs = require('fs');
 var path = require('path');
 
-var clientService = require('./websocket.js');
-
 
 // The default port numbers are the standard ones [80,443] for convenience.
 // Change them to e.g. [8080,8443] to avoid privilege or clash problems.
@@ -42,6 +40,7 @@ var types = {
         'contains unsharable personal and printer preferences, use .pdf',
 };
 
+var clientService = require('./websocket.js');
 var db = require('./mongowrapper');
 var sk = require('./songkick.js');
 
@@ -96,16 +95,16 @@ function start() {
     var httpService = http.createServer(serve);
     httpService.listen(ports[0], '0.0.0.0');
 
-    var clients = clientService(httpService);
-
-    clients.onNewPos(updateEvents);
-
     var options = {
         key: key,
         cert: cert
     };
     var httpsService = https.createServer(options, serve);
     httpsService.listen(ports[1], '0.0.0.0');
+
+    var clients = clientService(httpsService);
+    clients.onNewPos(updateEvents);
+
     printAddresses();
 }
 
