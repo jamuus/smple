@@ -6,7 +6,7 @@ var svgNS = "http://www.w3.org/2000/svg";
 var svgButton;
 var startDate = new Date();
 var endDate = new Date();
-endDate.setDate(endDate.setDate() + 7);
+endDate.setDate(endDate.getDate() + 7);
 
 window.onload = function() {
     svg = document.getElementById("samplebutton");
