@@ -194,12 +194,17 @@ h6 {
     float:left;
     vertical-align: middle;
     display: inline-block;
+    font-size: 0.7em;
+    color: #D7C7CD;
+
 
 }
 #endlabel {
     float:left;
     vertical-align: middle;
     display: inline-block;
+    font-size: 0.7em;
+    color: #D7C7CD;
 
 }
 
@@ -207,7 +212,7 @@ h6 {
 .datecontainer {
 /*    box-sizing: border-box;
     display: inline-block;*/
-    padding-top:10px;
+    padding-top:9px;
     height: 40px;
     float: right;
     margin-right: 10px;
@@ -218,7 +223,7 @@ h6 {
 }
 
 .eventDate{
-    font-size: 0.5em;
+    font-size: 0.4em;
     color : #c7c7cd;
 }
 
@@ -242,23 +247,39 @@ h6 {
     border: none;
     padding-right:2%;
     background-color: none;*/
-    width:62px;
+    width:64px;
     float:left;
     margin-right: 10px;
     /*right:0;*/
+    color : #c7c7cd;
 
+    background-color: #262622;
+    border: none;
+    height: 20px;
+    border-radius: 2%;
+
+    text-align: center;
 }
 #end[type="text"]{
 /*    font-size: 10px;
     height: 20px;
+
     width: 13%;
     border-radius: 1%;
     border: none;
 
     background-color: none;*/
-    width: 62px;
+    width: 64px;
     /*right:0;*/
     float:left;
+    color : #c7c7cd;
+    height: 20px;
+    text-align: center;
+
+    background-color: #262622;
+    border: none;
+    border-radius: 2%;
+
 }
 
 .redbox {

@@ -4,6 +4,9 @@ var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oc
 var currentPos, map, currentPositionMarker, svgDoc, svg, spotifyPlayer, musicWindowVisible;
 var svgNS = "http://www.w3.org/2000/svg";
 var svgButton;
+var startDate = new Date();
+var endDate = new Date();
+endDate.setMonth(endDate.getMonth() + 1);
 
 window.onload = function() {
     svg = document.getElementById("samplebutton");
@@ -18,13 +21,12 @@ window.onload = function() {
         initPlay();
     };
 
+
     setupWebSocket();
     initDate();
 };
 
-var startDate = new Date();
-var endDate = new Date();
-endDate.setMonth(endDate.getMonth() + 1);
+
 
 function initDate() {
     var updateStartDate = function() {
@@ -49,6 +51,7 @@ function initDate() {
             startDate = this.getDate();
             updateStartDate();
             updateMarkers();
+
         }
     });
     var endPicker = new Pikaday({
@@ -72,11 +75,14 @@ function initDate() {
     if (_startDate) {
         startDate = _startDate;
         updateStartDate();
+
     }
     if (_endDate) {
         endDate = _endDate;
         updateEndDate();
     }
+
+
 }
 
 function musicDisplay(event) {
@@ -434,7 +440,7 @@ function selectResult(event) {
 }
 
 function dateToNise(date) {
-    return '&#160;' + month[date.getMonth()] + ' ' + date.getDate();
+    return '&#160;&#160;' + month[date.getMonth()] + ' ' + date.getDate();
 }
 
 function updateInfoWindowContents(event) {
