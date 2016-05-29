@@ -5,9 +5,9 @@
     <title>Smple</title>
     <meta name="viewport" content="initial-scale=1.0" />
     <meta charset="utf-8" />
-    <link href="main.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="./pikaday.css" />
-    <link rel="stylesheet" href="./theme.css" />
+    <link href="./css/main.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="./css/pikaday.css" />
+    <link rel="stylesheet" href="./css/theme.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 </head>
 <HEAD></HEAD>
@@ -47,7 +47,7 @@
 
         <div id = "svgcontainer" class="buttoncontainer materialbox shadowbox colorhide">
         <div id="resizer">
-            <object type="image/svg+xml" data="svg/playbutton.svg" id="samplebutton" ></object>
+            <object type="image/svg+xml" data="./images/svg/playbutton.svg" id="samplebutton" ></object>
         </div>
             <div id="spotifyplayer" class='embed-container musichide'>
                 <iframe id="spotifyplayerframe" src='https://embed.spotify.com/?uri=spotify:track:24lMtPOCzP5g4hrg3NklLa' frameborder='0' allowtransparency='true'></iframe>
@@ -64,17 +64,17 @@
             </div>
             <div class="materialbox shadowbox eventtickets">
                 <div class="ticketoverlay">
-                    <img src="images/ticklogo.svg" />
+                    <img src="./images/svg/ticklogo.svg" />
                     <a target="_blank" class="boxClickUrl" id="venueTicketUrl" href="#" />
                 </div>
                 <img class="graybackground" id="ticketbg" src="images/tickbackground2.jpg" />
             </div>
         </div>
     </div>
-    <script src="moment.js"></script>
-    <script src="data.js"></script> 
-    <script src="pikaday.js"></script>
-    <script src="main.js"></script>
+    <script src="javascript/moment.js"></script>
+    <script src="javascript/data.js"></script> 
+    <script src="javascript/pikaday.js"></script>
+    <script src="javascript/main.js"></script>
     <script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMDRJRmsGY4Bh-WbTIJ38XK39BlvrWnOE&amp;callback=initMap"></script>
 </body>
 

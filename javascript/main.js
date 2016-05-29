@@ -230,7 +230,7 @@ function initMap() {
                     position: pos,
                     map: map,
                     title: "u r here",
-                    icon: "/svg/markerhere.svg",
+                    icon: "./images/svg/markerhere.svg",
                 });
                 calculateDistanceAway(pos);
             },
@@ -368,7 +368,7 @@ function setupMarkers() {
             position: event.location,
             map: map,
             title: event.title,
-            icon: "/svg/marker.svg",
+            icon: "./images/svg/marker.svg",
         });
 
         event.marker = marker;
