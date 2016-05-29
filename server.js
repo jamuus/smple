@@ -19,6 +19,7 @@ var ports = [8081, 8443];
 var types = {
     '.html': 'text/html, application/xhtml+xml',
     '.css': 'text/css',
+    '.ico': 'image/x-icon',
     '.js': 'application/javascript',
     '.png': 'image/png',
     '.mp3': 'audio/mpeg', // audio
