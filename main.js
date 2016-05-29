@@ -19,8 +19,58 @@ window.onload = function() {
     };
 
     setupWebSocket();
+    initDate();
 };
 
+function initDate(){
+    var startDate,
+        endDate,
+        updateStartDate = function() {
+            startPicker.setStartRange(startDate);
+            endPicker.setStartRange(startDate);
+            endPicker.setMinDate(startDate);
+        },
+        updateEndDate = function() {
+            startPicker.setEndRange(endDate);
+            startPicker.setMaxDate(endDate);
+            endPicker.setEndRange(endDate);
+        },
+        startPicker = new Pikaday({
+            field: document.getElementById('start'),
+            theme: 'dark-theme',
+            format:'DD/MM/YYYY',
+            minDate: new Date(),
+            // defaultDate: new Date(),
+            maxDate: new Date(2020, 12, 31),
+            onSelect: function() {
+                startDate = this.updateStartDate();
+            }
+        }),
+        endPicker = new Pikaday({
+            field: document.getElementById('end'),
+            minDate: new Date(),
+            maxDate: new Date(2020, 12, 31),
+            theme: 'dark-theme',
+            format:'DD/MM/YYYY',
+            onSelect: function() {
+                endDate = this.getDate();
+                console.log(endDate);
+                updateEndDate();
+            }
+        }),
+        _startDate = startPicker.getDate(),
+        _endDate = endPicker.getDate();
+        if (_startDate) {
+            startDate = _startDate;
+            updateStartDate();
+        }
+
+        if (_endDate) {
+            endDate = _endDate;
+            updateEndDate();
+        }
+        // console.log(startDate);
+    }
 function musicDisplay(event) {
     if (!musicWindowVisible) {
         spotifyPlayer.classList.remove('musichide');
@@ -380,6 +430,10 @@ function selectResult(event) {
     openEvent(event);
 }
 
+function dateToNise(date) {
+    return '&#160;'+month[date.getMonth()] +' ' + date.getDate();
+}
+
 function updateInfoWindowContents(event) {
     // set thumbnails
     var thumbnailContainer = document.querySelector('.bandpics');
@@ -406,7 +460,8 @@ function updateInfoWindowContents(event) {
     bandimage.src = defaultBand.fullimage;
 
     var name = document.querySelector('.imagewithoverlay > div');
-    name.innerHTML = funkyHtmlEscape(defaultBand.name);
+    console.log(event.eventInfo)
+    name.innerHTML = funkyHtmlEscape(defaultBand.name) + '<span class="eventDate">'+dateToNise(event.eventInfo.date)+'</span>';
 
     var description = document.querySelector('.bandinfo > p');
     description.innerHTML = funkyHtmlEscape(defaultBand.desc) || '';
@@ -420,7 +475,7 @@ function updateInfoWindowContents(event) {
     venueTitle.innerHTML = event.eventInfo.title;
 
     var venueAddress = document.querySelector('#venueAddress');
-    venueAddress.innerHTML = event.eventInfo.address.replace(/(?:\r\n|\r|\n|,)/g, '<br />') + '<br/>' + event.eventInfo.date;;
+    venueAddress.innerHTML = event.eventInfo.address.replace(/(?:\r\n|\r|\n|,)/g, '<br />');
 
     var venueWebsite = document.querySelector('#venueWebsite');
     venueWebsite.href = event.eventInfo.venueUrl;

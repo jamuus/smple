@@ -20,7 +20,7 @@ var event1 = {
         address: "O2 Academy Bristol\nFrogmore Street\nBS1 5NA\nBristol, UK\n0117 927 9227",
         venueUrl: "http://www.o2academybristol.co.uk",
         ticketUrl: "http://www.songkick.com/tickets/20220218",
-        date: "2016-03-01"
+        date: new Date("2016-03-01")
     }
 };
 var event2 = {
@@ -45,7 +45,7 @@ var event2 = {
         address: "O2 Academy Bristol\nFrogmore Street\nBS1 5NA\nBristol, UK\n0117 927 9227",
         venueUrl: "http://www.o2academybristol.co.uk",
         ticketUrl: "http://www.songkick.com/tickets/20220218",
-        date: "2016-09-02"
+        date: new Date("2016-09-02")
     }
 };
 
