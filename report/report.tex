@@ -50,21 +50,18 @@
 
     \section{Client}
         \subsection{Style}
-            \subsubsection{base classes}
-                \begin{itemize}
-                    \item material box
-                    \item shadow box
-                \end{itemize}
+            \subsubsection{Base Classes}
+                The design of our layout is inspired by Material Design, using card style boxes. Each panel is given a \texttt{shadowbox} class which gives the element a border raidus, shadow, slight tranparency, and a dark background colour. The search panel and all panels in the info bar are given this class.
 
-            \subsubsection{resizing}
+            \subsubsection{Resizing}
                 \begin{itemize}
-                    \item @media queries are used to change various features when the screen size changes
-                    \item there are two main layouts, when the screen is small the search and info panel are stacked as they become too squished when side by side
+                    \item media queries are used to change various features when the screen size changes
+                    \item there are three main layouts, when the screen is small the search and info panel are stacked as they become too squished when side by side
                     \item this accomodates for mobile users
                     \item font scaling is acheived by subscribing to the window resize event which allows many elements to change size to fit in any screen size
                 \end{itemize}
 
-            \subsubsection{general layout}
+            \subsubsection{General Layout}
                 \begin{itemize}
                     \item whole screen map, fixed
                     \item hud like overlay for interactions
@@ -78,7 +75,7 @@
                     \item panel scrolls on overflow, but not the whole page
                 \end{itemize}
 
-            \subsubsection{info panel}
+            \subsubsection{Info Panel}
                 \begin{itemize}
                     \item css animations
                     \item place offscreen and disallow scrolling
@@ -110,7 +107,7 @@
                         \end{itemize}
                 \end{itemize}
 
-            \subsubsection{search panel}
+            \subsubsection{Search Panel}
                 \begin{itemize}
                     \item persistent search box with icon from a custom font
                     \item the google maps distance matrix api is used on the client side to determine how far away events are from the users current location, this is displayed with the search
@@ -118,13 +115,13 @@
                     \item clicking on a search result repositions the map to see where it is and opens the relevant info panel
                 \end{itemize}
 
-            \subsubsection{date filter}
-                    \begin{itemize}
+            \subsubsection{Date Filter}
+                \begin{itemize}
                     \item fixed up real nice calendar lib and made pull request n all \textless3
                     \item looks super dank in the search panel iluvit
                 \end{itemize}
 
-            \subsubsection{map}
+            \subsubsection{Map}
                 \begin{itemize}
                     \item using the google maps api with a custom theme
                     \item adding markers for each event in our data structure
@@ -154,24 +151,37 @@
 
 
     \section{Server}
+        The server uses the provided script with modifications. The index is served as a static file and dynamic content is achieved using Websocket connections between the client and server. This design choice simplifies the file resource serving logic, reducing the dynamic parts to message passing.
+
+        Once the client has initialised the webpage, it sets up a secure Websocket connection to the server. A secure socket is preferred as non secure sockets are disallowed when viewing the page over https. The connection is abstracted into the websocket.js
+
+        The client will query the browser for its current geographical location and when given, will send this to the server along with a desired date range. 
+
+        The server will receive this data and use it to query the database using a geoNear query on a \href{https://docs.mongodb.com/manual/core/2dsphere/}{2dsphere} index, and a date range query on the event date. The results are sent to the client.
+
+        Websockets provide a stream of messages, where a message is either some binary data or a string. We serialize JSON for sending data between the client and server. When the client sends its position and desired date range we serialize a data structure that looks like the following.
+
+        \begin{verbatim}
+        {
+            pos: {
+                lat: Number,
+                lng: Number
+            },
+            dateRange: {
+                from: Date,
+                to: Date
+            }
+        }
+        \end{verbatim}
+
+        The dates aren't parsed into JavaScript dates when using a JSON.parse so these are handled manually for the database queries.
+
+        As well as giving the client the desired data we have, we also check whether the database needs updating. The data is collected using a variety of APIs. First we ask songkick for the area that the user is in, this allows us to check the database to see if we have checked this area at all/recently. If we haven't got an up to date set of events for this area, we start downloading the events for the area as well as querying last.fm for the artists biography and picture, spotify for a reference to their spotify page, and googles reverse geocode api to get the full address of the venue.
+
+        For each area we limit the speed of requests in order to avoid rate limiting. Any returned errors by the APIs are handled graciously. Once complete data about an event is retrieved, it is stored in the database using an \href{https://docs.mongodb.com/manual/reference/method/db.collection.update/#upsert-option}{upsert} on the event title, to either update an already queried event, or insert as a new event.
+
         \begin{itemize}
-            \item The server was written in node and makes use of mongodb
-            \item The general architecture is to serve a static html page via the given server implementation and have the client request dynamic content using web sockets
-            \item once the client has initialiesd it requests a secure websocket through the https server and sends a message containing its current location
-            \item this design is necessary as we dont want to send all the events in our db at once, and we dont know where the client is until the browser has given permission to the client and is able to figure out where it is
-            \item when the server gets a position, multiple things happen
-            \begin{itemize}
-                \item a database query is made to find allready cached events using a 2d latlng based index
-                \item when these events are found they are send back to the client for rendering
-
-                \item the server makes a request to the songkick api to find all the nearby metro areas that the user is in. this is used by songkick to group events.
-                \item once a result comes back we check in our database to see if we have allready requested this area recently
-                \item if we havent seen this area or our data is old we ask for an up to date list of events from songkick
-                \item for each of the events we get, we lookup artist bios using the last.fm api, spotify user url using the spotify api, and event address using googles reverse geocoding api.
-
-                \item these requests are implemented with basic rate limiting in order to not overwelm the apis
-                \item as each request is completed, the database is updated using mongodb upsert in order to update events allready in or insert if not
-            \end{itemize}
+            \item three modules are defined, one for db, one for websockets, and one for songkick crawling
         \end{itemize}
 
     \section{Deployment}
@@ -188,14 +198,14 @@
         \end{itemize}
 
 
-    \begin{verbatim}
-        j = []
-        for i in range(10):
-          j.append(i)
-          j.append(i+1)
-          j.append(i+2)
-        sum(j)
-    \end{verbatim}
+    % \begin{verbatim}
+    %     j = []
+    %     for i in range(10):
+    %       j.append(i)
+    %       j.append(i+1)
+    %       j.append(i+2)
+    %     sum(j)
+    % \end{verbatim}
 
 
     % \subsection{Raw pictures}
