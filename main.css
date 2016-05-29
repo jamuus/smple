@@ -411,6 +411,12 @@ h6 {
     overflow: hidden;
 }
 
+.bandinfo a {
+    color: #9661C9;
+    text-decoration: none;
+
+}
+
 .bandinfo p {
     padding: 0em 1em 1em 1em;
 }
