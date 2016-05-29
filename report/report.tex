@@ -86,6 +86,8 @@
             \subsubsection{Info Panel}
                 The info panel involves many different styling and scripting elements. The panel is animated in using the css transition property and setting the margin-right to 0 from -33\%. By default moving this panel to the right would bring up a scrolling bar however this is disallowed by setting overflow to hidden for the body.
 
+                The animation performance was bad in early development due to it interacting with the map styling causing a reflow to happen for every frame of the animation. Research determined that we needed to avoid as many reflows as possible when animating for best performance. Changing the map to be position:absolute significantly improved performance as only repaints were necessary.
+
                 In order to get the desired scrolling effect we set the overflow-y to scroll which allows the contents to scroll within this div. The height is set to 100\% of the screen height so the content will never increase the full page size.
 
                 The artist thumbnails are contained within an element with text-align set to centre. Each image is an inline-block which means they overflow and stay centred no matter how many artists are inserted. As the images they contain could be of any aspect ratio and we want the thumbnail to be square, we use the object-fit css property to keep the container box filled with the image inside. The containing box is given a border radius of 50\% to make it circular, and the overflow is set to hidden to crop the image inside. The thumbnail is animated to zoom on hover using a css selector that transforms the scale of the container.
