@@ -230,7 +230,7 @@ function initMap() {
                     position: pos,
                     map: map,
                     title: "u r here",
-                    icon: "/svg/marker.svg",
+                    icon: "/svg/markerhere.svg",
                 });
                 calculateDistanceAway(pos);
             },
