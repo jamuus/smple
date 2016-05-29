@@ -93,14 +93,18 @@ module.exports = (function() {
         });
     }
 
-    function getNearPlaces(pos, range, callback) {
+    function getNearPlaces(pos, dateRange, range, callback) {
         if (typeof(range) === 'function') {
             callback = range;
             range = 1000;
         }
-
         if (!callback) callback = () => {};
 
+        if (!(dateRange.to instanceof Date) || !(dateRange.from instanceof Date) || !(pos.lat) || !(pos.lng)) {
+            callback('Invalid args');
+            return;
+        }
+        console.log(dateRange);
         Event.find({
             location: {
                 $geoWithin: {
@@ -109,15 +113,15 @@ module.exports = (function() {
                     ]
                 }
             },
-            // eventInfo: {
-            //     date: 
-            // }
+            'eventInfo.date': {
+                "$gte": dateRange.from,
+                "$lt": dateRange.to
+            }
         }, (err, result) => {
             if (err) console.log('[MONGO] Error getting entries from db', err);
             callback(err, result);
         });
     }
-
 
     return {
         addEvent,
