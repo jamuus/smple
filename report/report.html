@@ -7,11 +7,7 @@
 <meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
 <!-- html,NoFonts --> 
 <meta name="src" content="report.tex"> 
-<<<<<<< HEAD
-<meta name="date" content="2016-05-29 23:17:00"> 
-=======
-<meta name="date" content="2016-05-29 23:21:00"> 
->>>>>>> 4f087a60b1801f41fbbb7c7f81056056e8f4f5af
+<meta name="date" content="2016-05-29 23:42:00"> 
 <link rel="stylesheet" type="text/css" href="report.css"> 
 </head><body 
 >
@@ -63,17 +59,13 @@ class="abstract"
 <!--l. 45--><p class="noindent" >
 <!--l. 45--><p class="noindent" >Abstract</div>
 <!--l. 45--><p class="noindent" >
-     <!--l. 46--><p class="indent" >    visual music discovery service using data crawled from various apis and
-     combined
                                                                   
 
                                                                   
-<<<<<<< HEAD
      <!--l. 46--><p class="indent" >    The <a 
-href="https://smple.uk" >Smple</a> (short for sample) web application is a visual music discovery
-     service combining the data crawled from various APIs
-=======
->>>>>>> 4f087a60b1801f41fbbb7c7f81056056e8f4f5af
+href="https://smple.uk" >Smple</a> (short for sample) web application is a visual geospatial music
+     discovery service. Users can discover new artists playing in their area and
+     sample their music using data gathered from the Internet.
 </div>
 <!--l. 49--><p class="noindent" >
    <h3 class="sectionHead"><span class="titlemark">1   </span> <a 
@@ -86,28 +78,6 @@ href="https://smple.uk" >Smple</a> (short for sample) web application is a visua
  id="x1-40001.1.1"></a>General Layout</h5>
 <!--l. 52--><p class="noindent" ><hr class="figure"><div class="figure" 
 >
-<<<<<<< HEAD
-<!--l. 54--><p class="indent" >   The Smple (short for sample) web app consists of a single page which is filled with a
-map from the Google Maps API. There are two panels: the search on the left, and the
-information (info) on the right.
-<!--l. 56--><p class="indent" >   The search panel consists of an input to type a query and two date pickers to choose
-the date range for events to be displayed. When a search query is made, results are shown
-underneath with the date of the event, the band names that matched, and the time to
-walk there.
-<!--l. 58--><p class="indent" >   The info panel slides in from the right after selecting an event, either through a map
-marker or a search item. It includes one or more circular artist thumbnails at the top
-depending on how many artists are playing that event. Underneath is the artist name,
-image, and biography for the currently selected artist. Next is an embedded Spotify
-player for that artist that is revealed by pressing the play button. Last is the
-events venue address and then the link to the ticket-sale site in their individual
-panels.
-<!--l. 60--><p class="indent" >   The pink markers on the map represent events and the purple marker is the users
-current location determined by the browser.
-<!--l. 62--><p class="indent" >   The info panel will slide away when the map is moved or zoomed. When the info
-panel&#8217;s content overflows the bottom of the page it will be scrollable independent of the
-whole page.
-<!--l. 65--><p class="noindent" >
-=======
                                                                   
 
                                                                   
@@ -126,32 +96,32 @@ class="content">Basic layout description.</span></div><!--tex4ht:label?: x1-4001
 
                                                                   
 <!--l. 57--><p class="noindent" ></div><hr class="endfigure">
-<!--l. 59--><p class="indent" >   The web app consists of a single page which is filled with a map using the google
-maps api. There are two panels: the search on the left, and the info panel on the
-right.
+<!--l. 59--><p class="indent" >   The Smple web app consists of a single page which is filled with a map from the
+Google Maps API. There are two panels: the search on the left, and the information
+(info) on the right.
 <!--l. 61--><p class="indent" >   The search panel consists of an input to type a query and two date pickers to choose
 the date range for events to be displayed. When a search query is made, results are shown
 underneath with the date of the event, the band names that matched, and the time to
-walk their if available.
-<!--l. 63--><p class="indent" >   The info panel slides in from the right when selecting an event, either through a
-map marker or a search item. It includes one or more artist thumbnails at the
-top depending on how many artists are playing that event. Underneath is the
-artist name, image, and biography for the currently selected artist. Next is an
-embedded Spotify player for that artist that is revealed by pressing the play button.
-Further is information about the events venue and link to the ticket purchasing
-page.
-<!--l. 65--><p class="indent" >   The pink markers on the map represent events and the purple marker is the users
-current location determined by the browser.
-<!--l. 67--><p class="indent" >   The info panel will slide away when the map is moved or zooms. When the info panels
-content overflows the bottom of the page it will be scrollable independent of the whole
-page.
->>>>>>> 4f087a60b1801f41fbbb7c7f81056056e8f4f5af
+walk there.
+<!--l. 63--><p class="indent" >   When an event is selected by clicking a marker or search result, the info panel slides
+into view from the right. At the top, the artist thumbnails are displayed. They are
+dynamically created depending on how many artists are playing in the selected event.
+Below, is the artist name, image, and biography for the selected artist. An embedded
+Spotify player is revealed afterwards if the play button underneath is clicked. Lastly is the
+events venue address and the link to the ticket-sale website which are contained in their
+individual panels.
+<!--l. 65--><p class="indent" >   There are two markers present on the map: pink and purple. The pink markers
+represent events and the purple is used to indicate the current user location which is
+determined by the browser.
+<!--l. 67--><p class="indent" >   If the map is moved or zoomed, the info panel will slide out of view. Additionally,
+when the info panel&#8217;s content overflows the bottom of the page, it becomes
+scrollable.
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.2   </span> <a 
  id="x1-50001.1.2"></a>Base Classes</h5>
-<!--l. 71--><p class="noindent" >The design of our layout is inspired by Material Design, using card style boxes. Each
-panel is given a shadowbox class which gives the element a border radius, shadow, slight
-transparency, and a dark background colour. The search panel and all panels in the info
-bar are given this class.
+<!--l. 71--><p class="noindent" >The design of our layout is inspired by Material Design with it&#8217;s iconic card styled boxes.
+Each panel is given a shadowbox class which gives the element a border radius, shadow,
+slight transparency, and a dark background colour. The search panel and all panels in the
+info bar are given this class.
 <!--l. 73--><p class="noindent" >
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.3   </span> <a 
  id="x1-60001.1.3"></a>Resizing</h5>
@@ -601,17 +571,21 @@ the server will restart.
 <!--l. 186--><p class="indent" >   This allows very fast staging tests, however this isn&#8217;t suitable for a production run of
 the server. The site should be live at <a 
 href="https://smple.uk" >https://smple.uk</a>.
-<!--l. 188--><p class="noindent" >
+<!--l. 188--><p class="indent" >   Due to security issues some browsers wont connect a secure websocket with an invalid
+certificate making local development hard. The site is tested working on chrome locally
+for both https and http. When run under the correct domain everything works as it
+should.
+<!--l. 190--><p class="noindent" >
    <h3 class="sectionHead"><span class="titlemark">4   </span> <a 
  id="x1-130004"></a>API Usage</h3>
-<!--l. 189--><p class="noindent" >As we are using a few public APIs, we needed to take into consideration the terms for
+<!--l. 191--><p class="noindent" >As we are using a few public APIs, we needed to take into consideration the terms for
 each of these.
-<!--l. 191--><p class="indent" >   The songkick API requires attribution when using their data in the form of a graphic
+<!--l. 193--><p class="indent" >   The songkick API requires attribution when using their data in the form of a graphic
 they provide. We accommodated for this by adding their graphic into our ticket purchase
 button.
-<!--l. 193--><p class="indent" >   Spotify have no requirement for the use of their embedded player as it already
+<!--l. 195--><p class="indent" >   Spotify have no requirement for the use of their embedded player as it already
 advertising where the player comes from.
-<!--l. 195--><p class="indent" >   Last.fm require a link to their site on any information that is retrieved from them, we
+<!--l. 197--><p class="indent" >   Last.fm require a link to their site on any information that is retrieved from them, we
 get a biography from them in which they include a link to their website so we are covered
 here.
     
