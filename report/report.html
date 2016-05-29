@@ -7,7 +7,7 @@
 <meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
 <!-- html,NoFonts --> 
 <meta name="src" content="report.tex"> 
-<meta name="date" content="2016-05-29 21:20:00"> 
+<meta name="date" content="2016-05-29 21:51:00"> 
 <link rel="stylesheet" type="text/css" href="report.css"> 
 </head><body 
 >
@@ -198,10 +198,15 @@ hue/saturation tool, the blues were adjusted to be more grey using the overlap s
 consider overlapping hue values. Next we added the songkick watermark as
 an overlapping layer, positioning it in the bottom right layer and resizing as
 desired.
+<!--l. 96--><p class="indent" >   When a user hovers their mouse over the lower two boxes, an animation is triggered
                                                                   
 
                                                                   
-<!--l. 96--><p class="noindent" >
+to dim the image. This is achieved using an anchor html tag that is given the class
+boxClickUrl that expands the anchor to cover the entire parent. The dim effect is
+achieved by setting the opacity of the image to a smaller value, revealing the black
+shadowbox behind.
+<!--l. 98--><p class="noindent" >
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.5   </span> <a 
  id="x1-80001.1.5"></a>Search Panel</h5>
      <ul class="itemize1">
@@ -217,18 +222,21 @@ desired.
      </li>
      <li class="itemize">clicking on a search result repositions the map to see where it is and opens
      the relevant info panel</li></ul>
-<!--l. 104--><p class="noindent" >
+<!--l. 107--><p class="noindent" >
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.6   </span> <a 
  id="x1-90001.1.6"></a>Date Filter</h5>
      <ul class="itemize1">
      <li class="itemize">fixed up real nice calendar lib and made pull request n all &#x003C;3
      </li>
      <li class="itemize">looks super dank in the search panel iluvit</li></ul>
-<!--l. 110--><p class="noindent" >
+<!--l. 113--><p class="noindent" >
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.7   </span> <a 
  id="x1-100001.1.7"></a>Map</h5>
      <ul class="itemize1">
      <li class="itemize">using the google maps api with a custom theme
+                                                                  
+
+                                                                  
      </li>
      <li class="itemize">adding markers for each event in our data structure
      </li>
@@ -236,16 +244,24 @@ desired.
      also animated the marker icon using googles animations
      </li>
      <li class="itemize">the marker icons are a custom svg designed by imna herself</li></ul>
-                                                                  
-
-                                                                  
-<!--l. 119--><p class="noindent" >
+<!--l. 122--><p class="noindent" >
    <h4 class="subsectionHead"><span class="titlemark">1.2   </span> <a 
  id="x1-110001.2"></a>Logic</h4>
+<!--l. 123--><p class="noindent" >There exists one script for all the logic of the webapp. We subscribe to the window
+onload event as well as the google map callback. In the window load event we setup a
+few things, including setting up the callbacks for the svg button, initialising the
+websocket to the server, and initialising the date filter boxes.
+<!--l. 125--><p class="indent" >   When the map has loaded, we request the browsers location via the google
+maps api and setup the markers on the map. After both the map has loaded
+and the websocket has loaded we send the user location to the server via the
+websocket. This triggers the server to find nearby events to be send back to the
+client.
+<!--l. 127--><p class="indent" >   When an array of events arrive we populate our internal events array and initialise the
+marker for each event. A query is made to find the walking time to each of the events as
+well. Once this has happened the user can click on the markers to open up the
+information for the event, as well as being able to search for events using the search
+bar.
      <ul class="itemize1">
-     <li class="itemize">Initially the info panel is hidden and the map loads with an empty search panel
-     overlayed
-     </li>
      <li class="itemize">the main script initiates a websocket connection with the server, and once
      both the map and the websocket connection is made, the client sends its
      current map position to the server.
@@ -259,6 +275,9 @@ desired.
          <ul class="itemize2">
          <li class="itemize">this  involved  creating  a  dynamic  number  of  band  thumbnails  and
          inserting it into the correct position
+                                                                  
+
+                                                                  
          </li>
          <li class="itemize">updating the band info box to the first band name and description, as
          well as updating the spotify player with the bands spotify link</li></ul>
@@ -277,30 +296,27 @@ desired.
      </li>
      <li class="itemize">each matched character is given the bold html tag to signify that is the character
      that matched</li></ul>
-                                                                  
-
-                                                                  
-<!--l. 137--><p class="noindent" >
+<!--l. 144--><p class="noindent" >
    <h3 class="sectionHead"><span class="titlemark">2   </span> <a 
  id="x1-120002"></a>Server</h3>
-<!--l. 138--><p class="noindent" >The server uses the provided script with modifications. The index is served as a static file
+<!--l. 145--><p class="noindent" >The server uses the provided script with modifications. The index is served as a static file
 and dynamic content is achieved using Websocket connections between the client and
 server. This design choice simplifies the file resource serving logic, reducing the dynamic
 parts to message passing.
-<!--l. 140--><p class="indent" >   Once the client has initialised the webpage, it sets up a secure Websocket connection
+<!--l. 147--><p class="indent" >   Once the client has initialised the webpage, it sets up a secure Websocket connection
 to the server. A secure socket is preferred as non secure sockets are disallowed when
 viewing the page over https. The connection is abstracted into websocket.js such that
 server.js can simply pass a callback that is called when a new client query is made, with a
 parameter that can be called with the result to send back. server.js doesnt need to worry
 about managing connections.
-<!--l. 142--><p class="indent" >   The client will query the browser for its current geographical location and when given,
+<!--l. 149--><p class="indent" >   The client will query the browser for its current geographical location and when given,
 will send this to the server along with a desired date range. The server will reply at some
 point in the future with an array of events.
-<!--l. 144--><p class="indent" >   The server will receive this data and use it to query the database using a geoNear
+<!--l. 151--><p class="indent" >   The server will receive this data and use it to query the database using a geoNear
 query on a <a 
 href="https://docs.mongodb.com/manual/core/2dsphere/" >2dsphere</a> index, and a date range query on the event date. The results are
 sent to the client.
-<!--l. 146--><p class="indent" >   Websockets provide a stream of messages, where a message is either some binary data
+<!--l. 153--><p class="indent" >   Websockets provide a stream of messages, where a message is either some binary data
 or a string. We serialize JSON for sending data between the client and server. When the
 client sends its position and desired date range we serialize a data structure that looks
 like the following.
@@ -472,10 +488,10 @@ class="cmtt-10">&#x00A0;</span><span
 class="cmtt-10">&#x00A0;</span><span 
 class="cmtt-10">&#x00A0;</span>
 </div>
-<!--l. 159--><p class="nopar" >
-<!--l. 161--><p class="indent" >   Dates aren&#8217;t parsed into JavaScript date objects when using a JSON.parse so these
+<!--l. 166--><p class="nopar" >
+<!--l. 168--><p class="indent" >   Dates aren&#8217;t parsed into JavaScript date objects when using a JSON.parse so these
 are handled manually for the database queries.
-<!--l. 163--><p class="indent" >   As well as giving the client the desired data we have, we also check whether the
+<!--l. 170--><p class="indent" >   As well as giving the client the desired data we have, we also check whether the
 database needs updating. The data is collected using a variety of APIs. First we ask
 songkick for the area that the user is in, this allows us to check the database to see if we
 have checked this area at all/recently. If we haven&#8217;t got an up to date set of events
@@ -483,17 +499,17 @@ for this area, we start downloading the events for the area as well as querying
 last.fm for the artists biography and picture, spotify for a reference to their
 spotify page, and googles reverse geocode api to get the full address of the
 venue.
-<!--l. 165--><p class="indent" >   For each area we limit the speed of requests in order to avoid rate limiting. Any
+<!--l. 172--><p class="indent" >   For each area we limit the speed of requests in order to avoid rate limiting. Any
 returned errors by the APIs are handled graciously. Once complete data about an event is
 retrieved, it is stored in the database using an <a 
 href="https://docs.mongodb.com/manual/reference/method/db.collection.update/#upsert-option" >upsert</a> on the event title, to either update
 an already queried event, or insert as a new event.
-<!--l. 167--><p class="indent" >   A possible optimization of the client-server interaction process would be to determine
+<!--l. 174--><p class="indent" >   A possible optimization of the client-server interaction process would be to determine
 what events have already been sent to the client in order to avoid sending them again if
 they only scroll the map slightly. This would allow for significantly less data to be
 transferred between the two and would avoid reprocessing every event on the client side
 on every query change.
-<!--l. 170--><p class="noindent" >
+<!--l. 177--><p class="noindent" >
    <h3 class="sectionHead"><span class="titlemark">3   </span> <a 
  id="x1-130003"></a>Deployment</h3>
      <ul class="itemize1">
@@ -510,7 +526,7 @@ on every query change.
      <li class="itemize">the site is live at https://smple.uk
      </li>
      <li class="itemize">git</li></ul>
-<!--l. 178--><p class="noindent" >
+<!--l. 185--><p class="noindent" >
    <h3 class="sectionHead"><span class="titlemark">4   </span> <a 
  id="x1-140004"></a>API</h3>
      <ul class="itemize1">
