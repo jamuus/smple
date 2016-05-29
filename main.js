@@ -418,20 +418,22 @@ function mapMoved(event) {
     }
 }
 
-
-function selectBand(event, index) {
-    var defaultBand = event.bands[index.value];
+function setBandInfo(event, band) {
     var bandimage = document.querySelector('.imagewithoverlay > img');
-    bandimage.src = defaultBand.fullimage;
+    bandimage.src = band.fullimage;
 
     var name = document.querySelector('.imagewithoverlay > div');
-    name.innerHTML = defaultBand.name;
+    name.innerHTML = funkyHtmlEscape(band.name) + '<span class="eventDate">' + dateToNise(new Date(event.eventInfo.date)) + '</span>';
 
     var description = document.querySelector('.bandinfo > p');
-    description.innerHTML = defaultBand.desc;
+    description.innerHTML = funkyHtmlEscape(band.desc) || '';
 
     var spotifyPlayer = document.querySelector('#spotifyplayerframe');
-    spotifyPlayer.src = 'https://embed.spotify.com/?uri=' + defaultBand.spotifyUri;
+    spotifyPlayer.src = 'https://embed.spotify.com/?uri=' + band.spotifyUri;
+}
+
+function selectBand(event, index) {
+    setBandInfo(event, event.bands[index.value]);
 }
 
 function selectResult(event) {
@@ -462,20 +464,8 @@ function updateInfoWindowContents(event) {
         cont.appendChild(img);
         thumbnailContainer.appendChild(cont);
     }
-    // set band info
-    var defaultBand = event.bands[0];
-    var bandimage = document.querySelector('.imagewithoverlay > img');
-    bandimage.src = defaultBand.fullimage;
 
-    var name = document.querySelector('.imagewithoverlay > div');
-    name.innerHTML = funkyHtmlEscape(defaultBand.name) + '<span class="eventDate">' + dateToNise(new Date(event.eventInfo.date)) + '</span>';
-
-    var description = document.querySelector('.bandinfo > p');
-    description.innerHTML = funkyHtmlEscape(defaultBand.desc) || '';
-
-    var spotifyPlayer = document.querySelector('#spotifyplayerframe');
-    spotifyPlayer.src = 'https://embed.spotify.com/?uri=' + defaultBand.spotifyUri;
-
+    setBandInfo(event, event.bands[0]);
 
     // set event info
     var venueTitle = document.querySelector('#venueTitle');
