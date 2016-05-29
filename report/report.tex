@@ -185,6 +185,8 @@
 
         This allows very fast staging tests, however this isn't suitable for a production run of the server. The site should be live at \href{https://smple.uk}{https://smple.uk}.
 
+        Due to security issues some browsers wont connect a secure websocket with an invalid certificate making local development hard. The site is tested working on chrome locally for both https and http. When run under the correct domain everything works as it should.
+
     \section{API Usage}
         As we are using a few public APIs, we needed to take into consideration the terms for each of these.
 
