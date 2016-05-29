@@ -1,0 +1,100 @@
+report
+
+aims
+    client
+        demonstrate a breadth of knowledge of browser technologies, together with some depth in your chosen specialist areas.
+        need to use a reasonably wide variety of HTML features and CSS properties
+            how appropriate your choices are
+            the investigations you have gone through
+            breadth of the knowledge you display
+        need to have a fluid design
+        creating at least one image with Gimp and one image with Inkscape
+        JavaScript skills to create an animation e.g.
+            animating an SVG drawing
+            use of JavaScript to change the textual content/style of a page
+            interact with the user
+            communicate with the server
+        you will have to demonstrate your grasp of a wide variety of different technologies
+        show off some depth of knowledge by some concentrated effort in one or two directions
+        demonstrate that you can use Google to hunt down information about how to get some particular "advanced" effect
+        get a feature to work across browsers
+
+    server
+        Configuration and programming of a server
+        database system
+        integration of other open source libraries or packages
+        credit for integrating your server-side work with your previous web site construction
+        allowance will be made for trading off one area of work against another
+
+restrictions
+    must use Polyglot HTML5
+    meet the CSS 2.1 or CSS 3 standard
+        features you use degrading gracefully on older browsers, if possible
+    use PNG and SVG formats for illustrations and avoid proprietary formats such as GIF or JPEG except for images you are borrowing unchanged
+    JavaScript code must meet the ECMAScript 5 and HTML 5 standards
+    use object detection rather than browser detection to deal with browser differences
+    Style must be dealt with only via a separate stylesheet or stylesheets
+    JavaScript must be entirely contained in script files
+
+testing
+    run your own local web server and use an XHTML-aware browser
+    validate your pages fully, use Total Validator or validator.w3.org/nu/
+    should also test your pages on Internet Explorer
+    make some statement to say what approach you have taken to old IEs
+
+external resources
+    avoid anything that is not open
+    avoid anything from sites belonging to commercial companies
+    avoid anything where there is an explicit copyright or trade mark statement with restrictions
+    describe what you have taken, where you took it from, and what you have done to it
+
+report
+    client
+        The marks are for what you have achieved with your site, not for the report or its quality
+        list
+            the aspects of your work that you are proud of
+            searches you have done
+            things you have found out
+            anything that took you a long time
+            tools and techniques you have used
+        make it clear where you got things from and how much you adapted them
+        have links in the report to the originals of any images you worked on
+        descriptions of what drawing/painting techniques you used
+        how much work you had to do to find out about them
+        javascript - what you copied as a starting point
+            what changes are yours
+            what you had to find out about to make the changes.
+
+    server
+        design choices in terms of client-server architecture
+        configuration choices
+        where the server is designed to run
+        security of data and server
+        content negotiation
+        url validation
+
+marking
+    breadth
+        HTML skills (10)
+        CSS skills (10)
+        JavaScript skills (10)
+        Gimp painting skills (10)
+        Inkscape drawing skills (10)
+    depth
+        Extra features (20)
+        Creativity (30)
+
+    take into account the difficulty of what you have attempted
+    amount of time and effort you appear to have put in
+    breadth and variety of things you have tackled
+    technical accuracy
+    originality
+    setting up server and general server issues
+    database integration
+    programmming
+    sophistication and ingenuity and creativity
+
+
+
+things done
+    

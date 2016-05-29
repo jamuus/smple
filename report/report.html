@@ -1,0 +1,403 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Webtech Report</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,NoFonts --> 
+<meta name="src" content="report.tex"> 
+<meta name="date" content="2016-05-28 21:19:00"> 
+<link rel="stylesheet" type="text/css" href="report.css"> 
+</head><body 
+>
+   <div class="maketitle">
+                                                                  
+
+                                                                  
+                                                                  
+
+                                                                  
+
+<h2 class="titleHead">Webtech Report</h2>
+<div class="author" >Iman Malik n James Sewart</div><br />
+<div class="date" >29-5-16</div>
+   </div>
+   <h3 class="likesectionHead"><a 
+ id="x1-1000"></a>Contents</h3>
+   <div class="tableofcontents">
+   <span class="sectionToc" >1 <a 
+href="#x1-20001" id="QQ2-1-2">Client</a></span>
+<br />   &#x00A0;<span class="subsectionToc" >1.1 <a 
+href="#x1-30001.1" id="QQ2-1-3">Style</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsubsectionToc" >1.1.1 <a 
+href="#x1-40001.1.1" id="QQ2-1-4">base classes</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsubsectionToc" >1.1.2 <a 
+href="#x1-50001.1.2" id="QQ2-1-5">resizing</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsubsectionToc" >1.1.3 <a 
+href="#x1-60001.1.3" id="QQ2-1-6">general layout</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsubsectionToc" >1.1.4 <a 
+href="#x1-70001.1.4" id="QQ2-1-7">info panel</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsubsectionToc" >1.1.5 <a 
+href="#x1-80001.1.5" id="QQ2-1-8">search panel</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsubsectionToc" >1.1.6 <a 
+href="#x1-90001.1.6" id="QQ2-1-9">date filter</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsubsectionToc" >1.1.7 <a 
+href="#x1-100001.1.7" id="QQ2-1-10">map</a></span>
+<br />   &#x00A0;<span class="subsectionToc" >1.2 <a 
+href="#x1-110001.2" id="QQ2-1-11">Logic</a></span>
+<br />   <span class="sectionToc" >2 <a 
+href="#x1-120002" id="QQ2-1-12">Server</a></span>
+<br />   <span class="sectionToc" >3 <a 
+href="#x1-130003" id="QQ2-1-13">Deployment</a></span>
+<br />   <span class="sectionToc" >4 <a 
+href="#x1-140004" id="QQ2-1-14">API</a></span>
+   </div>
+   <div 
+class="abstract" 
+>
+<div class="center" 
+>
+<!--l. 45--><p class="noindent" >
+<!--l. 45--><p class="noindent" >Abstract</div>
+<!--l. 45--><p class="noindent" >
+                                                                  
+
+                                                                  
+     <!--l. 46--><p class="indent" >    visual music discovery service using data crawled from various apis and
+     combined
+</div>
+<!--l. 51--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">1   </span> <a 
+ id="x1-20001"></a>Client</h3>
+<!--l. 52--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">1.1   </span> <a 
+ id="x1-30001.1"></a>Style</h4>
+<!--l. 53--><p class="noindent" >
+   <h5 class="subsubsectionHead"><span class="titlemark">1.1.1   </span> <a 
+ id="x1-40001.1.1"></a>base classes</h5>
+     <ul class="itemize1">
+     <li class="itemize">material box
+     </li>
+     <li class="itemize">shadow box</li></ul>
+<!--l. 59--><p class="noindent" >
+   <h5 class="subsubsectionHead"><span class="titlemark">1.1.2   </span> <a 
+ id="x1-50001.1.2"></a>resizing</h5>
+     <ul class="itemize1">
+     <li class="itemize">@media queries are used to change various features when the screen size
+     changes
+     </li>
+     <li class="itemize">there are two main layouts, when the screen is small the search and info panel
+     are stacked as they become too squished when side by side
+     </li>
+     <li class="itemize">this accomodates for mobile users
+     </li>
+     <li class="itemize">font scaling is acheived by subscribing to the window resize event which allows
+     many elements to change size to fit in any screen size</li></ul>
+                                                                  
+
+                                                                  
+<!--l. 67--><p class="noindent" >
+   <h5 class="subsubsectionHead"><span class="titlemark">1.1.3   </span> <a 
+ id="x1-60001.1.3"></a>general layout</h5>
+     <ul class="itemize1">
+     <li class="itemize">whole screen map, fixed
+     </li>
+     <li class="itemize">hud like overlay for interactions
+     </li>
+     <li class="itemize">fixed search panel on left third?
+     </li>
+     <li class="itemize">search results expand panel downwards dynamically
+     </li>
+     <li class="itemize">info panel on right third
+     </li>
+     <li class="itemize">info panel slides in on marker click
+     </li>
+     <li class="itemize">slides out on map move or zoom
+     </li>
+     <li class="itemize">panel scrolls on overflow, but not the whole page</li></ul>
+<!--l. 81--><p class="noindent" >
+   <h5 class="subsubsectionHead"><span class="titlemark">1.1.4   </span> <a 
+ id="x1-70001.1.4"></a>info panel</h5>
+     <ul class="itemize1">
+     <li class="itemize">css animations
+     </li>
+     <li class="itemize">place offscreen and disallow scrolling
+     </li>
+     <li class="itemize">fixed size to screen
+     </li>
+     <li class="itemize">top layer is a dynamic number of thumbnails for each band in an event
+         <ul class="itemize2">
+         <li class="itemize">animated and bevelled</li></ul>
+     </li>
+     <li class="itemize">second layer is the current band information
+                                                                  
+
+                                                                  
+         <ul class="itemize2">
+         <li class="itemize">text over image with transparency fade
+         </li>
+         <li class="itemize">paragraph after both
+         </li>
+         <li class="itemize">width is fixed, text on image is pinned to bottom of image, paragraph
+         comes after image</li></ul>
+     </li>
+     <li class="itemize">third layer is a sample music button
+         <ul class="itemize2">
+         <li class="itemize">includes clickable svg and spotify player that is hidden intially
+         </li>
+         <li class="itemize">clicking the svg triggers an SMIL animation on parts of the svg, reveals
+         the spotify player, and fades the background colour to match the player
+         xO
+         </li>
+         <li class="itemize">clicking play again reverses these animations</li></ul>
+     </li>
+     <li class="itemize">fourth layer includes event information
+         <ul class="itemize2">
+         <li class="itemize">first box is location information with link to the songkick page for the
+         venue
+         </li>
+         <li class="itemize">second box includes self made svg of tickets and is clickable to get to
+         the ticket purchasing page
+         </li>
+         <li class="itemize">background image has been modified using gimp and is animated to fade
+         on mouse over
+         </li>
+         <li class="itemize">took a long time to get these boxes in the desired position wewew</li></ul>
+     </li></ul>
+<!--l. 113--><p class="noindent" >
+   <h5 class="subsubsectionHead"><span class="titlemark">1.1.5   </span> <a 
+ id="x1-80001.1.5"></a>search panel</h5>
+     <ul class="itemize1">
+     <li class="itemize">persistent search box with icon from a custom font
+                                                                  
+
+                                                                  
+     </li>
+     <li class="itemize">the google maps distance matrix api is used on the client side to determine
+     how far away events are from the users current location, this is displayed with
+     the search
+     </li>
+     <li class="itemize">a custom date icon was created using html and adds a nice visual to when
+     event takes place, this is generated by javascript with the date and month
+     injected in to be added to each search result
+     </li>
+     <li class="itemize">clicking on a search result repositions the map to see where it is and opens
+     the relevant info panel</li></ul>
+<!--l. 121--><p class="noindent" >
+   <h5 class="subsubsectionHead"><span class="titlemark">1.1.6   </span> <a 
+ id="x1-90001.1.6"></a>date filter</h5>
+     <ul class="itemize1">
+     <li class="itemize">fixed up real nice calendar lib and made pull request n all &#x003C;3
+     </li>
+     <li class="itemize">looks super dank in the search panel iluvit</li></ul>
+<!--l. 127--><p class="noindent" >
+   <h5 class="subsubsectionHead"><span class="titlemark">1.1.7   </span> <a 
+ id="x1-100001.1.7"></a>map</h5>
+     <ul class="itemize1">
+     <li class="itemize">using the google maps api with a custom theme
+     </li>
+     <li class="itemize">adding markers for each event in our data structure
+     </li>
+     <li class="itemize">marker onclick opens the info bar for the desired event and centers the event,
+     also animated the marker icon using googles animations
+     </li>
+     <li class="itemize">the marker icons are a custom svg designed by imna herself</li></ul>
+                                                                  
+
+                                                                  
+<!--l. 136--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">1.2   </span> <a 
+ id="x1-110001.2"></a>Logic</h4>
+     <ul class="itemize1">
+     <li class="itemize">Initially the info panel is hidden and the map loads with an empty search panel
+     overlayed
+     </li>
+     <li class="itemize">the main script initiates a websocket connection with the server, and once
+     both the map and the websocket connection is made, the client sends its
+     current map position to the server.
+     </li>
+     <li class="itemize">This  triggers  the  server  to  send  nearby  events,  which  once  received  are
+     visualised on the map as our custom markers.
+     </li>
+     <li class="itemize">a user can then click a marker which triggers the sidepanel to be animated in and
+     its content updated to match the information in the data structure for that
+     event
+         <ul class="itemize2">
+         <li class="itemize">this  involved  creating  a  dynamic  number  of  band  thumbnails  and
+         inserting it into the correct position
+         </li>
+         <li class="itemize">updating the band info box to the first band name and description, as
+         well as updating the spotify player with the bands spotify link</li></ul>
+     </li>
+     <li class="itemize">the event name and location is updated as well as the links to the event page and
+     the ticket buying page
+     </li>
+     <li class="itemize">keyup in the search bar triggers search algorithm on nearby events which generates
+     the results html
+     </li>
+     <li class="itemize">results html is inserted inside a container div that is already there
+     </li>
+     <li class="itemize">the search algorithm performs a sublime like fuzzy search by not matching
+     sequential matches but each character can match any length into the
+     text
+     </li>
+     <li class="itemize">each matched character is given the bold html tag to signify that is the character
+     that matched</li></ul>
+                                                                  
+
+                                                                  
+<!--l. 156--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">2   </span> <a 
+ id="x1-120002"></a>Server</h3>
+     <ul class="itemize1">
+     <li class="itemize">The server was written in node and makes use of mongodb
+     </li>
+     <li class="itemize">The general architecture is to serve a static html page via the given server
+     implementation  and  have  the  client  request  dynamic  content  using  web
+     sockets
+     </li>
+     <li class="itemize">once the client has initialiesd it requests a secure websocket through the https
+     server and sends a message containing its current location
+     </li>
+     <li class="itemize">this design is necessary as we dont want to send all the events in our db
+     at once, and we dont know where the client is until the browser has given
+     permission to the client and is able to figure out where it is
+     </li>
+     <li class="itemize">when the server gets a position, multiple things happen
+         <ul class="itemize2">
+         <li class="itemize">a database query is made to find allready cached events using a 2d latlng
+         based index
+         </li>
+         <li class="itemize">when these events are found they are send back to the client for rendering
+         </li>
+         <li class="itemize">the server makes a request to the songkick api to find all the nearby
+         metro areas that the user is in. this is used by songkick to group events.
+         </li>
+         <li class="itemize">once a result comes back we check in our database to see if we have
+         allready requested this area recently
+         </li>
+         <li class="itemize">if we havent seen this area or our data is old we ask for an up to date
+         list of events from songkick
+         </li>
+         <li class="itemize">for each of the events we get, we lookup artist bios using the last.fm api,
+         spotify user url using the spotify api, and event address using googles
+         reverse geocoding api.
+         </li>
+         <li class="itemize">these requests are implemented with basic rate limiting in order to not
+         overwelm the apis
+                                                                  
+
+                                                                  
+         </li>
+         <li class="itemize">as each request is completed, the database is updated using mongodb
+         upsert in order to update events allready in or insert if not</li></ul>
+     </li></ul>
+<!--l. 177--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">3   </span> <a 
+ id="x1-130003"></a>Deployment</h3>
+     <ul class="itemize1">
+     <li class="itemize">by default server connects to a local mongodb instance and runs on the latest
+     nodejs.
+     </li>
+     <li class="itemize">This favours a vps installations on services like digitalocean or aws by simply
+     cloning the git repo, performing an npm install and running both mongodb
+     and the server script.
+     </li>
+     <li class="itemize">the site is live at https://smple.uk</li></ul>
+<!--l. 184--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">4   </span> <a 
+ id="x1-140004"></a>API</h3>
+     <ul class="itemize1">
+     <li class="itemize">We made efforts to abide by the api tos by rate limiting and providing * where
+     requested
+     </li>
+     <li class="itemize">songkick-spotify-google-last.fm</li></ul>
+                                                                  
+
+                                                                  
+   <div class="verbatim" id="verbatim-1">
+<span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;j</span><span 
+class="cmtt-10">&#x00A0;=</span><span 
+class="cmtt-10">&#x00A0;[]</span>
+<span 
+class="cmtt-10">&#x00A0;</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;i</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;range(10):</span>
+<span 
+class="cmtt-10">&#x00A0;</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;j.append(i)</span>
+<span 
+class="cmtt-10">&#x00A0;</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;j.append(i+1)</span>
+<span 
+class="cmtt-10">&#x00A0;</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;j.append(i+2)</span>
+<span 
+class="cmtt-10">&#x00A0;</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;sum(j)</span>
+<span 
+class="cmtt-10">&#x00A0;</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span>
+</div>
+<!--l. 198--><p class="nopar" >
+    
+</body></html> 
+
+                                                                  
+
+
