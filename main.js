@@ -22,55 +22,63 @@ window.onload = function() {
     initDate();
 };
 
-function initDate(){
-    var startDate,
-        endDate,
-        updateStartDate = function() {
-            startPicker.setStartRange(startDate);
-            endPicker.setStartRange(startDate);
-            endPicker.setMinDate(startDate);
-        },
-        updateEndDate = function() {
-            startPicker.setEndRange(endDate);
-            startPicker.setMaxDate(endDate);
-            endPicker.setEndRange(endDate);
-        },
-        startPicker = new Pikaday({
-            field: document.getElementById('start'),
-            theme: 'dark-theme',
-            format:'DD/MM/YYYY',
-            minDate: new Date(),
-            // defaultDate: new Date(),
-            maxDate: new Date(2020, 12, 31),
-            onSelect: function() {
-                startDate = this.updateStartDate();
-            }
-        }),
-        endPicker = new Pikaday({
-            field: document.getElementById('end'),
-            minDate: new Date(),
-            maxDate: new Date(2020, 12, 31),
-            theme: 'dark-theme',
-            format:'DD/MM/YYYY',
-            onSelect: function() {
-                endDate = this.getDate();
-                console.log(endDate);
-                updateEndDate();
-            }
-        }),
-        _startDate = startPicker.getDate(),
-        _endDate = endPicker.getDate();
-        if (_startDate) {
-            startDate = _startDate;
-            updateStartDate();
-        }
+var startDate = new Date();
+var endDate = new Date();
+endDate.setMonth(endDate.getMonth() + 1);
 
-        if (_endDate) {
-            endDate = _endDate;
-            updateEndDate();
+function initDate() {
+
+    var updateStartDate = function() {
+        startPicker.setStartRange(startDate);
+        endPicker.setStartRange(startDate);
+        endPicker.setMinDate(startDate);
+    };
+    var updateEndDate = function() {
+        startPicker.setEndRange(endDate);
+        startPicker.setMaxDate(endDate);
+        endPicker.setEndRange(endDate);
+    };
+    var startPicker = new Pikaday({
+        field: document.getElementById('start'),
+        theme: 'dark-theme',
+        format: 'DD/MM/YYYY',
+        minDate: new Date(),
+        defaultDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        onSelect: function() {
+            startDate = this.getDate();
+            updateStartDate();
+            updateMarkers();
         }
-        // console.log(startDate);
+    });
+    var endPicker = new Pikaday({
+        field: document.getElementById('end'),
+        minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        theme: 'dark-theme',
+        format: 'DD/MM/YYYY',
+        onSelect: function() {
+            endDate = this.getDate();
+            updateEndDate();
+            updateMarkers();
+        }
+    });
+    var _startDate = startPicker.getDate();
+    var _endDate = endPicker.getDate();
+    if (_startDate) {
+        startDate = _startDate;
+        updateStartDate();
     }
+
+    if (_endDate) {
+        endDate = _endDate;
+        updateEndDate();
+    }
+
+    updateStartDate();
+    updateEndDate();
+}
+
 function musicDisplay(event) {
     if (!musicWindowVisible) {
         spotifyPlayer.classList.remove('musichide');
@@ -241,6 +249,7 @@ function calculateDistanceAway(pos) {
         var event = eventList[i];
         destinations.push(event.location);
     }
+    if (destinations.length === 0) return;
 
     var service = new google.maps.DistanceMatrixService();
     service.getDistanceMatrix({
@@ -250,7 +259,7 @@ function calculateDistanceAway(pos) {
     }, callback);
 
     function callback(response, status) {
-        if (response) {
+        if (response && response.rows[0]) {
             var results = response.rows[0].elements;
             for (var i in results) {
                 var result = results[i];
@@ -322,8 +331,8 @@ function addDateRange(pos) {
     return {
         pos: pos,
         dateRange: {
-            from: new Date(),
-            to: t
+            from: startDate,
+            to: endDate
         }
     }
 }
@@ -431,7 +440,7 @@ function selectResult(event) {
 }
 
 function dateToNise(date) {
-    return '&#160;'+month[date.getMonth()] +' ' + date.getDate();
+    return '&#160;' + month[date.getMonth()] + ' ' + date.getDate();
 }
 
 function updateInfoWindowContents(event) {
@@ -460,8 +469,7 @@ function updateInfoWindowContents(event) {
     bandimage.src = defaultBand.fullimage;
 
     var name = document.querySelector('.imagewithoverlay > div');
-    console.log(event.eventInfo)
-    name.innerHTML = funkyHtmlEscape(defaultBand.name) + '<span class="eventDate">'+dateToNise(event.eventInfo.date)+'</span>';
+    name.innerHTML = funkyHtmlEscape(defaultBand.name) + '<span class="eventDate">' + dateToNise(new Date(event.eventInfo.date)) + '</span>';
 
     var description = document.querySelector('.bandinfo > p');
     description.innerHTML = funkyHtmlEscape(defaultBand.desc) || '';

@@ -113,11 +113,9 @@ module.exports = (function() {
                     ]
                 }
             },
-            eventInfo: {
-                date: {
-                    "$gte": dateRange.from,
-                    "$lt": dateRange.to
-                }
+            'eventInfo.date': {
+                "$gte": dateRange.from,
+                "$lt": dateRange.to
             }
         }, (err, result) => {
             if (err) console.log('[MONGO] Error getting entries from db', err);
