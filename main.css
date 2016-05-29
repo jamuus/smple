@@ -106,6 +106,7 @@ body {
         font-size: 1.4em;
         font-weight: normal;
     }
+
 }
 
 @media (min-width: 1200px) {
@@ -439,8 +440,8 @@ h6 {
     padding: 0.5em 0.5em 0.5em 0.5em;
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
     width: 100%;
-    font-size: 2em;
     color: #FFF;
+    font-size: 2em;
 }
 
 .imagewithoverlay img {
@@ -482,7 +483,7 @@ h6 {
 }
 
 .graybackground {
-    -webkit-transition: all 0.5s linear;
+    transition: all 0.5s linear;
     opacity: 0.7;
     filter: alpha(opacity=70);
     z-index: 0;
