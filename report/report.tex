@@ -48,6 +48,20 @@
 
     \section{Client}
         \subsection{Style}
+            \subsubsection{General Layout}
+                \includegraphics[height=60mm]{example2.png}
+
+                The web app consists of a single page which is filled with a map using the google maps api. There are two panels: the search on the left, and the info panel on the right. 
+
+                The search panel consists of an input to type a query and two date pickers to choose the date range for events to be displayed. When a search query is made, results are shown underneath with the date of the event, the band names that matched, and the time to walk their if available.
+
+                The info panel slides in from the right when selecting an event, either through a map marker or a search item. It includes one or more artist thumbnails at the top depending on how many artists are playing that event. Underneath is the artist name, image, and biography for the currently selected artist. Next is an embedded Spotify player for that artist that is revealed by pressing the play button. Further is information about the events venue and link to the ticket purchasing page.
+
+                The pink markers on the map represent events and the purple marker is the users current location determined by the browser.
+
+                The info panel will slide away when the map is moved or zooms. When the info panels content overflows the bottom of the page it will be scrollable independent of the whole page.
+
+
             \subsubsection{Base Classes}
                 The design of our layout is inspired by Material Design, using card style boxes. Each panel is given a shadowbox class which gives the element a border radius, shadow, slight transparency, and a dark background colour. The search panel and all panels in the info bar are given this class.
 
@@ -58,54 +72,31 @@
 
                 For a more dynamic resize control we subscribe to the onresize event of the window and scale the whole documents font size based on the screen width. Most elements are defined using ems and so they all scale accordingly.
 
-            \subsubsection{General Layout}
-                \includegraphics[height=60mm]{example1.png}
-                \begin{itemize}
-                    \item whole screen map, fixed
-                    \item hud like overlay for interactions
-
-                    \item fixed search panel on left third?
-                    \item search results expand panel downwards dynamically
-
-                    \item info panel on right third
-                    \item info panel slides in on marker click
-                    \item slides out on map move or zoom
-                    \item panel scrolls on overflow, but not the whole page
-                \end{itemize}
-
             \subsubsection{Info Panel}
-                \begin{itemize}
-                    \item css animations
-                    \item place offscreen and disallow scrolling
-                    \item fixed size to screen
+                The info panel involves many different styling and scripting elements. The panel is animated in using the css transition property and setting the margin-right to 0 from -33\%. By default moving this panel to the right would bring up a scrolling bar however this is disallowed by setting overflow to hidden for the body.
 
-                    \item top layer is a dynamic number of thumbnails for each band in an event
-                        \begin{itemize}
-                            \item animated and bevelled
-                        \end{itemize}
-                    \item second layer is the current band information
-                        \begin{itemize}
-                            \item text over image with transparency fade
-                            \item paragraph after both
-                            \item width is fixed, text on image is pinned to bottom of image, paragraph comes after image
-                        \end{itemize}
-                    \item third layer is a sample music button
-                        \begin{itemize}
-                            \item includes clickable svg and spotify player that is hidden intially
-                            \item clicking the svg triggers an SMIL animation on parts of the svg, reveals the spotify player, and fades the background colour to match the player xO
-                            \item clicking play again reverses these animations
-                        \end{itemize}
+                In order to get the desired scrolling effect we set the overflow-y to scroll which allows the contents to scroll within this div. The height is set to 100\% of the screen height so the content will never increase the full page size.
 
-                    \item fourth layer includes event information
-                        \begin{itemize}
-                            \item first box is location information with link to the songkick page for the venue
-                            \item second box includes self made svg of tickets and is clickable to get to the ticket purchasing page
-                            \item background image has been modified using gimp and is animated to fade on mouse over
-                            \item took a long time to get these boxes in the desired position wewew
-                        \end{itemize}
-                \end{itemize}
+                The artist thumbnails are contained within an element with text-align set to centre. Each image is an inline-block which means they overflow and stay centred no matter how many artists are inserted. As the images they contain could be of any aspect ratio and we want the thumbnail to be square, we use the object-fit css property to keep the container box filled with the image inside. The containing box is given a border radius of 50\% to make it circular, and the overflow is set to hidden to crop the image inside. The thumbnail is animated to zoom on hover using a css selector that transforms the scale of the container.
+
+                The missing artist picture was created by importing an image found online into inkscape with the image rendering mode set to smooth. Then an avatar silhouette was overlayed on top of it.
+
+                The second box down includes an element for the artist title, along with a paragraph tag for the biography. The title is overlayed onto the the artist image and has a gradient behind in order to make sure the text is visible. The title is pinned to the bottom of the image. The image width is set to the parents width so that only the height changes depending on the aspect ratio of the image. this height will push down the biography. Padding is set on the biography for visual aesthetic.
+
+                The next box contains a self made svg that when clicked, triggers a set of animations. The two triangles will turn 120 degrees with slightly different durations using SMIL animations, the background colour of the box fades from purple to grey, and the size of the box increases to reveal an iframe with a spotify player inside. These animations are reversed on second click to hide the player. when updating the info panel, the url for the iframe is updated with the current artists uri, this triggers that url to be loaded inside, causing the correct player to be displayed.
+
+                This svg was created using the inkscape polygon tool to make a filled triangle. Then by duplicating the triangle and enlarging it then excluding we get a stencil triangle. Then simply by making a same sized triangle and offsetting its psition we get the desired effect.
+
+                The final two boxes display information about the venue. The first displays the venue title and its address. Clicking this will open a new tab with the songkick venue page. The second box holds another self made svg of tickets. Clicking this will take you to the songkick ticket purchasing site.
+
+                Starting with a rectangle we rounded the corners. Making two squares for each end with rounded corners, we used the difference tool to cut out a semi-circle. By duplicating a rectangle with rounded corners 5 times and combining them using the combine tool for simplicity. Using this combined object we exclude the shape from the ticket. Then we tried duplicating the svg and using the outset tool to make one bigger, then aligning the two and using the exclusion tool we get the stencil ticket. This didn't quite have the desired shape so instead we scaled the second ticket and extruded these two. This gives near uniform line thickness. Then by placing the stencil over a copy of the original and using the difference tool we cut a shadow. Now by simply placing the stencil in the gap we produced the desired svg. 
+
+                The background image for the ticket button was taken online and edited using gimp. First the image was cropped to be square. Using the colour balance tool we adjusted the shadows, midtones, and highlight to make the pink and blue stand out. Next using the hue tool we modify the pink to match the websites colour scheme. Other colours were reduced using this tool. Next using the curve tool we adjust the rgb channels so that the image is more aesthetically pleasing. Next we created a new pink layer and layer mask for that layer. Using the gradient tool set to black to white we add a gradient to the mask which adds a pink gradient to the image. This is done twice, once to add a pink gradient that is prominent at the top, and one with a black gradient that is prominent at the bottom to produce a vignette effect. Next using the fuzzy tool with feathered edges to select the people in the image and using the hue/saturation tool, the blues were adjusted to be more grey using the overlap setting to consider overlapping hue values. Next we added the songkick watermark as an overlapping layer, positioning it in the bottom right layer and resizing as desired.
+
+                When a user hovers their mouse over the lower two boxes, an animation is triggered to dim the image. This is achieved using an anchor html tag that is given the class boxClickUrl that expands the anchor to cover the entire parent. The dim effect is achieved by setting the opacity of the image to a smaller value, revealing the black shadowbox behind.
 
             \subsubsection{Search Panel}
+
                 \begin{itemize}
                     \item persistent search box with icon from a custom font
                     \item the google maps distance matrix api is used on the client side to determine how far away events are from the users current location, this is displayed with the search
@@ -129,8 +120,12 @@
 
 
         \subsection{Logic}
+            There exists one script for all the logic of the webapp. We subscribe to the window onload event as well as the google map callback. In the window load event we setup a few things, including setting up the callbacks for the svg button, initialising the websocket to the server, and initialising the date filter boxes.
+
+            When the map has loaded, we request the browsers location via the google maps api and setup the markers on the map. After both the map has loaded and the websocket has loaded we send the user location to the server via the websocket. This triggers the server to find nearby events to be send back to the client.
+
+            When an array of events arrive we populate our internal events array and initialise the marker for each event. A query is made to find the walking time to each of the events as well. Once this has happened the user can click on the markers to open up the information for the event, as well as being able to search for events using the search bar.
             \begin{itemize}
-                \item Initially the info panel is hidden and the map loads with an empty search panel overlayed
                 \item the main script initiates a websocket connection with the server, and once both the map and the websocket connection is made, the client sends its current map position to the server.
                 \item This triggers the server to send nearby events, which once received are visualised on the map as our custom markers.
                 \item a user can then click a marker which triggers the sidepanel to be animated in and its content updated to match the information in the data structure for that event
@@ -191,6 +186,8 @@
         \begin{itemize}
             \item We made efforts to abide by the api tos by rate limiting and providing * where requested
             \item songkick-spotify-google-last.fm
+            \item last.fm requires a link to their site when using their data, biographies always include  a link to last.fm
+            \item songkick requires attribution which was intergrated into the ticket logo
         \end{itemize}
 
 

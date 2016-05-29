@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=latex 2015.6.15)  29 MAY 2016 18:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=latex 2015.6.15)  29 MAY 2016 21:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -581,47 +581,47 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 40.
  (./report.4ct) [3]
-l.62 --- TeX4ht warning --- Cannot determine size of graphic in example1.png (n
+l.52 --- TeX4ht warning --- Cannot determine size of graphic in example2.png (n
 o BoundingBox) ---
-l. 62 --- needs --- example1.png ---
-LaTeX Font Info:    Try loading font information for OMS+cmss on input line 64.
+l. 52 --- needs --- example2.png ---
+[4] [5] [6]
+LaTeX Font Info:    Try loading font information for OMS+cmss on input line 101
+.
+LaTeX Font Info:    No file OMScmss.fd. on input line 101.
 
-LaTeX Font Info:    No file OMScmss.fd. on input line 64.
 
 LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbullet' on input line 64.
+(Font)              for symbol `textbullet' on input line 101.
 
-[4] [5] [6]
-LaTeX Font Info:    Try loading font information for OML+cmss on input line 118
+LaTeX Font Info:    Try loading font information for OML+cmss on input line 109
 .
-LaTeX Font Info:    No file OMLcmss.fd. on input line 118.
-
+LaTeX Font Info:    No file OMLcmss.fd. on input line 109.
 
 LaTeX Font Warning: Font shape `OML/cmss/m/n' undefined
 (Font)              using `OML/cmm/m/it' instead
-(Font)              for symbol `textless' on input line 118.
+(Font)              for symbol `textless' on input line 109.
 
 [7] [8] [9] [10]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 244.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 241.
  [11]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 244.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 241.
  (./report.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 244.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 244.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 241.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 241.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 244.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 241.
  ) 
 Here is how much of TeX's memory you used:
- 8155 strings out of 493090
- 110139 string characters out of 6134868
+ 8153 strings out of 493090
+ 110135 string characters out of 6134868
  319047 words of memory out of 5000000
- 11494 multiletter control sequences out of 15000+600000
+ 11492 multiletter control sequences out of 15000+600000
  9251 words of font info for 33 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,6n,27p,5753b,539s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 37i,6n,27p,2105b,506s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on report.dvi (11 pages, 35324 bytes).
+Output written on report.dvi (11 pages, 42288 bytes).
