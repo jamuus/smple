@@ -332,7 +332,7 @@ function toggleBounce(marker) {
     marker.setAnimation(google.maps.Animation.BOUNCE);
     setTimeout(function() {
         marker.setAnimation(null);
-    }, 720);
+    }, 740);
 }
 
 
@@ -517,11 +517,11 @@ function updateSearchResults(events) {
 
         var bandName0elem = document.createElement('div');
         bandName0elem.className = "bandnames";
-        bandName0elem.innerHTML = funkyHtmlEscape(bandName0);
+        bandName0elem.innerHTML = funkyHtmlEscape(bandName0).substring(0, 40);
 
         var bandName1elem = document.createElement('div');
         bandName1elem.className = "bandnames1";
-        bandName1elem.innerHTML = funkyHtmlEscape(bandName1);
+        bandName1elem.innerHTML = funkyHtmlEscape(bandName1).substring(0, 40);
 
         bandNamesContainer.appendChild(bandName0elem);
         bandNamesContainer.appendChild(bandName1elem);
@@ -611,7 +611,7 @@ document.body.setScaledFont = function(f) {
     var s = this.offsetWidth,
         fs = s * f;
     this.style.fontSize = fs + '%';
-    return this
+    return this;
 };
 
 document.body.setScaledFont(0.07);
