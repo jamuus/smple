@@ -49,7 +49,12 @@
     \section{Client}
         \subsection{Style}
             \subsubsection{General Layout}
-                \includegraphics[height=60mm]{example2.png}
+                \begin{figure}[!ht]
+                  \centering
+                    \reflectbox{
+                      \includegraphics[height=60mm]{example1.png}}
+                  \caption{Basic layout description.}
+                \end{figure}
 
                 The web app consists of a single page which is filled with a map using the google maps api. There are two panels: the search on the left, and the info panel on the right. 
 
@@ -71,6 +76,12 @@
                 We use CSS media queries to change large scale layouts based on the screen size. There are three of these: mobile-sized, large, and extra large. These changes involve setting the widths of the main panels such that they look good on the screen size. For the mobile screen this means the panels are full width and stack on top of each other. For the large size the info bar takes up a third of the screen, and the search 40\% of the screen.
 
                 For a more dynamic resize control we subscribe to the onresize event of the window and scale the whole documents font size based on the screen width. Most elements are defined using ems and so they all scale accordingly.
+                \begin{figure}[!ht]
+                  \centering
+                    \reflectbox{
+                      \includegraphics[height=60mm]{example3.png}}
+                  \caption{Example layout when rendered using a mobile browser.}
+                \end{figure}
 
             \subsubsection{Info Panel}
                 The info panel involves many different styling and scripting elements. The panel is animated in using the css transition property and setting the margin-right to 0 from -33\%. By default moving this panel to the right would bring up a scrolling bar however this is disallowed by setting overflow to hidden for the body.
@@ -93,10 +104,17 @@
 
                 The background image for the ticket button was taken online and edited using gimp. First the image was cropped to be square. Using the colour balance tool we adjusted the shadows, midtones, and highlight to make the pink and blue stand out. Next using the hue tool we modify the pink to match the websites colour scheme. Other colours were reduced using this tool. Next using the curve tool we adjust the rgb channels so that the image is more aesthetically pleasing. Next we created a new pink layer and layer mask for that layer. Using the gradient tool set to black to white we add a gradient to the mask which adds a pink gradient to the image. This is done twice, once to add a pink gradient that is prominent at the top, and one with a black gradient that is prominent at the bottom to produce a vignette effect. Next using the fuzzy tool with feathered edges to select the people in the image and using the hue/saturation tool, the blues were adjusted to be more grey using the overlap setting to consider overlapping hue values. Next we added the songkick watermark as an overlapping layer, positioning it in the bottom right layer and resizing as desired.
 
+                \begin{figure}[!ht]
+                  \centering
+                      \includegraphics[height=60mm]{example2.png}
+                  \caption{Before and after gimpifying.}
+                \end{figure}
+
+
                 When a user hovers their mouse over the lower two boxes, an animation is triggered to dim the image. This is achieved using an anchor html tag that is given the class boxClickUrl that expands the anchor to cover the entire parent. The dim effect is achieved by setting the opacity of the image to a smaller value, revealing the black shadowbox behind.
 
             \subsubsection{Search Panel}
-
+                
                 \begin{itemize}
                     \item persistent search box with icon from a custom font
                     \item the google maps distance matrix api is used on the client side to determine how far away events are from the users current location, this is displayed with the search
@@ -125,21 +143,16 @@
             When the map has loaded, we request the browsers location via the google maps api and setup the markers on the map. After both the map has loaded and the websocket has loaded we send the user location to the server via the websocket. This triggers the server to find nearby events to be send back to the client.
 
             When an array of events arrive we populate our internal events array and initialise the marker for each event. A query is made to find the walking time to each of the events as well. Once this has happened the user can click on the markers to open up the information for the event, as well as being able to search for events using the search bar.
-            \begin{itemize}
-                \item the main script initiates a websocket connection with the server, and once both the map and the websocket connection is made, the client sends its current map position to the server.
-                \item This triggers the server to send nearby events, which once received are visualised on the map as our custom markers.
-                \item a user can then click a marker which triggers the sidepanel to be animated in and its content updated to match the information in the data structure for that event
-                \begin{itemize}
-                    \item this involved creating a dynamic number of band thumbnails and inserting it into the correct position
-                    \item updating the band info box to the first band name and description, as well as updating the spotify player with the bands spotify link
-                \end{itemize}
-                \item the event name and location is updated as well as the links to the event page and the ticket buying page
 
-                \item keyup in the search bar triggers search algorithm on nearby events which generates the results html
-                \item results html is inserted inside a container div that is already there
-                \item the search algorithm performs a sublime like fuzzy search by not matching sequential matches but each character can match any length into the text
-                \item each matched character is given the bold html tag to signify that is the character that matched
-            \end{itemize}
+            When a user clicks a marker, a class is swapped out on the sidebar so that it has a new margin-right property. As the infopanel has a transition property it will animate in. The same thing is done with the play button and spotify player but with css properties background-color and padding-bottom to change the background colour of the play button and to show the spotify player.
+
+            When filling the info panel with event information we need to create a thumbnail for each artist. There can be any number of artists in an event so we create a div with class bandimage for each artist and append each one to the bandpics div, organising them properly. The spotify player url is also updated to load the correct song.
+
+            For the search bar, the keyup event is subscribed to for the input box so we can get a string representing the current search each time a new key is pressed. This event is used to update the search results. First the current query string is used to do a sublime style fuzzy matching on each of the first and second artist names in every event. The fuzziness refers to lack of need for sequential characters to match and instead there can be skips before matching. To visualise the matches the result of the search wraps each matched character with a bold html tag so that when the search results are displayed it can be clearly seen which of the artist names characters are matching.
+
+            The results from the search include data such as the event date, first and second artist title, and walking time from the current location. For each result a list element is created that contains a visualisation of the date, ordering of artist names, and walking time.
+
+            These list items are appended to a html list element that exists in the base html.
 
     \section{Server}
         The server uses the provided script with modifications. The index is served as a static file and dynamic content is achieved using Websocket connections between the client and server. This design choice simplifies the file resource serving logic, reducing the dynamic parts to message passing.
