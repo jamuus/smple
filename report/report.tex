@@ -48,6 +48,7 @@
 
     \section{Client}
         \subsection{Style}
+            The web app is designed to be used on modern browsers and is tested on the latest Safari for OS X, Firefox, Chrome, and Safari for iOS. We do not support old IE.
             \subsubsection{General Layout}
                 \begin{figure}[!ht]
                   \centering
@@ -156,7 +157,7 @@
 
         The server will receive this data and use it to query the database using a geoNear query on a \href{https://docs.mongodb.com/manual/core/2dsphere/}{2dsphere} index, and a date range query on the event date. The results are sent to the client.
 
-        Websockets provide a stream of messages, where a message is either some binary data or a string. We serialize JSON for sending data between the client and server. When the client sends its position and desired date range we serialize a data structure that looks like the following.
+        As node doesn't come with a native websockets library a popular third party library was used. \href{https://github.com/theturtle32/WebSocket-Node}{theturtle32/WebSocket-Node}. Websockets provide a stream of messages, where a message is either some binary data or a string. We serialize JSON for sending data between the client and server. When the client sends its position and desired date range we serialize a data structure that looks like the following.
 
         \begin{verbatim}
         {
