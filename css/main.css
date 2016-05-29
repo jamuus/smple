@@ -519,3 +519,7 @@ body {
 #spotifyplayerframe {
     border-width: 0px;
 }
+
+#tableresults > ul {
+    width: 100%;
+}
