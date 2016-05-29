@@ -176,6 +176,13 @@ body {
     color: #D7C7CD;
 }
 
+#start[type="text"]:hover {
+    cursor: pointer;
+}
+#end[type="text"]:hover {
+    cursor: pointer;
+}
+
 .datecontainer {
     padding-top: 9px;
     height: 40px;
@@ -447,17 +454,19 @@ body {
     width: 100%;
     margin-left: 20px;
     position: relative;
-    z-index: 10000;
+    z-index: 10;
 }
+
 
 #resizer {
     width: 15em;
+    position: relative;
 }
 
 .buttoncontainer {
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25), 0 2px 3px rgba(0, 0, 0, 0.22);
     color: #FFF;
-    z-index: 10000;
+    z-index: 10;
 }
 
 .colorhide {
@@ -487,23 +496,6 @@ body {
 
 .musicshow {
     padding-bottom: 80px;
-}
-
-.dates {
-    padding: 10px 10px 10px 10px;
-    box-sizing: border-box;
-    bottom: 0px;
-    position: absolute;
-    margin: 2% 2% 2% 2%;
-    width: 66%;
-}
-
-.datepanel {
-    position: relative;
-    right: -50px;
-    margin-right: -10%;
-    float: right;
-    box-sizing: border-box;
 }
 
 .embed-container {

@@ -24,6 +24,9 @@
        fill-opacity:0;
        stroke-opacity:0;
      }
+     rect:hover{
+     cursor:pointer;
+     }
     </style>
   <defs
      id="defs5359" />
