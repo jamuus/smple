@@ -278,7 +278,6 @@ function calculateDistanceAway(pos) {
 
 function handleLocationError(browserHasGeolocation, pos) {
     console.log('ERROR getting location');
-    console.log(browserHasGeolocation, pos);
 }
 
 var serverConnection;
