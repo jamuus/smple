@@ -94,7 +94,6 @@ body {
         font-size: 1.4em;
         font-weight: normal;
     }
-
 }
 
 @media (min-width: 1200px) {
@@ -179,6 +178,7 @@ body {
 #start[type="text"]:hover {
     cursor: pointer;
 }
+
 #end[type="text"]:hover {
     cursor: pointer;
 }
@@ -457,7 +457,6 @@ body {
     z-index: 10;
 }
 
-
 #resizer {
     width: 15em;
     position: relative;
@@ -515,4 +514,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+#spotifyplayerframe {
+    border-width: 0px;
 }
