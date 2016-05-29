@@ -191,7 +191,7 @@ function parseEventData(event, callback) {
                         desc: artistBio,
                         spotifyUri: artistSpotifyUri,
                         fullimage: artistPic ? artistPic : 'images/placeholder.png',
-                        thumbnail: artistPic ? artistPic : 'images/placeholder.png',
+                        thumbnail: artistPic ? artistPic : 'images/thumbnails/avatar.svg',
                     });
 
                     j--;

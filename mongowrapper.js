@@ -104,7 +104,7 @@ module.exports = (function() {
             callback('Invalid args');
             return;
         }
-        console.log(dateRange);
+
         Event.find({
             location: {
                 $geoWithin: {
