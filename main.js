@@ -42,6 +42,8 @@ function initDate() {
         theme: 'dark-theme',
         format: 'DD/MM/YYYY',
         minDate: new Date(),
+        defaultDate: startDate,
+        setDefaultDate: true,
         maxDate: new Date(2020, 12, 31),
         onSelect: function() {
             startDate = this.getDate();
@@ -53,6 +55,8 @@ function initDate() {
         field: document.getElementById('end'),
         minDate: new Date(),
         maxDate: new Date(2020, 12, 31),
+        defaultDate: endDate,
+        setDefaultDate: true,
         theme: 'dark-theme',
         format: 'DD/MM/YYYY',
         onSelect: function() {
@@ -61,6 +65,7 @@ function initDate() {
             updateMarkers();
         }
     });
+
     var _startDate = startPicker.getDate();
     var _endDate = endPicker.getDate();
 
@@ -68,14 +73,10 @@ function initDate() {
         startDate = _startDate;
         updateStartDate();
     }
-
     if (_endDate) {
         endDate = _endDate;
         updateEndDate();
     }
-
-    updateStartDate();
-    updateEndDate();
 }
 
 function musicDisplay(event) {
@@ -240,7 +241,6 @@ function initMap() {
     setupSearch();
 }
 
-
 function calculateDistanceAway(pos) {
     var origin = pos;
     var destinations = [];
@@ -248,7 +248,6 @@ function calculateDistanceAway(pos) {
         var event = eventList[i];
         destinations.push(event.location);
     }
-    if (destinations.length === 0) return;
 
     var service = new google.maps.DistanceMatrixService();
     service.getDistanceMatrix({
@@ -262,7 +261,8 @@ function calculateDistanceAway(pos) {
             var results = response.rows[0].elements;
             for (var i in results) {
                 var result = results[i];
-                eventList[i].distance = result;
+                if (eventList[i])
+                    eventList[i].distance = result;
             }
         } else {
             console.log('ERROR getting travel times', status);
@@ -325,8 +325,6 @@ function sendPosToServer() {
 }
 
 function addDateRange(pos) {
-    var t = new Date();
-    t.setMonth(t.getMonth() + 1);
     return {
         pos: pos,
         dateRange: {
@@ -350,7 +348,6 @@ function addRandomLatlng(pos, n) {
     }
 }
 
-
 function toggleBounce(marker) {
     marker.setAnimation(null);
     marker.setAnimation(google.maps.Animation.BOUNCE);
@@ -358,8 +355,6 @@ function toggleBounce(marker) {
         marker.setAnimation(null);
     }, 740);
 }
-
-
 
 function setupMarkers() {
     if (!map) return;
