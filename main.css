@@ -409,7 +409,7 @@ body {
 }
 
 .graybackground {
-    -webkit-transition: all 0.5s linear;
+    transition: all 0.5s linear;
     opacity: 0.7;
     filter: alpha(opacity=70);
     z-index: 0;
