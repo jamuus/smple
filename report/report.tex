@@ -56,11 +56,11 @@
                   \caption{Basic layout description.}
                 \end{figure}
 
-                The Smple web app consists of a single page which is filled with a map from the Google Maps API. There are two panels: the search on the left, and the information (info) on the right. 
+                The Smple web app consists of a single page filled with a map from the Google Maps API. There are two panels: the search on the left, and the information (info) on the right. 
 
-                The search panel consists of an input to type a query and two date pickers to choose the date range for events to be displayed. When a search query is made, results are shown underneath with the date of the event, the band names that matched, and the time to walk there.
+                The search panel consists of an input to type a query and two date pickers to choose the date range for events to be displayed. When a search query is made results are shown underneath with their event date, band names, and the time to walk there.
 
-                When an event is selected by clicking a marker or search result, the info panel slides into view from the right. At the top, the artist thumbnails are displayed. They are dynamically created depending on how many artists are playing in the selected event. Below, is the artist name, image, and biography for the selected artist. An embedded Spotify player is revealed afterwards if the play button underneath is clicked. Lastly is the events venue address and the link to the ticket-sale website which are contained in their individual panels.
+                When an event is selected by clicking a marker or search result, the info panel slides into view from the right. At the top, the artist thumbnails are displayed. They are dynamically created depending on how many artists are playing in the selected event. Below, is the artist name, image, and biography for the selected artist. If the play button underneath is clicked, an embedded spotify player is shown. Lastly is the events venue address and the link to the ticket-sale website which are contained in their individual panels.
 
                 There are two markers present on the map: pink and purple. The pink markers represent events and the purple is used to indicate the current user location which is determined by the browser.
 
@@ -68,12 +68,10 @@
 
 
             \subsubsection{Base Classes}
-                The design of our layout is inspired by Material Design with it's iconic card styled boxes. Each panel is given a shadowbox class which gives the element a border radius, shadow, slight transparency, and a dark background colour. The search panel and all panels in the info bar are given this class.
+                The design of our layout is inspired by Material Design with it's iconic card styled boxes. Each panel is given a shadowbox class which gives the element a border radius, shadow, slight transparency, and a dark background colour. The search panel and the panels within the info panel are styled with this class.
 
             \subsubsection{Resizing}
-                We use CSS media queries to resize the info panel stuff like the and basically and the seearch panel thats everything. The font resize thingy we use percentages and ems we basically use the media query thing we change the font size and have everything inside percentages so everythings dynamic
-
-                We use CSS media queries to change large scale layouts based on the screen size. There are three of these: mobile-sized, large, and extra large. These changes involve setting the widths of the main panels such that they look good on the screen size. For the mobile screen this means the panels are full width and stack on top of each other. For the large size the info bar takes up a third of the screen, and the search 40\% of the screen.
+                CSS media queries are used to change large scale layouts based on the screen width. There are three of these: mobile-size, large, and extra large. These changes involve setting the widths of the main panels such that they look good on the screen size. For the mobile screen this means the panels are full width and stack on top of each other. For the large size the info bar takes up a third of the screen, and the search 40\% of the screen.
 
                 For a more dynamic resize control we subscribe to the onresize event of the window and scale the whole documents font size based on the screen width. Most elements are defined using ems and so they all scale accordingly.
                 \begin{figure}[!ht]
