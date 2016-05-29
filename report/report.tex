@@ -46,22 +46,20 @@
         visual music discovery service using data crawled from various apis and combined
     \end{abstract}
 
-
-
     \section{Client}
         \subsection{Style}
             \subsubsection{Base Classes}
-                The design of our layout is inspired by Material Design, using card style boxes. Each panel is given a \texttt{shadowbox} class which gives the element a border raidus, shadow, slight tranparency, and a dark background colour. The search panel and all panels in the info bar are given this class.
+                The design of our layout is inspired by Material Design, using card style boxes. Each panel is given a shadowbox class which gives the element a border radius, shadow, slight transparency, and a dark background colour. The search panel and all panels in the info bar are given this class.
 
             \subsubsection{Resizing}
-                \begin{itemize}
-                    \item media queries are used to change various features when the screen size changes
-                    \item there are three main layouts, when the screen is small the search and info panel are stacked as they become too squished when side by side
-                    \item this accomodates for mobile users
-                    \item font scaling is acheived by subscribing to the window resize event which allows many elements to change size to fit in any screen size
-                \end{itemize}
+                We use CSS media queries to resize the info panel stuff like the and basically and the seearch panel thats everything. The font resize thingy we use percentages and ems we basically use the media query thing we change the font size and have everything inside percentages so everythings dynamic
+
+                We use CSS media queries to change large scale layouts based on the screen size. There are three of these: mobile-sized, large, and extra large. These changes involve setting the widths of the main panels such that they look good on the screen size. For the mobile screen this means the panels are full width and stack on top of each other. For the large size the info bar takes up a third of the screen, and the search 40\% of the screen.
+
+                For a more dynamic resize control we subscribe to the onresize event of the window and scale the whole documents font size based on the screen width. Most elements are defined using ems and so they all scale accordingly.
 
             \subsubsection{General Layout}
+                \includegraphics[height=60mm]{example1.png}
                 \begin{itemize}
                     \item whole screen map, fixed
                     \item hud like overlay for interactions
@@ -147,15 +145,13 @@
                 \item the search algorithm performs a sublime like fuzzy search by not matching sequential matches but each character can match any length into the text
                 \item each matched character is given the bold html tag to signify that is the character that matched
             \end{itemize}
-            
-
 
     \section{Server}
         The server uses the provided script with modifications. The index is served as a static file and dynamic content is achieved using Websocket connections between the client and server. This design choice simplifies the file resource serving logic, reducing the dynamic parts to message passing.
 
-        Once the client has initialised the webpage, it sets up a secure Websocket connection to the server. A secure socket is preferred as non secure sockets are disallowed when viewing the page over https. The connection is abstracted into the websocket.js
+        Once the client has initialised the webpage, it sets up a secure Websocket connection to the server. A secure socket is preferred as non secure sockets are disallowed when viewing the page over https. The connection is abstracted into websocket.js such that server.js can simply pass a callback that is called when a new client query is made, with a parameter that can be called with the result to send back. server.js doesnt need to worry about managing connections.
 
-        The client will query the browser for its current geographical location and when given, will send this to the server along with a desired date range. 
+        The client will query the browser for its current geographical location and when given, will send this to the server along with a desired date range. The server will reply at some point in the future with an array of events.
 
         The server will receive this data and use it to query the database using a geoNear query on a \href{https://docs.mongodb.com/manual/core/2dsphere/}{2dsphere} index, and a date range query on the event date. The results are sent to the client.
 
@@ -174,21 +170,21 @@
         }
         \end{verbatim}
 
-        The dates aren't parsed into JavaScript dates when using a JSON.parse so these are handled manually for the database queries.
+        Dates aren't parsed into JavaScript date objects when using a JSON.parse so these are handled manually for the database queries.
 
         As well as giving the client the desired data we have, we also check whether the database needs updating. The data is collected using a variety of APIs. First we ask songkick for the area that the user is in, this allows us to check the database to see if we have checked this area at all/recently. If we haven't got an up to date set of events for this area, we start downloading the events for the area as well as querying last.fm for the artists biography and picture, spotify for a reference to their spotify page, and googles reverse geocode api to get the full address of the venue.
 
         For each area we limit the speed of requests in order to avoid rate limiting. Any returned errors by the APIs are handled graciously. Once complete data about an event is retrieved, it is stored in the database using an \href{https://docs.mongodb.com/manual/reference/method/db.collection.update/#upsert-option}{upsert} on the event title, to either update an already queried event, or insert as a new event.
 
-        \begin{itemize}
-            \item three modules are defined, one for db, one for websockets, and one for songkick crawling
-        \end{itemize}
+        A possible optimization of the client-server interaction process would be to determine what events have already been sent to the client in order to avoid sending them again if they only scroll the map slightly. This would allow for significantly less data to be transferred between the two and would avoid reprocessing every event on the client side on every query change.
+
 
     \section{Deployment}
         \begin{itemize}
             \item by default server connects to a local mongodb instance and runs on the latest nodejs.
             \item This favours a vps installations on services like digitalocean or aws by simply cloning the git repo, performing an npm install and running both mongodb and the server script.
             \item the site is live at https://smple.uk
+            \item git
         \end{itemize}
 
     \section{API}

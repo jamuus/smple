@@ -7,7 +7,7 @@
 <meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
 <!-- html,NoFonts --> 
 <meta name="src" content="report.tex"> 
-<meta name="date" content="2016-05-29 16:12:00"> 
+<meta name="date" content="2016-05-29 18:24:00"> 
 <link rel="stylesheet" type="text/css" href="report.css"> 
 </head><body 
 >
@@ -67,38 +67,44 @@ class="abstract"
      <!--l. 46--><p class="indent" >    visual music discovery service using data crawled from various apis and
      combined
 </div>
-<!--l. 51--><p class="noindent" >
+<!--l. 49--><p class="noindent" >
    <h3 class="sectionHead"><span class="titlemark">1   </span> <a 
  id="x1-20001"></a>Client</h3>
-<!--l. 52--><p class="noindent" >
+<!--l. 50--><p class="noindent" >
    <h4 class="subsectionHead"><span class="titlemark">1.1   </span> <a 
  id="x1-30001.1"></a>Style</h4>
-<!--l. 53--><p class="noindent" >
+<!--l. 51--><p class="noindent" >
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.1   </span> <a 
  id="x1-40001.1.1"></a>Base Classes</h5>
-<!--l. 54--><p class="noindent" >The design of our layout is inspired by Material Design, using card style boxes. Each
-panel is given a shadowbox class which gives the element a border raidus, shadow, slight
-tranparency, and a dark background colour. The search panel and all panels in the info
+<!--l. 52--><p class="noindent" >The design of our layout is inspired by Material Design, using card style boxes. Each
+panel is given a shadowbox class which gives the element a border radius, shadow, slight
+transparency, and a dark background colour. The search panel and all panels in the info
 bar are given this class.
-<!--l. 56--><p class="noindent" >
+<!--l. 54--><p class="noindent" >
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.2   </span> <a 
  id="x1-50001.1.2"></a>Resizing</h5>
-     <ul class="itemize1">
-     <li class="itemize">media queries are used to change various features when the screen size changes
-     </li>
-     <li class="itemize">there are three main layouts, when the screen is small the search and info
-     panel are stacked as they become too squished when side by side
-     </li>
-     <li class="itemize">this accomodates for mobile users
-     </li>
-     <li class="itemize">font scaling is acheived by subscribing to the window resize event which allows
-     many elements to change size to fit in any screen size</li></ul>
+<!--l. 55--><p class="noindent" >We use CSS media queries to resize the info panel stuff like the and basically and the
+seearch panel thats everything. The font resize thingy we use percentages and ems we
+basically use the media query thing we change the font size and have everything inside
+percentages so everythings dynamic
+<!--l. 57--><p class="indent" >   We use CSS media queries to change large scale layouts based on the screen size.
+There are three of these: mobile-sized, large, and extra large. These changes involve
+setting the widths of the main panels such that they look good on the screen size. For
+the mobile screen this means the panels are full width and stack on top of each other. For
+the large size the info bar takes up a third of the screen, and the search 40% of the
+screen.
+<!--l. 59--><p class="indent" >   For a more dynamic resize control we subscribe to the onresize event of the window
+and scale the whole documents font size based on the screen width. Most elements are
+defined using ems and so they all scale accordingly.
+<!--l. 61--><p class="noindent" >
+   <h5 class="subsubsectionHead"><span class="titlemark">1.1.3   </span> <a 
+ id="x1-60001.1.3"></a>General Layout</h5>
+<!--l. 62--><p class="noindent" ><img 
+src="example1.png" alt="PIC"  
+>
                                                                   
 
                                                                   
-<!--l. 64--><p class="noindent" >
-   <h5 class="subsubsectionHead"><span class="titlemark">1.1.3   </span> <a 
- id="x1-60001.1.3"></a>General Layout</h5>
      <ul class="itemize1">
      <li class="itemize">whole screen map, fixed
      </li>
@@ -115,7 +121,7 @@ bar are given this class.
      <li class="itemize">slides out on map move or zoom
      </li>
      <li class="itemize">panel scrolls on overflow, but not the whole page</li></ul>
-<!--l. 78--><p class="noindent" >
+<!--l. 76--><p class="noindent" >
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.4   </span> <a 
  id="x1-70001.1.4"></a>Info Panel</h5>
      <ul class="itemize1">
@@ -130,11 +136,11 @@ bar are given this class.
          <li class="itemize">animated and bevelled</li></ul>
      </li>
      <li class="itemize">second layer is the current band information
+         <ul class="itemize2">
+         <li class="itemize">text over image with transparency fade
                                                                   
 
                                                                   
-         <ul class="itemize2">
-         <li class="itemize">text over image with transparency fade
          </li>
          <li class="itemize">paragraph after both
          </li>
@@ -164,18 +170,18 @@ bar are given this class.
          </li>
          <li class="itemize">took a long time to get these boxes in the desired position wewew</li></ul>
      </li></ul>
-<!--l. 110--><p class="noindent" >
+<!--l. 108--><p class="noindent" >
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.5   </span> <a 
  id="x1-80001.1.5"></a>Search Panel</h5>
      <ul class="itemize1">
      <li class="itemize">persistent search box with icon from a custom font
-                                                                  
-
-                                                                  
      </li>
      <li class="itemize">the google maps distance matrix api is used on the client side to determine
      how far away events are from the users current location, this is displayed with
      the search
+                                                                  
+
+                                                                  
      </li>
      <li class="itemize">a custom date icon was created using html and adds a nice visual to when
      event takes place, this is generated by javascript with the date and month
@@ -183,14 +189,14 @@ bar are given this class.
      </li>
      <li class="itemize">clicking on a search result repositions the map to see where it is and opens
      the relevant info panel</li></ul>
-<!--l. 118--><p class="noindent" >
+<!--l. 116--><p class="noindent" >
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.6   </span> <a 
  id="x1-90001.1.6"></a>Date Filter</h5>
      <ul class="itemize1">
      <li class="itemize">fixed up real nice calendar lib and made pull request n all &#x003C;3
      </li>
      <li class="itemize">looks super dank in the search panel iluvit</li></ul>
-<!--l. 124--><p class="noindent" >
+<!--l. 122--><p class="noindent" >
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.7   </span> <a 
  id="x1-100001.1.7"></a>Map</h5>
      <ul class="itemize1">
@@ -202,15 +208,15 @@ bar are given this class.
      also animated the marker icon using googles animations
      </li>
      <li class="itemize">the marker icons are a custom svg designed by imna herself</li></ul>
-                                                                  
-
-                                                                  
-<!--l. 133--><p class="noindent" >
+<!--l. 131--><p class="noindent" >
    <h4 class="subsectionHead"><span class="titlemark">1.2   </span> <a 
  id="x1-110001.2"></a>Logic</h4>
      <ul class="itemize1">
      <li class="itemize">Initially the info panel is hidden and the map loads with an empty search panel
      overlayed
+                                                                  
+
+                                                                  
      </li>
      <li class="itemize">the main script initiates a websocket connection with the server, and once
      both the map and the websocket connection is made, the client sends its
@@ -243,26 +249,30 @@ bar are given this class.
      </li>
      <li class="itemize">each matched character is given the bold html tag to signify that is the character
      that matched</li></ul>
-                                                                  
-
-                                                                  
-<!--l. 153--><p class="noindent" >
+<!--l. 149--><p class="noindent" >
    <h3 class="sectionHead"><span class="titlemark">2   </span> <a 
  id="x1-120002"></a>Server</h3>
-<!--l. 154--><p class="noindent" >The server uses the provided script with modifications. The index is served as a static file
+<!--l. 150--><p class="noindent" >The server uses the provided script with modifications. The index is served as a static file
 and dynamic content is achieved using Websocket connections between the client and
 server. This design choice simplifies the file resource serving logic, reducing the dynamic
 parts to message passing.
-<!--l. 156--><p class="indent" >   Once the client has initialised the webpage, it sets up a secure Websocket connection
+                                                                  
+
+                                                                  
+<!--l. 152--><p class="indent" >   Once the client has initialised the webpage, it sets up a secure Websocket connection
 to the server. A secure socket is preferred as non secure sockets are disallowed when
-viewing the page over https.
-<!--l. 158--><p class="indent" >   The client will query the browser for its current geographical location and when given,
-will send this to the server along with a desired date range.
-<!--l. 160--><p class="indent" >   The server will receive this data and use it to query the database using a geoNear
+viewing the page over https. The connection is abstracted into websocket.js such that
+server.js can simply pass a callback that is called when a new client query is made, with a
+parameter that can be called with the result to send back. server.js doesnt need to worry
+about managing connections.
+<!--l. 154--><p class="indent" >   The client will query the browser for its current geographical location and when given,
+will send this to the server along with a desired date range. The server will reply at some
+point in the future with an array of events.
+<!--l. 156--><p class="indent" >   The server will receive this data and use it to query the database using a geoNear
 query on a <a 
 href="https://docs.mongodb.com/manual/core/2dsphere/" >2dsphere</a> index, and a date range query on the event date. The results are
 sent to the client.
-<!--l. 162--><p class="indent" >   Websockets provide a stream of messages, where a message is either some binary data
+<!--l. 158--><p class="indent" >   Websockets provide a stream of messages, where a message is either some binary data
 or a string. We serialize JSON for sending data between the client and server. When the
 client sends its position and desired date range we serialize a data structure that looks
 like the following.
@@ -434,10 +444,10 @@ class="cmtt-10">&#x00A0;</span><span
 class="cmtt-10">&#x00A0;</span><span 
 class="cmtt-10">&#x00A0;</span>
 </div>
-<!--l. 175--><p class="nopar" >
-<!--l. 177--><p class="indent" >   The dates aren&#8217;t parsed into JavaScript dates when using a JSON.parse so these are
-handled manually for the database queries.
-<!--l. 179--><p class="indent" >   As well as giving the client the desired data we have, we also check whether the
+<!--l. 171--><p class="nopar" >
+<!--l. 173--><p class="indent" >   Dates aren&#8217;t parsed into JavaScript date objects when using a JSON.parse so these
+are handled manually for the database queries.
+<!--l. 175--><p class="indent" >   As well as giving the client the desired data we have, we also check whether the
 database needs updating. The data is collected using a variety of APIs. First we ask
 songkick for the area that the user is in, this allows us to check the database to see if we
 have checked this area at all/recently. If we haven&#8217;t got an up to date set of events
@@ -445,15 +455,17 @@ for this area, we start downloading the events for the area as well as querying
 last.fm for the artists biography and picture, spotify for a reference to their
 spotify page, and googles reverse geocode api to get the full address of the
 venue.
-<!--l. 181--><p class="indent" >   For each area we limit the speed of requests in order to avoid rate limiting. Any
+<!--l. 177--><p class="indent" >   For each area we limit the speed of requests in order to avoid rate limiting. Any
 returned errors by the APIs are handled graciously. Once complete data about an event is
 retrieved, it is stored in the database using an <a 
 href="https://docs.mongodb.com/manual/reference/method/db.collection.update/#upsert-option" >upsert</a> on the event title, to either update
 an already queried event, or insert as a new event.
-     <ul class="itemize1">
-     <li class="itemize">three modules are defined, one for db, one for websockets, and one for songkick
-     crawling</li></ul>
-<!--l. 187--><p class="noindent" >
+<!--l. 179--><p class="indent" >   A possible optimization of the client-server interaction process would be to determine
+what events have already been sent to the client in order to avoid sending them again if
+they only scroll the map slightly. This would allow for significantly less data to be
+transferred between the two and would avoid reprocessing every event on the client side
+on every query change.
+<!--l. 182--><p class="noindent" >
    <h3 class="sectionHead"><span class="titlemark">3   </span> <a 
  id="x1-130003"></a>Deployment</h3>
      <ul class="itemize1">
@@ -467,8 +479,10 @@ an already queried event, or insert as a new event.
      cloning the git repo, performing an npm install and running both mongodb
      and the server script.
      </li>
-     <li class="itemize">the site is live at https://smple.uk</li></ul>
-<!--l. 194--><p class="noindent" >
+     <li class="itemize">the site is live at https://smple.uk
+     </li>
+     <li class="itemize">git</li></ul>
+<!--l. 190--><p class="noindent" >
    <h3 class="sectionHead"><span class="titlemark">4   </span> <a 
  id="x1-140004"></a>API</h3>
      <ul class="itemize1">

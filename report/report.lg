@@ -143,6 +143,7 @@ Css: .quotation {margin-bottom:0.25em; margin-top:0.25em; margin-left:1em; }
 Css: .abstract p {margin-left:5%; margin-right:5%;}
 Css: div.abstract {width:100%;}
 Css: .figure img.graphics {margin-left:10%;}
+File: example1.png
 --- characters ---
 Font("cmmi","10","10","100")
 Font("cmss","10","10","100")
