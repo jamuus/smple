@@ -256,9 +256,25 @@ var callsToWaitFor = 2;
 function sendPosToServer() {
     callsToWaitFor--;
     if (callsToWaitFor === 0) {
-        serverConnection.send(JSON.stringify({
-            initialPos: currentPos
-        }));
+        serverConnection.send(
+            JSON.stringify(
+                addDateRange({
+                    initialPos: currentPos
+                })
+            )
+        );
+    }
+}
+
+function addDateRange(pos) {
+    var t = new Date();
+    t.setMonth(t.getMonth() + 1);
+    return {
+        pos: pos,
+        dateRange: {
+            from: new Date(),
+            to: t
+        }
     }
 }
 
@@ -297,7 +313,6 @@ function setupMarkers() {
             map: map,
             title: event.title,
             icon: "/svg/marker.svg",
-            // animation: google.maps.Animation.DROP,
         });
 
         event.marker = marker;
@@ -327,9 +342,13 @@ function updateMarkers() {
     };
 
     if (serverConnection) {
-        serverConnection.send(JSON.stringify({
-            newPos: pos
-        }));
+        serverConnection.send(
+            JSON.stringify(
+                addDateRange({
+                    newPos: pos
+                })
+            )
+        );
     }
 }
 

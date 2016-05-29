@@ -45,10 +45,10 @@ var db = require('./mongowrapper');
 var sk = require('./songkick.js');
 
 // called when a client requests a new set of data, either new date or new center position
-function updateEvents(pos, fn) {
-    db.getNearPlaces(pos, (err, data) => {
+function updateEvents(pos, dateRange, fn) {
+    db.getNearPlaces(pos, dateRange, (err, data) => {
         if (err) {
-            console.log('ERROR getting nearby events');
+            console.log('ERROR getting nearby events', err);
         } else {
             fn(data);
         }

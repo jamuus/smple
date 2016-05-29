@@ -17,11 +17,17 @@ module.exports = function(httpServer) {
                 var data;
                 try {
                     data = JSON.parse(message.utf8Data);
+                    if (data.dateRange) {
+                        data.dateRange = {
+                            from: new Date(data.dateRange.from),
+                            to: new Date(data.dateRange.to)
+                        }
+                    }
                 } catch (e) {
-                    console.log('ERROR parsing data from client', err);
+                    console.log('ERROR parsing data from client', e);
                 }
                 if (data) {
-                    posUpdate(data, connection);
+                    posUpdate(data.pos, data.dateRange, connection);
                 }
             } else {
                 console.log('Received bad message type');
@@ -34,13 +40,13 @@ module.exports = function(httpServer) {
 
     var posUpdateCallback = function(pos, fn) {}
 
-    function posUpdate(pos, con) {
+    function posUpdate(pos, dateRange, con) {
         if (pos.initialPos) {
-            posUpdateCallback(pos.initialPos, sendEvents);
+            posUpdateCallback(pos.initialPos, dateRange, sendEvents);
         } else if (pos.newPos) {
-            posUpdateCallback(pos.newPos, sendEvents);
+            posUpdateCallback(pos.newPos, dateRange, sendEvents);
         } else {
-            console.log('Invalid pos object received', pos);
+            console.log('Invalid object received', pos);
         }
 
         function sendEvents(events) {
