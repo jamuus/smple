@@ -6,6 +6,9 @@
     <meta name="viewport" content="initial-scale=1.0" />
     <meta charset="utf-8" />
     <link href="main.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="./pikaday.css" />
+    <!-- <link rel="stylesheet" href="./site.css" /> -->
+    <link rel="stylesheet" href="./theme.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 </head>
 <HEAD></HEAD>
@@ -16,7 +19,20 @@
         <div class="searchbar materialbox shadowbox">
             <i class="material-icons">search</i>
             <input type="text" placeholder="Search" id="search"></input>
+            <div class="datecontainer">
+                <div id="startlabel">From&#160;&#160;</div>
+                <input readonly="readonly" type="text" id="start"/>
+
+                <div id="endlabel">To&#160;&#160;  </div>
+                <input readonly="readonly" type="text" id="end"/>
+            </div>
         </div>
+        <!-- <div class="datepanel materialbox shadowbox">
+            <label for="start">From:</label>
+            <input readonly="readonly" type="text" id="start"/>
+            <label for="start">To:</label>
+            <input  readonly="readonly" type="text" id="end"/>  
+        </div> -->
         <div id="tableresults" class="materialbox shadowbox searchresult">
             <ul width="100%">
             </ul>
@@ -62,9 +78,8 @@
             </div>
         </div>
     </div>
-    <div id="infopanel" class="infopanel infoslideout">
-    </div>
-    <script src="data.js"></script>
+    <script src="moment.js"></script>
+    <script src="data.js"></script> 
     <script src="pikaday.js"></script>
     <script src="main.js"></script>
     <script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMDRJRmsGY4Bh-WbTIJ38XK39BlvrWnOE&amp;callback=initMap"></script>
