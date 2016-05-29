@@ -27,7 +27,6 @@ var endDate = new Date();
 endDate.setMonth(endDate.getMonth() + 1);
 
 function initDate() {
-
     var updateStartDate = function() {
         startPicker.setStartRange(startDate);
         endPicker.setStartRange(startDate);
@@ -43,7 +42,6 @@ function initDate() {
         theme: 'dark-theme',
         format: 'DD/MM/YYYY',
         minDate: new Date(),
-        defaultDate: new Date(),
         maxDate: new Date(2020, 12, 31),
         onSelect: function() {
             startDate = this.getDate();
@@ -65,6 +63,7 @@ function initDate() {
     });
     var _startDate = startPicker.getDate();
     var _endDate = endPicker.getDate();
+
     if (_startDate) {
         startDate = _startDate;
         updateStartDate();
