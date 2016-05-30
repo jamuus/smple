@@ -180,6 +180,7 @@
 
         A possible optimization of the client-server interaction process would be to determine what events have already been sent to the client in order to avoid sending them again if they only scroll the map slightly. This would allow for significantly less data to be transferred between the two and would avoid reprocessing every event on the client side on every query change.
 
+        As we don't store any non public data we don't require encryption for the data we store or obfuscation in any way. Validating the data we get from the client is necessary to stop a server crash. Location data is always sent over a secure websocket in order to prevent snooping.
 
     \section{Deployment}
         The server is written using some ES6 features and so requires a newer version of nodejs to run. By default the server connects to a local mongojs server with no special configuration added. This implementation favours root accessible vps' such as digital ocean or \href{https://aws.amazon.com/ec2/}{EC2}.
