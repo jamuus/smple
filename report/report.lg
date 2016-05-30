@@ -143,7 +143,14 @@ Css: div.abstract {width:100%;}
 Css: .figure img.graphics {margin-left:10%;}
 File: example1.png
 File: example3.png
+File: example4.png
+File: example5.gif
+File: example6.png
 File: example2.png
+<<<<<<< HEAD
+=======
+File: example7.png
+>>>>>>> da1ad6461d044e2dc94b4d3e386f3e2524a325d0
 --- needs --- report.idv[2] ==> report0x.png ---
 --- needs --- report.idv[3] ==> report1x.png ---
 --- characters ---

@@ -30,7 +30,7 @@ module.exports = function(httpServer) {
                     posUpdate(data.pos, data.dateRange, connection);
                 }
             } else {
-                console.log('Received bad message type');
+                console.log('ERROR Received bad message type');
             }
         });
         connection.on('close', function(reasonCode, description) {
@@ -46,7 +46,7 @@ module.exports = function(httpServer) {
         } else if (pos.newPos) {
             posUpdateCallback(pos.newPos, dateRange, sendEvents);
         } else {
-            console.log('Invalid object received', pos);
+            console.log('ERROR Invalid object received', pos);
         }
 
         function sendEvents(events) {
