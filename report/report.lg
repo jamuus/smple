@@ -143,7 +143,11 @@ Css: div.abstract {width:100%;}
 Css: .figure img.graphics {margin-left:10%;}
 File: example1.png
 File: example3.png
+File: example4.png
+File: example5.gif
+File: example6.png
 File: example2.png
+File: example7.png
 --- characters ---
 Font("cmss","10","10","100")
 Font("cmss","17","17","100")

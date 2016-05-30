@@ -91,15 +91,37 @@
 
                 Artist thumbnails are contained within an element with text-align set to center. Each image is an inline-block to allow overflow and centering independent of the number of thumbnails. Since the images could be of any aspect ratio, we use the object-fit CSS property which is set as cover, and the left and top property which is set as 50\% to keep the thumbnail container filled and the image centered inside. The container is given a border radius of 50\% to create a circular thumbnail, and the overflow is set to hidden to crop the image inside. Furthermore, the thumbnail is animated to zoom on hover using a CSS selector that transforms the scale of the thumbnail container.
 
+                \begin{figure}[!ht]
+                  \centering
+                    \reflectbox{
+                      \includegraphics[height=60mm]{example4.png}}
+                  \caption{Example thumbnail layout with lots of artists.}
+                \end{figure}
+
+
                 Missing artists have a silhouette avatar picture as their thumbnail. This was created by finding a silhouette SVG found online and overlaying it on-top of a gradient PNG image which was imported into Inkscape with the image rendering mode set to smooth to ensure the best quality conversion. 
 
                 The box underneath contains an element for the artist title, along with a paragraph tag for the biography. The title is displayed over the artist image and has a gradient behind it to make sure the text is visible. Additionally, the title is pinned to the bottom of the image. The image width is set to the parent's width so that only the height changes depending on the aspect ratio. This height pushes down the biography accordingly. For aesthetic purposes, there is a padding set on the biography.
 
                 Beneath the artist information box is a purple SVG button. When clicked, it triggers a set of animations. The two triangles will turn 120 degrees clockwise with slightly different durations using SMIL animations. Also, the size of the box increases to reveal an iframe with a Spotify embedded player inside and the colour changes from purple to gray to match the player. These animations are reversed on a second click to hide the player. When updating the info panel, the URL for the iframe is also updated with the current artist's URL. This triggers the URL to be loaded inside it, causing the correct player to be displayed.
 
+                \begin{figure}[!ht]
+                  \centering
+                    \reflectbox{
+                      \includegraphics[height=60mm]{example5.gif}}
+                  \caption{Play button animation action shot}
+                \end{figure}
+
                 Inkscape was used to create the SVG play button. First, the polygon tool was used to draw a white triangle path. Then by duplicating the triangle and enlarging it, we exclude the smaller triangle to produce stencil triangle. Then simply by overlaying the same-sized triangle and offsetting its position, we produce the final image.
 
                 Lastly, there are two boxes which display venue and ticket information. The first displays the venue title and address. When this box is clicked, it will open a new tab with Songkick's venue page. The second box holds another custom ticket SVG. Similarly, if this box is clicked, the Songkick ticket purchasing site is opened.
+
+                \begin{figure}[!ht]
+                  \centering
+                    \reflectbox{
+                      \includegraphics[height=60mm]{example6.png}}
+                  \caption{Example shot of the lower two boxes.}
+                \end{figure}
 
                 To produce the ticket SVG, we started with a rectangle with rounded corners. Afterwards, two rounded squares were created for each end and we then used the difference tool to cut in a semi-circle. We then duplicating a small rounded rectangle six times and combined them into one object using the combine tool for simplicity. Using this combined object, we exclude the shape from the ticket to produce a dotted line. This is the original (filled) ticket behind the stencil ticket. To produce the stencil, we first tried duplicating the SVG and using the outset tool to make one bigger. Then by aligning the two and using the exclusion tool, we produced a stencil ticket. This didn't quite have the desired shape so instead we scaled the second ticket and excluded these two. This produced acceptable uniform path thickness. Then, by placing the stencil over a copy of the original and using the difference tool we cut a shadow. Now by simply placing the stencil in the gap, we produced the desired SVG. 
 
@@ -122,6 +144,14 @@
                 For the result list an empty list container is added for the results of a search to populate. A border-bottom is added to each list item to act as a separator indication. Using the CSS selector last-child we remove the last bottom border so that it only exists inside the list.
 
                 A custom date icon was created using two divs, one inside each other with classes red and white. The javascript that generates these creates the divs and populates them with a date and month.
+
+
+                \begin{figure}[!ht]
+                  \centering
+                    \reflectbox{
+                      \includegraphics[height=60mm]{example7.png}}
+                  \caption{Example shot of a search query.}
+                \end{figure}
 
                 The date filter uses a library for visualising calendars. Initially this didn't work in strict xhtml mode due to a bug in the library that we have fixed and files a \href{https://github.com/dbushell/Pikaday/pull/526}{pull request} for. We initialise two of these calendars and subscribe to their click events, when a user clicks a date from the from calendar, we disable choosing date before that date on the to calendar, and vise versa.
 

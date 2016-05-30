@@ -7,7 +7,7 @@
 <meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
 <!-- html,NoFonts --> 
 <meta name="src" content="report.tex"> 
-<meta name="date" content="2016-05-29 23:42:00"> 
+<meta name="date" content="2016-05-30 02:00:00"> 
 <link rel="stylesheet" type="text/css" href="report.css"> 
 </head><body 
 >
@@ -39,17 +39,17 @@ href="#x1-60001.1.3" id="QQ2-1-7">Resizing</a></span>
 <br />   &#x00A0;&#x00A0;<span class="subsubsectionToc" >1.1.4 <a 
 href="#x1-70001.1.4" id="QQ2-1-9">Info Panel</a></span>
 <br />   &#x00A0;&#x00A0;<span class="subsubsectionToc" >1.1.5 <a 
-href="#x1-80001.1.5" id="QQ2-1-11">Search Panel</a></span>
+href="#x1-80001.1.5" id="QQ2-1-14">Search Panel</a></span>
 <br />   &#x00A0;&#x00A0;<span class="subsubsectionToc" >1.1.6 <a 
-href="#x1-90001.1.6" id="QQ2-1-12">Map</a></span>
+href="#x1-90001.1.6" id="QQ2-1-16">Map</a></span>
 <br />   &#x00A0;<span class="subsectionToc" >1.2 <a 
-href="#x1-100001.2" id="QQ2-1-13">Logic</a></span>
+href="#x1-100001.2" id="QQ2-1-17">Logic</a></span>
 <br />   <span class="sectionToc" >2 <a 
-href="#x1-110002" id="QQ2-1-14">Server</a></span>
+href="#x1-110002" id="QQ2-1-18">Server</a></span>
 <br />   <span class="sectionToc" >3 <a 
-href="#x1-120003" id="QQ2-1-15">Deployment</a></span>
+href="#x1-120003" id="QQ2-1-19">Deployment</a></span>
 <br />   <span class="sectionToc" >4 <a 
-href="#x1-130004" id="QQ2-1-16">API Usage</a></span>
+href="#x1-130004" id="QQ2-1-20">API Usage</a></span>
    </div>
    <div 
 class="abstract" 
@@ -73,10 +73,12 @@ href="https://smple.uk" >Smple</a> (short for sample) web application is a visua
 <!--l. 50--><p class="noindent" >
    <h4 class="subsectionHead"><span class="titlemark">1.1   </span> <a 
  id="x1-30001.1"></a>Style</h4>
-<!--l. 51--><p class="noindent" >
+<!--l. 51--><p class="noindent" >The web app is designed to be used on modern browsers and is tested on the latest
+Safari for OS X, Firefox, Chrome, and Safari for iOS. We do not support old
+IE.
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.1   </span> <a 
  id="x1-40001.1.1"></a>General Layout</h5>
-<!--l. 52--><p class="noindent" ><hr class="figure"><div class="figure" 
+<!--l. 53--><p class="noindent" ><hr class="figure"><div class="figure" 
 >
                                                                   
 
@@ -86,7 +88,7 @@ href="https://smple.uk" >Smple</a> (short for sample) web application is a visua
                                                                   
 
                                                                   
-<!--l. 55--><p class="noindent" >     <img 
+<!--l. 56--><p class="noindent" >     <img 
 src="example1.png" alt="PIC"  
 >
 <br /> <div class="caption" 
@@ -95,49 +97,46 @@ class="content">Basic layout description.</span></div><!--tex4ht:label?: x1-4001
                                                                   
 
                                                                   
-<!--l. 57--><p class="noindent" ></div><hr class="endfigure">
-<!--l. 59--><p class="indent" >   The Smple web app consists of a single page which is filled with a map from the
+<!--l. 58--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 60--><p class="indent" >   The Smple web application consists of a single page filled with a map from the
 Google Maps API. There are two panels: the search on the left, and the information
 (info) on the right.
-<!--l. 61--><p class="indent" >   The search panel consists of an input to type a query and two date pickers to choose
-the date range for events to be displayed. When a search query is made, results are shown
-underneath with the date of the event, the band names that matched, and the time to
-walk there.
-<!--l. 63--><p class="indent" >   When an event is selected by clicking a marker or search result, the info panel slides
+<!--l. 62--><p class="indent" >   The search panel consists of an input to type a query and two date pickers to choose
+the date range for events to be displayed. When a search query is made results are
+shown underneath with their event date, band names, and the time to walk
+there.
+<!--l. 64--><p class="indent" >   When an event is selected by clicking a marker or search result, the info panel slides
 into view from the right. At the top, the artist thumbnails are displayed. They are
 dynamically created depending on how many artists are playing in the selected event.
-Below, is the artist name, image, and biography for the selected artist. An embedded
-Spotify player is revealed afterwards if the play button underneath is clicked. Lastly is the
-events venue address and the link to the ticket-sale website which are contained in their
-individual panels.
-<!--l. 65--><p class="indent" >   There are two markers present on the map: pink and purple. The pink markers
+Below, is the artist name, image, and biography for the selected artist. If the play button
+underneath is clicked, an embedded Spotify player is shown. Lastly is the events venue
+address and the link to the ticket-sale website which are contained in their individual
+panels.
+<!--l. 66--><p class="indent" >   There are two markers present on the map: pink and purple. The pink markers
 represent events and the purple is used to indicate the current user location which is
 determined by the browser.
-<!--l. 67--><p class="indent" >   If the map is moved or zoomed, the info panel will slide out of view. Additionally,
+<!--l. 68--><p class="indent" >   If the map is moved or zoomed, the info panel will slide out of view. Additionally,
 when the info panel&#8217;s content overflows the bottom of the page, it becomes
 scrollable.
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.2   </span> <a 
  id="x1-50001.1.2"></a>Base Classes</h5>
-<!--l. 71--><p class="noindent" >The design of our layout is inspired by Material Design with it&#8217;s iconic card styled boxes.
+<!--l. 72--><p class="noindent" >The design of our layout is inspired by Material Design with it&#8217;s iconic card styled boxes.
 Each panel is given a shadowbox class which gives the element a border radius, shadow,
-slight transparency, and a dark background colour. The search panel and all panels in the
-info bar are given this class.
-<!--l. 73--><p class="noindent" >
+slight transparency, and a dark background colour. The search panel and the panels
+within the info panel are styled with this class.
+<!--l. 74--><p class="noindent" >
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.3   </span> <a 
  id="x1-60001.1.3"></a>Resizing</h5>
-<!--l. 74--><p class="noindent" >We use CSS media queries to resize the info panel stuff like the and basically and the
-seearch panel thats everything. The font resize thingy we use percentages and ems we
-basically use the media query thing we change the font size and have everything inside
-percentages so everythings dynamic
-<!--l. 76--><p class="indent" >   We use CSS media queries to change large scale layouts based on the screen size.
-There are three of these: mobile-sized, large, and extra large. These changes involve
+<!--l. 75--><p class="noindent" >CSS media queries are used to change large scale layouts based on the screen width.
+There are three of these: mobile-size, large, and extra large. These changes involve
 setting the widths of the main panels such that they look good on the screen size. For
 the mobile screen this means the panels are full width and stack on top of each other. For
 the large size the info bar takes up a third of the screen, and the search 40% of the
 screen.
-<!--l. 78--><p class="indent" >   For a more dynamic resize control we subscribe to the onresize event of the window
-and scale the whole documents font size based on the screen width. Most elements are
-defined using ems and so they all scale accordingly. <hr class="figure"><div class="figure" 
+<!--l. 77--><p class="indent" >   For a more dynamic resize control we subscribe to the onresize event of the
+window and scale the whole document&#8217;s font size based on the screen width in
+JavaScript. Most elements are defined using ems and so they all scale accordingly.
+<hr class="figure"><div class="figure" 
 >
                                                                   
 
@@ -147,7 +146,7 @@ defined using ems and so they all scale accordingly. <hr class="figure"><div cla
                                                                   
 
                                                                   
-<!--l. 82--><p class="noindent" >     <img 
+<!--l. 81--><p class="noindent" >     <img 
 src="example3.png" alt="PIC"  
 >
 <br /> <div class="caption" 
@@ -156,66 +155,135 @@ class="content">Example layout when rendered using a mobile browser.</span></div
                                                                   
 
                                                                   
-<!--l. 84--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 83--><p class="indent" >   </div><hr class="endfigure">
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.4   </span> <a 
  id="x1-70001.1.4"></a>Info Panel</h5>
-<!--l. 87--><p class="noindent" >The info panel involves many different styling and scripting elements. The panel
-is animated in using the css transition property and setting the margin-right
-to 0 from -33%. By default moving this panel to the right would bring up a
-scrolling bar however this is disallowed by setting overflow to hidden for the
-body.
-<!--l. 89--><p class="indent" >   In order to get the desired scrolling effect we set the overflow-y to scroll which allows
-the contents to scroll within this div. The height is set to 100% of the screen height so
-the content will never increase the full page size.
-<!--l. 91--><p class="indent" >   The artist thumbnails are contained within an element with text-align set to centre.
-Each image is an inline-block which means they overflow and stay centred no matter how
-many artists are inserted. As the images they contain could be of any aspect ratio and we
-want the thumbnail to be square, we use the object-fit css property to keep the container
-box filled with the image inside. The containing box is given a border radius of 50% to
-make it circular, and the overflow is set to hidden to crop the image inside. The
-thumbnail is animated to zoom on hover using a css selector that transforms the scale of
-the container.
-<!--l. 93--><p class="indent" >   The missing artist picture was created by importing an image found online into
-inkscape with the image rendering mode set to smooth. Then an avatar silhouette was
-overlayed on top of it.
-<!--l. 95--><p class="indent" >   The second box down includes an element for the artist title, along with a paragraph
-tag for the biography. The title is overlayed onto the the artist image and has a
-gradient behind in order to make sure the text is visible. The title is pinned
-to the bottom of the image. The image width is set to the parents width so
-that only the height changes depending on the aspect ratio of the image. this
-height will push down the biography. Padding is set on the biography for visual
-aesthetic.
-<!--l. 97--><p class="indent" >   The next box contains a self made svg that when clicked, triggers a set of
-animations. The two triangles will turn 120 degrees with slightly different durations
-using SMIL animations, the background colour of the box fades from purple to
-grey, and the size of the box increases to reveal an iframe with a spotify player
-inside. These animations are reversed on second click to hide the player. when
-updating the info panel, the url for the iframe is updated with the current artists
-uri, this triggers that url to be loaded inside, causing the correct player to be
-displayed.
-<!--l. 99--><p class="indent" >   This svg was created using the inkscape polygon tool to make a filled triangle. Then
-by duplicating the triangle and enlarging it then excluding we get a stencil triangle. Then
-simply by making a same sized triangle and offsetting its psition we get the desired
-effect.
-<!--l. 101--><p class="indent" >   The final two boxes display information about the venue. The first displays the venue
-title and its address. Clicking this will open a new tab with the songkick venue page. The
-second box holds another self made svg of tickets. Clicking this will take you to the
+<!--l. 86--><p class="noindent" >The info panel involves many different styling and scripting elements. Animations in the
+panel are done using the CSS transition property and setting the margin-right to 0 from
+-33%. By default, moving this panel to the right would bring up a scrolling bar. However
+this is prevented by setting the overflow property to hidden.
+<!--l. 88--><p class="indent" >   Initially, the animation&#8217;s performance was poor in early development due interaction
+with the map styling. This caused a browser reflow to happen for every frame
+of the animation. Our research determined that we needed to avoid as many
+reflows as possible when animating for best performance. Changing the map to
+be position:absolute significantly improved performance as only repaints were
+necessary.
+<!--l. 90--><p class="indent" >   In order to produce the desired scrolling effect, we set the overflow-y property
+to scroll. This allows the contents to scroll within its div. To ensure that the
+content does not increase the page size, the height is set to 100% of the screen
+height.
+<!--l. 92--><p class="indent" >   Artist thumbnails are contained within an element with text-align set to center. Each
+image is an inline-block to allow overflow and centering independent of the number of
+thumbnails. Since the images could be of any aspect ratio, we use the object-fit CSS
+property which is set as cover, and the left and top property which is set as 50% to keep
+the thumbnail container filled and the image centered inside. The container is given a
+border radius of 50% to create a circular thumbnail, and the overflow is set to
+hidden to crop the image inside. Furthermore, the thumbnail is animated to
+zoom on hover using a CSS selector that transforms the scale of the thumbnail
+container.
+<!--l. 94--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
                                                                   
 
                                                                   
-songkick ticket purchasing site.
-<!--l. 103--><p class="indent" >   Starting with a rectangle we rounded the corners. Making two squares for each end
-with rounded corners, we used the difference tool to cut out a semi-circle. By duplicating
-a rectangle with rounded corners 5 times and combining them using the combine tool for
-simplicity. Using this combined object we exclude the shape from the ticket. Then we
-tried duplicating the svg and using the outset tool to make one bigger, then
-aligning the two and using the exclusion tool we get the stencil ticket. This
-didn&#8217;t quite have the desired shape so instead we scaled the second ticket and
-extruded these two. This gives near uniform line thickness. Then by placing
+<a 
+ id="x1-70013"></a>
+                                                                  
+
+                                                                  
+<!--l. 97--><p class="noindent" >     <img 
+src="example4.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;3: </span><span  
+class="content">Example thumbnail layout with lots of artists.</span></div><!--tex4ht:label?: x1-70013 -->
+                                                                  
+
+                                                                  
+<!--l. 99--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 102--><p class="indent" >   Missing artists have a silhouette avatar picture as their thumbnail. This was created
+by finding a silhouette SVG found online and overlaying it on-top of a gradient PNG
+image which was imported into Inkscape with the image rendering mode set to smooth to
+ensure the best quality conversion.
+<!--l. 104--><p class="indent" >   The box underneath contains an element for the artist title, along with a paragraph
+tag for the biography. The title is displayed over the artist image and has a gradient
+behind it to make sure the text is visible. Additionally, the title is pinned to the bottom
+of the image. The image width is set to the parent&#8217;s width so that only the
+height changes depending on the aspect ratio. This height pushes down the
+biography accordingly. For aesthetic purposes, there is a padding set on the
+biography.
+<!--l. 106--><p class="indent" >   Beneath the artist information box is a purple SVG button. When clicked, it triggers a
+set of animations. The two triangles will turn 120 degrees clockwise with slightly different
+durations using SMIL animations. Also, the size of the box increases to reveal an iframe
+with a Spotify embedded player inside and the colour changes from purple to gray to
+match the player. These animations are reversed on a second click to hide the player.
+When updating the info panel, the URL for the iframe is also updated with the current
+artist&#8217;s URL. This triggers the URL to be loaded inside it, causing the correct player to be
+displayed.
+<!--l. 108--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                  
+
+                                                                  
+<a 
+ id="x1-70024"></a>
+                                                                  
+
+                                                                  
+<!--l. 111--><p class="noindent" >     <img 
+src="example5.gif" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;4: </span><span  
+class="content">Play button animation action shot</span></div><!--tex4ht:label?: x1-70024 -->
+                                                                  
+
+                                                                  
+<!--l. 113--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 115--><p class="indent" >   Inkscape was used to create the SVG play button. First, the polygon tool was used
+to draw a white triangle path. Then by duplicating the triangle and enlarging
+it, we exclude the smaller triangle to produce stencil triangle. Then simply by
+overlaying the same-sized triangle and offsetting its position, we produce the final
+image.
+<!--l. 117--><p class="indent" >   Lastly, there are two boxes which display venue and ticket information. The first
+displays the venue title and address. When this box is clicked, it will open a
+new tab with Songkick&#8217;s venue page. The second box holds another custom
+ticket SVG. Similarly, if this box is clicked, the Songkick ticket purchasing site is
+opened.
+<!--l. 119--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                  
+
+                                                                  
+<a 
+ id="x1-70035"></a>
+                                                                  
+
+                                                                  
+<!--l. 122--><p class="noindent" >     <img 
+src="example6.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;5: </span><span  
+class="content">Example shot of the lower two boxes.</span></div><!--tex4ht:label?: x1-70035 -->
+                                                                  
+
+                                                                  
+<!--l. 124--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 126--><p class="indent" >   To produce the ticket SVG, we started with a rectangle with rounded corners.
+Afterwards, two rounded squares were created for each end and we then used the
+difference tool to cut in a semi-circle. We then duplicating a small rounded rectangle six
+times and combined them into one object using the combine tool for simplicity. Using this
+combined object, we exclude the shape from the ticket to produce a dotted line. This is
+the original (filled) ticket behind the stencil ticket. To produce the stencil, we first tried
+duplicating the SVG and using the outset tool to make one bigger. Then by aligning the
+two and using the exclusion tool, we produced a stencil ticket. This didn&#8217;t quite
+have the desired shape so instead we scaled the second ticket and excluded
+these two. This produced acceptable uniform path thickness. Then, by placing
 the stencil over a copy of the original and using the difference tool we cut a
-shadow. Now by simply placing the stencil in the gap we produced the desired
-svg.
-<!--l. 105--><p class="indent" >   The background image for the ticket button was taken online and edited using gimp.
+shadow. Now by simply placing the stencil in the gap, we produced the desired
+SVG.
+<!--l. 128--><p class="indent" >   The background image for the ticket button was taken online and edited using gimp.
 First the image was cropped to be square. Using the colour balance tool we adjusted the
 shadows, midtones, and highlight to make the pink and blue stand out. Next using the
 hue tool we modify the pink to match the websites colour scheme. Other colours were
@@ -227,100 +295,132 @@ a pink gradient that is prominent at the top, and one with a black gradient
 that is prominent at the bottom to produce a vignette effect. Next using the
 fuzzy tool with feathered edges to select the people in the image and using the
 hue/saturation tool, the blues were adjusted to be more grey using the overlap setting to
-consider overlapping hue values. Next we added the songkick watermark as
+consider overlapping hue values. Next we added the Songkick watermark as
 an overlapping layer, positioning it in the bottom right layer and resizing as
 desired.
-<!--l. 107--><p class="indent" >   <hr class="figure"><div class="figure" 
+<!--l. 130--><p class="indent" >   <hr class="figure"><div class="figure" 
 >
                                                                   
 
                                                                   
 <a 
- id="x1-70013"></a>
+ id="x1-70046"></a>
                                                                   
 
                                                                   
 
-<!--l. 109--><p class="noindent" ><img 
+<!--l. 132--><p class="noindent" ><img 
 src="example2.png" alt="PIC"  
 >
 <br /> <div class="caption" 
-><span class="id">Figure&#x00A0;3: </span><span  
-class="content">Before and after gimpifying.</span></div><!--tex4ht:label?: x1-70013 -->
+><span class="id">Figure&#x00A0;6: </span><span  
+class="content">Before and after gimpifying.</span></div><!--tex4ht:label?: x1-70046 -->
                                                                   
 
                                                                   
-<!--l. 111--><p class="indent" >   </div><hr class="endfigure">
-<!--l. 114--><p class="indent" >   When a user hovers their mouse over the lower two boxes, an animation is triggered
+<!--l. 134--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 137--><p class="indent" >   When a user hovers their mouse over the lower two boxes, an animation is triggered
 to dim the image. This is achieved using an anchor html tag that is given the class
 boxClickUrl that expands the anchor to cover the entire parent. The dim effect is
 achieved by setting the opacity of the image to a smaller value, revealing the black
 shadowbox behind.
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.5   </span> <a 
  id="x1-80001.1.5"></a>Search Panel</h5>
-<!--l. 117--><p class="noindent" >The search panel consists of a few permanent items. From left to right we have an icon
-that is from google material icons custom font. Then we have an input box with
+<!--l. 140--><p class="noindent" >The search panel consists of a few permanent items. From left to right we have an icon
+that is from Google material icons custom font. Then we have an input box with
 placeholder text to notify the user that it is a search box. Then we have a from and to
 date picker using the <a 
 href="https://github.com/dbushell/Pikaday" >pikaday</a> library.
-<!--l. 119--><p class="indent" >   The items are positioned using the float css attribute to get them next to each
+<!--l. 142--><p class="indent" >   The items are positioned using the float CSS attribute to get them next to each
 other. Padding is set in various places to get nice spacing and non breaking
 space are used to separate the from and to text from their date boxes. For the
 labels and date clickers a pointer is set to indicate to the user that they are
 clickable.
-<!--l. 121--><p class="indent" >   For the result list an empty list container is added for the results of a search to
+<!--l. 144--><p class="indent" >   For the result list an empty list container is added for the results of a search to
 populate. A border-bottom is added to each list item to act as a separator indication.
-Using the css selector last-child we remove the last bottom border so that it only exists
+Using the CSS selector last-child we remove the last bottom border so that it only exists
 inside the list.
-<!--l. 123--><p class="indent" >   A custom date icon was created using two divs, one inside each other with classes red
+<!--l. 146--><p class="indent" >   A custom date icon was created using two divs, one inside each other with classes red
 and white. The javascript that generates these creates the divs and populates them with
 a date and month.
-<!--l. 125--><p class="indent" >   The date filter uses a library for visualising calendars. Initially this didn&#8217;t work in strict
+<!--l. 149--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                  
+
+                                                                  
+<a 
+ id="x1-80017"></a>
+                                                                  
+
+                                                                  
+<!--l. 152--><p class="noindent" >     <img 
+src="example7.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;7: </span><span  
+class="content">Example shot of a search query.</span></div><!--tex4ht:label?: x1-80017 -->
+                                                                  
+
+                                                                  
+<!--l. 154--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 156--><p class="indent" >   The date filter uses a library for visualising calendars. Initially this didn&#8217;t work in strict
 xhtml mode due to a bug in the library that we have fixed and files a <a 
 href="https://github.com/dbushell/Pikaday/pull/526" >pull request</a> for. We
 initialise two of these calendars and subscribe to their click events, when a user clicks a
 date from the from calendar, we disable choosing date before that date on the to
 calendar, and vise versa.
-<!--l. 127--><p class="noindent" >
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.6   </span> <a 
  id="x1-90001.1.6"></a>Map</h5>
-<!--l. 128--><p class="noindent" >The map is from the google maps api with a custom theme set to match the
-theme of the site. We use the google map markers for our event visualiser but
-add our own custom svg in place of googles. A basic svg marker was found,
-and using inkscapes break apart tool, was edited to add a center hole. The
-transparency was also modified. The marker is animated using googles marker
+<!--l. 159--><p class="noindent" >The map is from the Google Maps API with a custom theme set to match the theme
+of the site. We use the Google map markers for our event visualiser but add
+our own custom SVG in place of Google&#8217;s. A basic SVG marker was found,
+and using Inkscape&#8217;s break apart tool, was edited to add a center hole. The
+transparency was also modified. The marker is animated using Google&#8217;s marker
 settings.
-<!--l. 131--><p class="noindent" >
+<!--l. 161--><p class="indent" >   When animating the markers using the google api we found that they would bounce
+in safari and Firefox but not Chrome. Stepping through the markers script led to a
+getElementsByTagName looking for tag HEAD in caps. Under XHTML tags are case
+sensitive and should always be lower case. In chrome and safari the browser understood
+that this call was looking for the lower-case head tag and could find it fine. In chrome
+this wasn&#8217;t the case and the query would result in no results. Attempting to
+change the sites head tag to upper-case didn&#8217;t solve the problem as other parts
+of googles script made queries to find tag head in lower case. The solution
+found for this problem was to have two heads, one upper-case and one lower.
+While this means that we fail to meet the XHTML spec, it means that the
+marker animations work and the page is still rendered fine in all the browsers
+tested.
+<!--l. 164--><p class="noindent" >
    <h4 class="subsectionHead"><span class="titlemark">1.2   </span> <a 
  id="x1-100001.2"></a>Logic</h4>
-                                                                  
-
-                                                                  
-<!--l. 132--><p class="noindent" >There exists one script for all the logic of the webapp. We subscribe to the window
-onload event as well as the google map callback. In the window load event we setup a
-few things, including setting up the callbacks for the svg button, initialising the
-websocket to the server, and initialising the date filter boxes.
-<!--l. 134--><p class="indent" >   When the map has loaded, we request the browsers location via the google
-maps api and setup the markers on the map. After both the map has loaded
+<!--l. 165--><p class="noindent" >There exists one script for all the logic of the webapp. We subscribe to the
+window onload event as well as the Google map callback. In the window load
+event we setup a few things, including setting up the callbacks for the SVG
+button, initialising the websocket to the server, and initialising the date filter
+boxes.
+<!--l. 167--><p class="indent" >   When the map has loaded, we request the browsers location via the Google
+Maps API and setup the markers on the map. After both the map has loaded
 and the websocket has loaded we send the user location to the server via the
 websocket. This triggers the server to find nearby events to be send back to the
 client.
-<!--l. 136--><p class="indent" >   When an array of events arrive we populate our internal events array and initialise the
+<!--l. 169--><p class="indent" >   When an array of events arrive we populate our internal events array and initialise the
 marker for each event. A query is made to find the walking time to each of the events as
 well. Once this has happened the user can click on the markers to open up the
 information for the event, as well as being able to search for events using the search
+                                                                  
+
+                                                                  
 bar.
-<!--l. 138--><p class="indent" >   When a user clicks a marker, a class is swapped out on the sidebar so that it has a
+<!--l. 171--><p class="indent" >   When a user clicks a marker, a class is swapped out on the sidebar so that it has a
 new margin-right property. As the infopanel has a transition property it will animate in.
-The same thing is done with the play button and spotify player but with css properties
+The same thing is done with the play button and Spotify player but with CSS properties
 background-color and padding-bottom to change the background colour of the play
-button and to show the spotify player.
-<!--l. 140--><p class="indent" >   When filling the info panel with event information we need to create a thumbnail for
+button and to show the Spotify player.
+<!--l. 173--><p class="indent" >   When filling the info panel with event information we need to create a thumbnail for
 each artist. There can be any number of artists in an event so we create a div
 with class bandimage for each artist and append each one to the bandpics div,
-organising them properly. The spotify player url is also updated to load the correct
+organising them properly. The Spotify player url is also updated to load the correct
 song.
-<!--l. 142--><p class="indent" >   For the search bar, the keyup event is subscribed to for the input box so we can get a
+<!--l. 175--><p class="indent" >   For the search bar, the keyup event is subscribed to for the input box so we can get a
 string representing the current search each time a new key is pressed. This event is used
 to update the search results. First the current query string is used to do a sublime style
 fuzzy matching on each of the first and second artist names in every event. The fuzziness
@@ -329,39 +429,42 @@ skips before matching. To visualise the matches the result of the search wraps
 each matched character with a bold html tag so that when the search results
 are displayed it can be clearly seen which of the artist names characters are
 matching.
-<!--l. 144--><p class="indent" >   The results from the search include data such as the event date, first and second
+<!--l. 177--><p class="indent" >   The results from the search include data such as the event date, first and second
 artist title, and walking time from the current location. For each result a list element is
 created that contains a visualisation of the date, ordering of artist names, and walking
 time.
-<!--l. 146--><p class="indent" >   These list items are appended to a html list element that exists in the base
+<!--l. 179--><p class="indent" >   These list items are appended to a html list element that exists in the base
 html.
-<!--l. 148--><p class="noindent" >
+<!--l. 181--><p class="noindent" >
    <h3 class="sectionHead"><span class="titlemark">2   </span> <a 
  id="x1-110002"></a>Server</h3>
-<!--l. 149--><p class="noindent" >The server uses the provided script with modifications. The index is served as a static file
+<!--l. 182--><p class="noindent" >The server uses the provided script with modifications. The index is served as a static file
 and dynamic content is achieved using Websocket connections between the client and
-                                                                  
-
-                                                                  
 server. This design choice simplifies the file resource serving logic, reducing the dynamic
 parts to message passing.
-<!--l. 151--><p class="indent" >   Once the client has initialised the webpage, it sets up a secure Websocket connection
+<!--l. 184--><p class="indent" >   Once the client has initialised the webpage, it sets up a secure Websocket connection
 to the server. A secure socket is preferred as non secure sockets are disallowed when
 viewing the page over https. The connection is abstracted into websocket.js such that
 server.js can simply pass a callback that is called when a new client query is made, with a
 parameter that can be called with the result to send back. server.js doesnt need to worry
 about managing connections.
-<!--l. 153--><p class="indent" >   The client will query the browser for its current geographical location and when given,
+<!--l. 186--><p class="indent" >   The client will query the browser for its current geographical location and when given,
 will send this to the server along with a desired date range. The server will reply at some
 point in the future with an array of events.
-<!--l. 155--><p class="indent" >   The server will receive this data and use it to query the database using a geoNear
+<!--l. 188--><p class="indent" >   The server will receive this data and use it to query the database using a geoNear
 query on a <a 
 href="https://docs.mongodb.com/manual/core/2dsphere/" >2dsphere</a> index, and a date range query on the event date. The results are
+                                                                  
+
+                                                                  
 sent to the client.
-<!--l. 157--><p class="indent" >   Websockets provide a stream of messages, where a message is either some binary data
-or a string. We serialize JSON for sending data between the client and server. When the
-client sends its position and desired date range we serialize a data structure that looks
-like the following.
+<!--l. 190--><p class="indent" >   As node doesn&#8217;t come with a native websockets library a popular third party
+library was used. <a 
+href="https://github.com/theturtle32/WebSocket-Node" >theturtle32/WebSocket-Node</a>. Websockets provide a stream of
+messages, where a message is either some binary data or a string. We serialize
+JSON for sending data between the client and server. When the client sends its
+position and desired date range we serialize a data structure that looks like the
+following.
                                                                   
 
                                                                   
@@ -530,62 +633,66 @@ class="cmtt-10">&#x00A0;</span><span
 class="cmtt-10">&#x00A0;</span><span 
 class="cmtt-10">&#x00A0;</span>
 </div>
-<!--l. 170--><p class="nopar" >
-<!--l. 172--><p class="indent" >   Dates aren&#8217;t parsed into JavaScript date objects when using a JSON.parse so these
+<!--l. 203--><p class="nopar" >
+<!--l. 205--><p class="indent" >   Dates aren&#8217;t parsed into JavaScript date objects when using a JSON.parse so these
 are handled manually for the database queries.
-<!--l. 174--><p class="indent" >   As well as giving the client the desired data we have, we also check whether the
+<!--l. 207--><p class="indent" >   As well as giving the client the desired data we have, we also check whether the
 database needs updating. The data is collected using a variety of APIs. First we ask
-songkick for the area that the user is in, this allows us to check the database to see if we
+Songkick for the area that the user is in, this allows us to check the database to see if we
 have checked this area at all/recently. If we haven&#8217;t got an up to date set of events
 for this area, we start downloading the events for the area as well as querying
-last.fm for the artists biography and picture, spotify for a reference to their
-spotify page, and googles reverse geocode api to get the full address of the
+last.fm for the artists biography and picture, Spotify for a reference to their
+Spotify page, and Google&#8217;s reverse geocode API to get the full address of the
 venue.
-<!--l. 176--><p class="indent" >   For each area we limit the speed of requests in order to avoid rate limiting. Any
+<!--l. 209--><p class="indent" >   For each area we limit the speed of requests in order to avoid rate limiting. Any
 returned errors by the APIs are handled graciously. Once complete data about an event is
 retrieved, it is stored in the database using an <a 
 href="https://docs.mongodb.com/manual/reference/method/db.collection.update/#upsert-option" >upsert</a> on the event title, to either update
 an already queried event, or insert as a new event.
-<!--l. 178--><p class="indent" >   A possible optimization of the client-server interaction process would be to determine
+<!--l. 211--><p class="indent" >   A possible optimization of the client-server interaction process would be to determine
 what events have already been sent to the client in order to avoid sending them again if
 they only scroll the map slightly. This would allow for significantly less data to be
 transferred between the two and would avoid reprocessing every event on the client side
 on every query change.
-<!--l. 181--><p class="noindent" >
+<!--l. 213--><p class="indent" >   As we don&#8217;t store any non public data we don&#8217;t require encryption for the data we
+store or obfuscation in any way. Validating the data we get from the client is necessary to
+stop a server crash. Location data is always sent over a secure websocket in order to
+prevent snooping.
+<!--l. 215--><p class="noindent" >
    <h3 class="sectionHead"><span class="titlemark">3   </span> <a 
  id="x1-120003"></a>Deployment</h3>
-<!--l. 182--><p class="noindent" >The server is written using some ES6 features and so requires a newer version of nodejs
+<!--l. 216--><p class="noindent" >The server is written using some ES6 features and so requires a newer version of nodejs
 to run. By default the server connects to a local mongojs server with no special
-configuration added. This implementation favours root accessible vps&#8217; such as digital
-ocean or <a 
-href="https://aws.amazon.com/ec2/" >EC2</a>.
-<!--l. 184--><p class="indent" >   The development workflow consisted of a digital ocean instance that was setup with a
-bare git repo. Git hooks were written so that when a push to the repo is made, a clone of
                                                                   
 
                                                                   
+configuration added. This implementation favours root accessible vps&#8217; such as digital
+ocean or <a 
+href="https://aws.amazon.com/ec2/" >EC2</a>.
+<!--l. 218--><p class="indent" >   The development workflow consisted of a digital ocean instance that was setup with a
+bare git repo. Git hooks were written so that when a push to the repo is made, a clone of
 the repo is updated and a call to npm install is made to update and install any libraries.
 On the server the server script is run using <a 
 href="https://github.com/remy/nodemon" >nodemon</a> so that when the repo is updated,
 the server will restart.
-<!--l. 186--><p class="indent" >   This allows very fast staging tests, however this isn&#8217;t suitable for a production run of
+<!--l. 220--><p class="indent" >   This allows very fast staging tests, however this isn&#8217;t suitable for a production run of
 the server. The site should be live at <a 
 href="https://smple.uk" >https://smple.uk</a>.
-<!--l. 188--><p class="indent" >   Due to security issues some browsers wont connect a secure websocket with an invalid
+<!--l. 222--><p class="indent" >   Due to security issues some browsers wont connect a secure websocket with an invalid
 certificate making local development hard. The site is tested working on chrome locally
 for both https and http. When run under the correct domain everything works as it
 should.
-<!--l. 190--><p class="noindent" >
+<!--l. 224--><p class="noindent" >
    <h3 class="sectionHead"><span class="titlemark">4   </span> <a 
  id="x1-130004"></a>API Usage</h3>
-<!--l. 191--><p class="noindent" >As we are using a few public APIs, we needed to take into consideration the terms for
+<!--l. 225--><p class="noindent" >As we are using a few public APIs, we needed to take into consideration the terms for
 each of these.
-<!--l. 193--><p class="indent" >   The songkick API requires attribution when using their data in the form of a graphic
+<!--l. 227--><p class="indent" >   The Songkick API requires attribution when using their data in the form of a graphic
 they provide. We accommodated for this by adding their graphic into our ticket purchase
 button.
-<!--l. 195--><p class="indent" >   Spotify have no requirement for the use of their embedded player as it already
+<!--l. 229--><p class="indent" >   Spotify have no requirement for the use of their embedded player as it already
 advertising where the player comes from.
-<!--l. 197--><p class="indent" >   Last.fm require a link to their site on any information that is retrieved from them, we
+<!--l. 231--><p class="indent" >   Last.fm require a link to their site on any information that is retrieved from them, we
 get a biography from them in which they include a link to their website so we are covered
 here.
     
