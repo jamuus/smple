@@ -283,7 +283,7 @@ function handleLocationError(browserHasGeolocation, pos) {
 var serverConnection;
 
 function setupWebSocket() {
-    serverConnection = new WebSocket('wss://' + location.hostname + ':8443', 'p1');
+    serverConnection = new WebSocket('wss://' + location.hostname + ':8443/', 'p1');
 
     serverConnection.onopen = function() {
         sendPosToServer();

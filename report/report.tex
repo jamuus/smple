@@ -48,6 +48,7 @@
 
     \section{Client}
         \subsection{Style}
+            The web app is designed to be used on modern browsers and is tested on the latest Safari for OS X, Firefox, Chrome, and Safari for iOS. We do not support old IE.
             \subsubsection{General Layout}
                 \begin{figure}[!ht]
                   \centering
@@ -127,6 +128,8 @@
             \subsubsection{Map}
                 The map is from the Google Maps API with a custom theme set to match the theme of the site. We use the Google map markers for our event visualiser but add our own custom SVG in place of Google's. A basic SVG marker was found, and using Inkscape's break apart tool, was edited to add a center hole. The transparency was also modified. The marker is animated using Google's marker settings.
 
+                When animating the markers using the google api we found that they would bounce in safari and Firefox but not Chrome. Stepping through the markers script led to a getElementsByTagName looking for tag HEAD in caps. Under XHTML tags are case sensitive and should always be lower case. In chrome and safari the browser understood that this call was looking for the lower-case head tag and could find it fine. In chrome this wasn't the case and the query would result in no results. Attempting to change the sites head tag to upper-case didn't solve the problem as other parts of googles script made queries to find tag head in lower case. The solution found for this problem was to have two heads, one upper-case and one lower. Every browser knew that both heads should be treated like one monolith and this doesn't violate the XHTML spec.
+
 
         \subsection{Logic}
             There exists one script for all the logic of the webapp. We subscribe to the window onload event as well as the Google map callback. In the window load event we setup a few things, including setting up the callbacks for the SVG button, initialising the websocket to the server, and initialising the date filter boxes.
@@ -154,7 +157,7 @@
 
         The server will receive this data and use it to query the database using a geoNear query on a \href{https://docs.mongodb.com/manual/core/2dsphere/}{2dsphere} index, and a date range query on the event date. The results are sent to the client.
 
-        Websockets provide a stream of messages, where a message is either some binary data or a string. We serialize JSON for sending data between the client and server. When the client sends its position and desired date range we serialize a data structure that looks like the following.
+        As node doesn't come with a native websockets library a popular third party library was used. \href{https://github.com/theturtle32/WebSocket-Node}{theturtle32/WebSocket-Node}. Websockets provide a stream of messages, where a message is either some binary data or a string. We serialize JSON for sending data between the client and server. When the client sends its position and desired date range we serialize a data structure that looks like the following.
 
         \begin{verbatim}
         {
