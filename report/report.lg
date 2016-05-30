@@ -144,6 +144,8 @@ Css: .figure img.graphics {margin-left:10%;}
 File: example1.png
 File: example3.png
 File: example2.png
+--- needs --- report.idv[2] ==> report0x.png ---
+--- needs --- report.idv[3] ==> report1x.png ---
 --- characters ---
 Font("cmss","10","10","100")
 Font("cmss","17","17","100")

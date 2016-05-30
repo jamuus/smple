@@ -112,7 +112,7 @@
                 \end{figure}
 
 
-                When a user hovers their mouse over the lower two boxes, an animation is triggered to dim the image. This is achieved using an anchor html tag that is given the class boxClickUrl that expands the anchor to cover the entire parent. The dim effect is achieved by setting the opacity of the image to a smaller value, revealing the black shadowbox behind.
+                When a user hovers their mouse over the two lower boxes, is animated to dim. This is achieved using an anchor html tag that is given the class boxClickUrl that expands the anchor to cover the entire parent. Also, the dim effect is achieved by setting the opacity of the image to a smaller value, revealing the black shadowbox behind.
 
             \subsubsection{Search Panel}
                 From left to right in the search panel, we have a Google material icons search icon. Adjacent to the icon is an input box with placeholder text to indicate it is a search input. At the end, there are two date pickers produced using the \href{https://github.com/dbushell/Pikaday}{Pikaday} library. These allow the user to specify the query's date range.
@@ -123,40 +123,38 @@
 
                 A custom calendar icon was created using two divs: the white-background class inside the red one. These are created using JavaScript, and it populates them with the required day and month.
 
-                The date range picker uses a library for visualising calendars. Initially, this did not work in strict xhtml mode due to a bug in the library that we have fixed and filed a \href{https://github.com/dbushell/Pikaday/pull/526}{pull request} for. We initialised two of these calendars by specifying the default date range. Also, when a user clicks a date from the from calendar, all dates before the current date are disabled to prevent them from selecting events from the past.
+                Initially, the Pikaday library did not work in strict xhtml mode due to a bug in the library that we have fixed and filed a \href{https://github.com/dbushell/Pikaday/pull/526}{pull request} for. We initialised two of these calendars by specifying the default date range. Also, when a user clicks a date from the from calendar, all dates before the current date are disabled to prevent them from selecting events from the past.
 
             \subsubsection{Map}
-                From the Google Maps API, the map has a custom theme set to match the colour scheme of the  website. Also, we use the Google map markers for our event visualiser but add our own custom SVG as their icons. To create these, a basic SVG marker was found. Next, by using Inkscape's \"break apart\" tool, we deleted the opaque center to produce a transparent hole in the center of the marker. Lastly, the The marker is animated using Google's \"BOUNCE" animation setting.
+                Using the Google Maps API, we draw a map with a custom theme set to match the colour scheme of the  website. Also, we use Google map markers for our visualising event locations but we add our own custom SVG as their icons. To create these, a basic SVG marker was found off the Internet. Next, by using Inkscape's \"break apart\" tool, we deleted the opaque center to produce a transparent hole in the center of the marker. Lastly, the  marker is animated using Google's \"BOUNCE" animation setting.
 
-                When animating the markers using the Google Maps API we found that they would bounce in safari and Firefox but not Chrome. Stepping through the markers script led to a getElementsByTagName looking for tag HEAD in caps. Under XHTML tags are case sensitive and should always be lower case. In chrome and safari the browser understood that this call was looking for the lower-case head tag and could find it fine. In chrome this wasn't the case and the query would result in no results. Attempting to change the sites head tag to upper-case didn't solve the problem as other parts of googles script made queries to find tag head in lower case. The solution found for this problem was to have two heads, one upper-case and one lower. While this means that we fail to meet the XHTML spec, it means that the marker animations work and the page is still rendered fine in all the browsers tested.
+                When animating these markers, we noticed that they would bounce in Safari and Firefox but not Chrome. Stepping through the markers script led to a getElementsByTagName looking for a HEAD tag in caps. Under XHTML, tags are case-sensitive and should always be lower case. However, in Firefox and Safari, the browser understood that this call was looking for the lower-case head tag. But this was not the case for Chrome as the query would produce no results. Attempting to change the sites head tag to upper-case did not solve the problem as different parts of Google's script made queries to find the head tag in lower case. The only valid solution found for this problem was to have two heads: one upper-case and one lower. This means we fail to meet the XHTML spec, but the marker animations work and the page is still rendered in the mentioned browsers. 
 
         \subsection{Logic}
-            There exists one script for all the logic of the webapp. We subscribe to the window onload event as well as the Google map callback. In the window load event we setup a few things, including setting up the callbacks for the SVG button, initialising the websocket to the server, and initialising the date filter boxes.
+            Main.js handles all of the logic for the web application. We subscribe to the window onload event as well as the Google Maps callback. In the window onload event, important functionality is setup such as the callbacks for the SVG button, intialise the websocket to the server, and initialising the date filter boxes.
 
-            When the map has loaded, we request the browsers location via the Google Maps API and setup the markers on the map. After both the map has loaded and the websocket has loaded we send the user location to the server via the websocket. This triggers the server to find nearby events to be send back to the client.
+            When the map has loading, the browser provides its location via the Google Maps API. This information is then used to setup the purple marker which indicates the user's position. After the map loads and websocket opens, the user's location is sent to the server via the websocket. This prompts the server to find nearby events and this information to be send back to the client.
 
-            When an array of events arrive we populate our internal events array and initialise the marker for each event. A query is made to find the walking time to each of the events as well. Once this has happened the user can click on the markers to open up the information for the event, as well as being able to search for events using the search bar.
+            Afterwards, an array of events is received and thus we populate our internal events array. Next, using this information, we initialise the marker for each event. Also, a query is made to find the walking time to each of the events. Once the query has completed, the user can now click on the markers to display the info bar or search for events.
 
-            When a user clicks a marker, a class is swapped out on the sidebar so that it has a new margin-right property. As the infopanel has a transition property it will animate in. The same thing is done with the play button and Spotify player but with CSS properties background-color and padding-bottom to change the background colour of the play button and to show the Spotify player.
+            To produce the sliding effect of the info panel, a class is swapped out of the sidebar when a user clicks a marker to give it a new margin-right property. As the info panel has a transition property, the slide in will be animated. The same thing is done with the Play button and Spotify player but with CSS properties background-color and padding-bottom to change the background colour of the play button and to show the Spotify player respectively.
 
-            When filling the info panel with event information we need to create a thumbnail for each artist. There can be any number of artists in an event so we create a div with class bandimage for each artist and append each one to the bandpics div, organising them properly. The Spotify player url is also updated to load the correct song.
+            Whilst inputting the info panel with the relevant event information, a thumbnail for each artist needs to be created. To do this, we create a div with class bandimage for each artist and orderly append each one to the bandpics div which is the thumbnail container. This allows for a dynamic creation of thumbnails  as there can be any number of artists. Furthermore, the Spotify player's track URL is updated to load the correct song.
 
-            For the search bar, the keyup event is subscribed to for the input box so we can get a string representing the current search each time a new key is pressed. This event is used to update the search results. First the current query string is used to do a sublime style fuzzy matching on each of the first and second artist names in every event. The fuzziness refers to lack of need for sequential characters to match and instead there can be skips before matching. To visualise the matches the result of the search wraps each matched character with a bold html tag so that when the search results are displayed it can be clearly seen which of the artist names characters are matching.
+            To retrieve a string representing the search each time a new key is pressed, the keyup event is subscribed to the search bar. This event is then used to update the search results. First, the current query string is used to do a sublime-styled fuzzy search on each of the first and second artist names in every event. The fuzziness refers to the lack of matching sequential characters and thus there can be skips before matching. To visualise these matches, the result of the search wraps each matched character with a bold html tag. This means that when the search results are displayed, it can be clearly seen which characters in the artist names are produced the match.
 
-            The results from the search include data such as the event date, first and second artist title, and walking time from the current location. For each result a list element is created that contains a visualisation of the date, ordering of artist names, and walking time.
-
-            These list items are appended to a html list element that exists in the base html.
+            Event date, artist titles, and the walking time from the current location are included in the search data. For each result, a list element is created that contains a visualisation of the date, ordering of artist names, and walking time. Furthermore, these list items are appended to a html list element that exists in the existing html.
 
     \section{Server}
-        The server uses the provided script with modifications. The index is served as a static file and dynamic content is achieved using Websocket connections between the client and server. This design choice simplifies the file resource serving logic, reducing the dynamic parts to message passing.
+        On the server side, we used the provided script with modifications. The index is served as a static file and dynamic content is achieved using Websocket connections between the client and server. This design choice simplifies the file resource serving logic and thus reducing the dynamic parts to message passing.
 
-        Once the client has initialised the webpage, it sets up a secure Websocket connection to the server. A secure socket is preferred as non secure sockets are disallowed when viewing the page over https. The connection is abstracted into websocket.js such that server.js can simply pass a callback that is called when a new client query is made, with a parameter that can be called with the result to send back. server.js doesnt need to worry about managing connections.
+        Once the client has initialised the webpage, it sets up a secure Websocket connection to the server. A secure socket is preferred as non-secure sockets are prevented when viewing the page over https. This connection is abstracted into websocket.js such that server.js can simply pass a callback.  This is called when a new client query is made. Also, passing a function which can be called with a result. 
 
-        The client will query the browser for its current geographical location and when given, will send this to the server along with a desired date range. The server will reply at some point in the future with an array of events.
+        The browser's current geographical location is sent to the server along with the desired date range. Eventually, the server will reply with an array of events.
 
-        The server will receive this data and use it to query the database using a geoNear query on a \href{https://docs.mongodb.com/manual/core/2dsphere/}{2dsphere} index, and a date range query on the event date. The results are sent to the client.
+        Soon, the server will receive this data and use it to query the database using a geoNear query on a \href{https://docs.mongodb.com/manual/core/2dsphere/}{2dsphere} index. A similar query is performed on the date range on the event date. Afterwards, the results are sent back to the client.
 
-        As node doesn't come with a native websockets library a popular third party library was used. \href{https://github.com/theturtle32/WebSocket-Node}{theturtle32/WebSocket-Node}. Websockets provide a stream of messages, where a message is either some binary data or a string. We serialize JSON for sending data between the client and server. When the client sends its position and desired date range we serialize a data structure that looks like the following.
+        Since node does not come with a native websocket library, a popular third-party library was used: \href{https://github.com/theturtle32/WebSocket-Node}{theturtle32/WebSocket-Node}. Websockets provide a stream of messages, where a message is either some binary data or a string. We serialize JSON for sending data between the client and server. When the client sends its position and desired date range, we serialize a data structure that is defined by the following:
 
         \begin{verbatim}
         {
@@ -171,34 +169,34 @@
         }
         \end{verbatim}
 
-        Dates aren't parsed into JavaScript date objects when using a JSON.parse so these are handled manually for the database queries.
+        Dates are not parsed into JavaScript Date objects when using a JSON.parse so these are handled manually for the database queries.
 
-        As well as giving the client the desired data we have, we also check whether the database needs updating. The data is collected using a variety of APIs. First we ask Songkick for the area that the user is in, this allows us to check the database to see if we have checked this area at all/recently. If we haven't got an up to date set of events for this area, we start downloading the events for the area as well as querying last.fm for the artists biography and picture, Spotify for a reference to their Spotify page, and Google's reverse geocode API to get the full address of the venue.
+        In addition to giving the client the desired data from the database, the database is checked to see whether it requires updating. This data is collected using a variety of APIs. First, the Songkick API is queried for the area that the user is in. This allows us to check the database to see if we have updated this area at all/recently. If the events for this area have not been updated recently, the events for the area are downloaded. In addition, last.fm is queried for artist biographies and pictures, Spotify for a reference to the artists' Spotify pages, and Google's reverse geocode API to get the full address of the venue.
 
-        For each area we limit the speed of requests in order to avoid rate limiting. Any returned errors by the APIs are handled graciously. Once complete data about an event is retrieved, it is stored in the database using an \href{https://docs.mongodb.com/manual/reference/method/db.collection.update/#upsert-option}{upsert} on the event title, to either update an already queried event, or insert as a new event.
+        For each area we limit the frequency of requests in order to avoid rate limiting. Any errors returned by the APIs are handled graciously. Once complete, event data is retrieved, and stored in the database using an \href{https://docs.mongodb.com/manual/reference/method/db.collection.update/#upsert-option}{upsert} on the event title. This is done to either update an already queried event, or insert a new event.
 
-        A possible optimization of the client-server interaction process would be to determine what events have already been sent to the client in order to avoid sending them again if they only scroll the map slightly. This would allow for significantly less data to be transferred between the two and would avoid reprocessing every event on the client side on every query change.
+        A possible optimization of the client-server interaction process would be to determine what events have already been sent to the client. This would avoid sending events again if the user scrolls the map slightly. As a result, this would allow for significantly less data to be transferred between the two and thus would avoid reprocessing every event on the client side.
 
-        As we don't store any non public data we don't require encryption for the data we store or obfuscation in any way. Validating the data we get from the client is necessary to stop a server crash. Location data is always sent over a secure websocket in order to prevent snooping.
+        As we do not store any private data, encryption is not required for the data stored or obfuscated in any way. Validating the data retrieved from the client is necessary to stop a server crash. Additionally, location data is always sent over a secure websocket in order to prevent snooping.
 
     \section{Deployment}
-        The server is written using some ES6 features and so requires a newer version of nodejs to run. By default the server connects to a local mongojs server with no special configuration added. This implementation favours root accessible vps' such as digital ocean or \href{https://aws.amazon.com/ec2/}{EC2}.
+        Since the server is written using some ES6 features, it requires a newer version of nodejs to run. By default, the server connects to a local mongojs server with no special configuration added. This implementation favours root accessible vps' such as digital ocean or \href{https://aws.amazon.com/ec2/}{EC2}.
 
-        The development workflow consisted of a digital ocean instance that was setup with a bare git repo. Git hooks were written so that when a push to the repo is made, a clone of the repo is updated and a call to npm install is made to update and install any libraries. On the server the server script is run using \href{https://github.com/remy/nodemon}{nodemon} so that when the repo is updated, the server will restart.
+        The development workflow consisted of a digital ocean instance that was setup with a bare git repo. Git hooks were written so that when a push to the repo is made, a clone of the repo is updated. Additionally, a call to npm install is made in order to update and install any libraries. On the server, the server script is run using \href{https://github.com/remy/nodemon}{nodemon} so that when the repo is updated, the server will restart.  
 
         This allows very fast staging tests, however this isn't suitable for a production run of the server. The site should be live at \href{https://smple.uk}{https://smple.uk}.
 
-        Due to security issues some browsers wont connect a secure websocket with an invalid certificate making local development hard. The site is tested working on chrome locally for both https and http. When run under the correct domain everything works as it should.
+        Due to security issues, some browsers will not connect a secure websocket with an invalid certificate. Furthermore, the site is tested to be working on chrome locally for both https and http. When run with a valid certificate, everything works as it should.
 
     \section{API Usage}
-        As we are using a few public APIs, we needed to take into consideration the terms for each of these.
+        As we are using a few public APIs, we needed to take into consideration the terms for each of these:
+        \begin{itemize}
+            \item The Songkick API requires attribution when using their data in the form of a graphic they provide. We accommodated for this by adding their graphic into our ticket purchase button.
 
-        The Songkick API requires attribution when using their data in the form of a graphic they provide. We accommodated for this by adding their graphic into our ticket purchase button.
+            \item The Spotify API has no requirement for the use of their embedded player as it already advertising where the player comes from.
 
-        Spotify have no requirement for the use of their embedded player as it already advertising where the player comes from.
-
-        Last.fm require a link to their site on any information that is retrieved from them, we get a biography from them in which they include a link to their website so we are covered here.
-
+            \item The last.fm API requires a link to their site on any information that is retrieved from them.  The retrieved biography includes a link to their website thus meeting the terms and conditions.
+        \end{itemize}
 \end{document}
 
 
