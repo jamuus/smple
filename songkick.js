@@ -1,13 +1,8 @@
 'use strict';
 
-let currentpos = {
-    lat: 51.45589225421975,
-    lng: -2.602995037387154,
-};
-
 let songkickApikey = 'QNx6YgjKNSA5gGs5';
-
-
+var googleApiKey = 'AIzaSyDbgYeUer3RCMYNeRR5yMV_t6RtNug_Hu4';
+let lastfmApiKey = '87f6734e61f01465bdd78f72d81de0bd';
 var fs = require('fs');
 
 
@@ -27,42 +22,6 @@ function getSongkickLocations(pos, callback) {
             }
         } else {
             callback('ERROR ' + error + ' apistatus: ' + response.statusCode);
-        }
-    });
-}
-
-var i = 0;
-
-function getEvents(pos, callback) {
-    var events = [];
-    var cbInit = false;
-    getSongkickLocations(pos, (err, locations) => {
-        if (err) {
-            console.log(err);
-        } else {
-            parseLocations(pos, locations, (areas) => {
-                for (var areaName in areas) {
-                    let areaInfo = areas[areaName];
-
-                    getAreaConcertData(areaInfo, 1, (err, eventInfo) => {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            events.push(eventInfo);
-
-                            if (!cbInit) {
-                                callback((fn) => {
-                                    parseEventData(events[0], (err, d) => {
-                                        events.splice(0, 1);
-                                        fn(d, events.length);
-                                    });
-                                });
-                                cbInit = true;
-                            }
-                        }
-                    });
-                }
-            });
         }
     });
 }
@@ -92,9 +51,6 @@ function getEventDataFromAreas(areas, callback) {
         });
     }
 }
-
-
-// getEvents(currentpos, getNextEvent);
 
 
 function parseLocations(pos, data, callback) {
@@ -239,12 +195,9 @@ function getArtistSongs(artistName, callback) {
 }
 
 
-
-let lastfmUrl = '87f6734e61f01465bdd78f72d81de0bd';
-//http://ws.audioscrobbler.com/2.0/\?method\=artist.getinfo\&artist\=The%20Lumineers\&api_key\=87f6734e61f01465bdd78f72d81de0bd\&format\=json
 function getArtistInfo(artistName, callback) {
     artistName = escape(artistName);
-    var bioUrl = 'http://ws.audioscrobbler.com/2.0/\?method\=artist.getinfo\&artist\=' + artistName + '\&api_key\=' + lastfmUrl + '\&format\=json';
+    var bioUrl = 'http://ws.audioscrobbler.com/2.0/\?method\=artist.getinfo\&artist\=' + artistName + '\&api_key\=' + lastfmApiKey + '\&format\=json';
     request(bioUrl, function(err, resp, body) {
         if (err) {
             console.log('ERROR getting artist bio from lastfm', err);
@@ -272,7 +225,6 @@ function getArtistInfo(artistName, callback) {
                     });
                 } else {
                     callback('No artist found');
-                    // console.log('ERROR no artist found on last.fm');
                 }
             } else {
                 callback('JSON parse error');
@@ -280,7 +232,6 @@ function getArtistInfo(artistName, callback) {
         }
     });
 }
-var googleApiKey = 'AIzaSyDbgYeUer3RCMYNeRR5yMV_t6RtNug_Hu4';
 
 function reverseGeocodeLatlng(pos, callback) {
     var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + pos.lat + ',' + pos.lng + '&key=' + googleApiKey;
@@ -384,13 +335,14 @@ module.exports = (function() {
 
 
 if (!module.parent) {
+    console.log('Starting as standalone');
     var sk = module.exports;
 
-    // sk.nearestArea(currentpos, (err, metroArea) => {
-    //     console.log(err, metroArea);
-    //     var db = require('./mongowrapper.js');
-    //     sk.updateAreas(metroArea, db, () => {
-    //         console.log('done?');
-    //     });
-    // });
+    sk.nearestArea(currentpos, (err, metroArea) => {
+        console.log(err, metroArea);
+        var db = require('./mongowrapper.js');
+        sk.updateAreas(metroArea, db, () => {
+            console.log('done?');
+        });
+    });
 }
