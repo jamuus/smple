@@ -62,6 +62,7 @@ function updateEvents(pos, dateRange, fn) {
         // go through and check each areas existance or last updated field
         for (var areaName in areas) {
             var area = areas[areaName];
+
             (function(area, areaName) {
                 db.getAreaLastUpdated(area, (err, _area) => {
                     if (err) {
@@ -71,8 +72,8 @@ function updateEvents(pos, dateRange, fn) {
                         updateDate.setDate(updateDate.getDate() - 1);
 
                         if (!_area || _area.lastUpdated < updateDate) {
-                            var t = {};
-                            t[areaName] = area;
+                            var temp = {};
+                            temp[areaName] = area;
                             sk.updateAreas(t, db, () => {});
                             console.log('Updating area', areaName);
 
@@ -81,7 +82,6 @@ function updateEvents(pos, dateRange, fn) {
                             });
                         }
                     }
-                    // console.log('area2', err, _area);
                 });
             })(area, areaName);
         }
