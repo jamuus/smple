@@ -74,7 +74,7 @@ function updateEvents(pos, dateRange, fn) {
                         if (!_area || _area.lastUpdated < updateDate) {
                             var temp = {};
                             temp[areaName] = area;
-                            sk.updateAreas(t, db, () => {});
+                            sk.updateAreas(temp, db, () => {});
                             console.log('Updating area', areaName);
 
                             db.addArea(area, (err, stats) => {

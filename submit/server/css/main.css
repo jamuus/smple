@@ -1,0 +1,525 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    position: fixed;
+    -webkit-font-smoothing: antialiased;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.materialbox {
+    border-radius: 2px 2px 2px 2px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    background-color: #FFF;
+}
+
+.shadowbox {
+    opacity: 0.85;
+    background-color: #000;
+    color: #FFF;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+
+/* :3 ily */
+
+@media (min-width: 0px) and (max-width: 800px) {
+    .searchpanel {
+        width: 100%;
+        max-height: 40%;
+        overflow: hidden;
+        overflow-y: scroll;
+    }
+    .infopanel {
+        width: 100%;
+    }
+    .infoslidein {
+        margin-right: 0%;
+    }
+    .infoslideout {
+        margin-right: -100%;
+    }
+    .locationoverlay {
+        padding: 2em 2em 2em 2em;
+    }
+    .eventlocation p {
+        font-size: 2em;
+    }
+    .eventlocation h1 {
+        font-size: 5em;
+        font-weight: normal;
+    }
+    .imagewithoverlay {
+        font-size: 1em;
+        font-weight: normal;
+    }
+    .bandinfo {
+        font-size: 3em;
+        font-weight: normal;
+    }
+    #resizer {
+        font-size: 5em;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 1200px) {
+    .searchpanel {
+        width: 50%;
+    }
+    .infopanel {
+        width: 40%;
+    }
+    .infoslidein {
+        margin-right: 0%;
+    }
+    .infoslideout {
+        margin-right: -40%;
+    }
+    .locationoverlay {
+        padding: 1em 1em 1em 1em;
+    }
+    .eventlocation p {
+        font-size: 0.8em;
+    }
+    .eventlocation h1 {
+        font-size: 1.4em;
+        font-weight: normal;
+    }
+}
+
+@media (min-width: 1200px) {
+    .searchpanel {
+        width: 40%;
+    }
+    .infopanel {
+        width: 33%;
+    }
+    .infoslidein {
+        margin-right: 0%;
+    }
+    .infoslideout {
+        margin-right: -33%;
+    }
+    .locationoverlay {
+        padding: 0.7em 0.7em 0.7em 0.7em;
+    }
+    .eventlocation p {
+        font-size: 0.7em;
+    }
+    .eventlocation h1 {
+        font-size: 1.2em;
+        font-weight: normal;
+    }
+}
+
+
+/*Search panel*/
+
+.searchpanel {
+    box-sizing: border-box;
+    float: left;
+    /*position: absolute;*/
+    top: 0px;
+    left: 0px;
+    padding: 2% 2% 2% 2%;
+    margin: 0;
+    transition: 0.5s;
+}
+
+#search {
+    box-sizing: border-box;
+    outline: none;
+    width: 40%;
+    border: none;
+    font-size: 16px;
+    padding: 0px 20px 0px 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0);
+    color: #fff;
+}
+
+.searchresult {
+    margin: 2% 0% 2% 0%;
+}
+
+.searchbar .material-icons {
+    position: relative;
+    right: -10px;
+    margin-right: -10%;
+    margin-top: 9px;
+    float: left;
+}
+
+#startlabel {
+    float: left;
+    vertical-align: middle;
+    display: inline-block;
+    font-size: 0.7em;
+    color: #D7C7CD;
+}
+
+#endlabel {
+    float: left;
+    vertical-align: middle;
+    display: inline-block;
+    font-size: 0.7em;
+    color: #D7C7CD;
+}
+
+#start[type="text"]:hover {
+    cursor: pointer;
+}
+
+#end[type="text"]:hover {
+    cursor: pointer;
+}
+
+.datecontainer {
+    padding-top: 9px;
+    height: 40px;
+    float: right;
+    margin-right: 10px;
+    color: #c7c7cd;
+}
+
+.eventDate {
+    font-size: 0.4em;
+    color: #c7c7cd;
+}
+
+#start[type="text"] {
+    width: 64px;
+    float: left;
+    margin-right: 10px;
+    color: #c7c7cd;
+    background-color: #262622;
+    border: none;
+    height: 20px;
+    border-radius: 2%;
+    text-align: center;
+}
+
+#end[type="text"] {
+    width: 64px;
+    /*right:0;*/
+    float: left;
+    color: #c7c7cd;
+    height: 20px;
+    text-align: center;
+    background-color: #262622;
+    border: none;
+    border-radius: 2%;
+}
+
+.redbox {
+    background-color: rgba(255, 0, 0, 1);
+    float: left;
+    width: 3.5em;
+    text-align: center;
+    font-size: 0.7em;
+    display: inline-block;
+}
+
+.whitebox {
+    width: 100%;
+    padding: 0px 0px 0.3em 0px;
+    background-color: rgba(255, 255, 255, 1);
+    color: black;
+    text-align: center;
+    font-size: 2em;
+}
+
+.bandnames {
+    margin-left: 1em;
+    clear: left;
+}
+
+.bandnames1 {
+    margin-left: 1em;
+    clear: left;
+    font-size: 0.9em;
+    color: #DDD;
+}
+
+.bandnamescontainer {
+    float: left;
+}
+
+.walktime {
+    margin-left: 1em;
+    float: left;
+}
+
+
+/* table */
+
+#tableresults li {
+    box-sizing: border-box;
+    height: 4em;
+    list-style-type: none;
+    border-bottom: 1px solid #DDD;
+    padding: 0.5em 0 0.5em 0.5em;
+}
+
+#tableresults li:hover {
+    background-color: #ff5599;
+}
+
+#tableresults ul {
+    box-sizing: border-box;
+    margin: 0% 0% 0% 0%;
+    padding: 0% 0 0% 0;
+}
+
+#tableresults li:last-child {
+    border-bottom: none;
+}
+
+
+/*Information panel*/
+
+.infopanel {
+    box-sizing: border-box;
+    float: right;
+    top: 0px;
+    /*margin-right: -33%;*/
+    padding: 2% 2% 2% 2%;
+    overflow-y: scroll;
+    transition: 0.5s;
+    max-height: 100%;
+}
+
+
+/*padding between info panel items*/
+
+.infopanel>div {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+
+/*band thumbnails*/
+
+.bandpics {
+    text-align: center;
+}
+
+.bandinfo {
+    width: 100%;
+}
+
+.bandimage {
+    width: 6em;
+    height: 6em;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 0.5em 0 0.5em;
+    transition: all .2s ease-in-out;
+    overflow: hidden;
+}
+
+.bandimage img {
+    width: 6em;
+    height: 6em;
+    left: 50%;
+    top: 50%;
+    object-fit: cover;
+}
+
+.bandimage:hover {
+    transform: scale(1.1);
+    cursor: hand;
+    cursor: pointer;
+}
+
+.bandinfo {
+    width: 100%;
+    border: 0;
+    overflow: hidden;
+}
+
+.bandinfo a {
+    color: #9661C9;
+    text-decoration: none;
+}
+
+.bandinfo p {
+    padding: 0em 1em 1em 1em;
+}
+
+
+/* band image and name overlayed */
+
+.imagewithoverlay {
+    position: relative;
+    border: 0;
+    width: 100%;
+    display: block;
+}
+
+.imagewithoverlay>div {
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+    width: 100%;
+    color: #FFF;
+    font-size: 2em;
+}
+
+.imagewithoverlay img {
+    width: 100%;
+    display: block;
+}
+
+.musicbox {
+    height: 300px;
+}
+
+
+/*event section*/
+
+.eventinfo {
+    width: 100%;
+}
+
+.eventlocation {
+    position: relative;
+    width: 45%;
+    float: left;
+}
+
+.eventlocation:hover {
+    cursor: hand;
+    cursor: pointer;
+}
+
+.eventlocation:hover img {
+    opacity: 0.3;
+}
+
+.locationoverlay {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    box-sizing: border-box;
+}
+
+.graybackground {
+    transition: all 0.5s linear;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+    z-index: 0;
+    width: 100%;
+    display: block;
+    top: 0;
+    z-index: 0;
+}
+
+.boxClickUrl {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.eventtickets {
+    width: 45%;
+    float: right;
+    position: relative;
+}
+
+.eventtickets:hover {
+    cursor: hand;
+    cursor: pointer;
+}
+
+.eventtickets:hover #ticketbg {
+    opacity: 0.3;
+}
+
+#samplebutton {
+    width: 100%;
+    margin-left: 20px;
+    position: relative;
+    z-index: 10;
+}
+
+#resizer {
+    width: 15em;
+    position: relative;
+}
+
+.buttoncontainer {
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25), 0 2px 3px rgba(0, 0, 0, 0.22);
+    color: #FFF;
+    z-index: 10;
+}
+
+.colorhide {
+    transition: 0.5s;
+    background-color: #40224C;
+}
+
+.colorshow {
+    background-color: #262626;
+    transition: 0.5s;
+}
+
+.ticketoverlay {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+
+.ticketoverlay img {
+    width: 100%;
+    display: block;
+}
+
+.musichide {
+    padding-bottom: 0px;
+}
+
+.musicshow {
+    padding-bottom: 80px;
+}
+
+.embed-container {
+    position: relative;
+    height: 0;
+    transition: 0.5s;
+    overflow: hidden;
+    max-width: 100%;
+    height: auto;
+}
+
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#spotifyplayerframe {
+    border-width: 0px;
+}
+
+#tableresults > ul {
+    width: 100%;
+}

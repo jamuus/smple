@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-GB" xml:lang="en-GB">
+
+<head>
+    <title>Smple</title>
+    <meta name="viewport" content="initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <link href="./css/main.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="./css/pikaday.css" />
+    <link rel="stylesheet" href="./css/theme.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+</head>
+<HEAD></HEAD>
+
+<body>
+    <div id="map"></div>
+    <div class="searchpanel">
+        <div class="searchbar materialbox shadowbox">
+            <i class="material-icons">search</i>
+            <input type="text" placeholder="Search" id="search"></input>
+            <div class="datecontainer">
+                <div id="startlabel">From&#160;&#160;</div>
+                <input readonly="readonly" placeholder="" type="text" id="start"/>
+
+                <div id="endlabel">To&#160;&#160;  </div>
+                <input readonly="readonly" placeholder="" type="text" id="end"/>
+            </div>
+        </div>
+        <div id="tableresults" class="materialbox shadowbox searchresult">
+            <ul width="100%">
+            </ul>
+        </div>
+    </div>
+    <div id="infopanel" class="infopanel infoslideout">
+        <div class=" bandpics">
+        
+        </div>
+
+        <div class="bandinfo materialbox shadowbox">
+
+            <div class="imagewithoverlay">
+                <img alt="Artist picture" src="images/placeholder.png" />
+                <div>Test Band</div>
+            </div>
+            <p>Test description</p>
+        </div>
+
+        <div id = "svgcontainer" class="buttoncontainer materialbox shadowbox colorhide">
+        <div id="resizer">
+            <object type="image/svg+xml" data="./images/svg/playbutton.svg" id="samplebutton" ></object>
+        </div>
+            <div id="spotifyplayer" class='embed-container musichide'>
+                <iframe id="spotifyplayerframe" src='https://embed.spotify.com/?uri=spotify:track:24lMtPOCzP5g4hrg3NklLa' ></iframe>
+            </div>
+        </div>
+        <div class="eventinfo">
+            <div class="materialbox shadowbox eventlocation">
+                <div class="locationoverlay">
+                    <a target="_blank" class="boxClickUrl" id="venueWebsite" href="#" />
+                    <h1 id="venueTitle">Title</h1>
+                    <p id="venueAddress">address</p>
+                </div>
+                <img alt="Address image" class="graybackground" src="images/placebackground.jpg" />
+            </div>
+            <div class="materialbox shadowbox eventtickets">
+                <div class="ticketoverlay">
+                    <img alt="Tickets" src="./images/svg/ticklogo.svg" />
+                    <a target="_blank" class="boxClickUrl" id="venueTicketUrl" href="#" />
+                </div>
+                <img alt="People Partying" class="graybackground" id="ticketbg" src="images/tickbackground2.jpg" />
+            </div>
+        </div>
+    </div>
+    <script src="javascript/moment.js"></script>
+    <script src="javascript/data.js"></script> 
+    <script src="javascript/pikaday.js"></script>
+    <script src="javascript/main.js"></script>
+    <script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMDRJRmsGY4Bh-WbTIJ38XK39BlvrWnOE&amp;callback=initMap"></script>
+</body>
+
+</html>

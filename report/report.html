@@ -7,11 +7,7 @@
 <meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
 <!-- html,NoFonts --> 
 <meta name="src" content="report.tex"> 
-<<<<<<< HEAD
-<meta name="date" content="2016-05-30 03:48:00"> 
-=======
-<meta name="date" content="2016-05-30 02:12:00"> 
->>>>>>> da1ad6461d044e2dc94b4d3e386f3e2524a325d0
+<meta name="date" content="2016-05-30 04:24:00"> 
 <link rel="stylesheet" type="text/css" href="report.css"> 
 </head><body 
 >
@@ -24,7 +20,7 @@
                                                                   
 
 <h2 class="titleHead">Webtech Report</h2>
-<div class="author" >Imna Malik n James Sewart</div><br />
+<div class="author" >Iman Malik (im13557) &amp; James Sewart (js13830)</div><br />
 <div class="date" >29-5-16</div>
    </div>
    <h3 class="likesectionHead"><a 
@@ -77,9 +73,9 @@ href="https://smple.uk" >Smple</a> (short for sample) web application is a visua
 <!--l. 50--><p class="noindent" >
    <h4 class="subsectionHead"><span class="titlemark">1.1   </span> <a 
  id="x1-30001.1"></a>Style</h4>
-<!--l. 51--><p class="noindent" >The web app is designed to be used on modern browsers and is tested on the latest
-Safari for OS X, Firefox, Chrome, and Safari for iOS. We do not support old
-IE.
+<!--l. 51--><p class="noindent" >The web app is designed to be used on modern browsers and is tested on the latest Safari
+for OS X, Firefox, Chrome, and Safari for iOS. Internet Explorer is not currently
+supported.
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.1   </span> <a 
  id="x1-40001.1.1"></a>General Layout</h5>
 <!--l. 53--><p class="noindent" ><hr class="figure"><div class="figure" 
@@ -120,11 +116,11 @@ panels.
 represent events and the purple is used to indicate the current user location which is
 determined by the browser.
 <!--l. 68--><p class="indent" >   If the map is moved or zoomed, the info panel will slide out of view. Additionally,
-when the info panel&#8217;s content overflows the bottom of the page, it becomes
+when the info panel's content overflows the bottom of the page, it becomes
 scrollable.
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.2   </span> <a 
  id="x1-50001.1.2"></a>Base Classes</h5>
-<!--l. 72--><p class="noindent" >The design of our layout is inspired by Material Design with it&#8217;s iconic card styled boxes.
+<!--l. 72--><p class="noindent" >The design of our layout is inspired by Material Design with it's iconic card styled boxes.
 Each panel is given a shadowbox class which gives the element a border radius, shadow,
 slight transparency, and a dark background colour. The search panel and the panels
 within the info panel are styled with this class.
@@ -137,10 +133,10 @@ setting the widths of the main panels such that they look good on the screen siz
 the mobile screen this means the panels are full width and stack on top of each other. For
 the large size the info bar takes up a third of the screen, and the search 40% of the
 screen.
-<!--l. 77--><p class="indent" >   For a more dynamic resize control we subscribe to the onresize event of the
-window and scale the whole document&#8217;s font size based on the screen width in
-JavaScript. Most elements are defined using ems and so they all scale accordingly.
-<hr class="figure"><div class="figure" 
+<!--l. 77--><p class="indent" >   For a more dynamic resize control we subscribe to the onresize event of the window
+and scale the whole document's font size based on the screen width in JavaScript. Most
+elements are defined using ems and so they all scale accordingly.
+<!--l. 79--><p class="indent" >   <hr class="figure"><div class="figure" 
 >
                                                                   
 
@@ -150,7 +146,7 @@ JavaScript. Most elements are defined using ems and so they all scale accordingl
                                                                   
 
                                                                   
-<!--l. 81--><p class="noindent" >     <img 
+<!--l. 82--><p class="noindent" >     <img 
 src="example3.png" alt="PIC"  
 >
 <br /> <div class="caption" 
@@ -159,24 +155,24 @@ class="content">Example layout when rendered using a mobile browser.</span></div
                                                                   
 
                                                                   
-<!--l. 83--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 84--><p class="indent" >   </div><hr class="endfigure">
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.4   </span> <a 
  id="x1-70001.1.4"></a>Info Panel</h5>
-<!--l. 86--><p class="noindent" >The info panel involves many different styling and scripting elements. Animations in the
+<!--l. 87--><p class="noindent" >The info panel involves many different styling and scripting elements. Animations in the
 panel are done using the CSS transition property and setting the margin-right to 0 from
 -33%. By default, moving this panel to the right would bring up a scrolling bar. However
 this is prevented by setting the overflow property to hidden.
-<!--l. 88--><p class="indent" >   Initially, the animation&#8217;s performance was poor in early development due interaction
+<!--l. 89--><p class="indent" >   Initially, the animation's performance was poor in early development due interaction
 with the map styling. This caused a browser reflow to happen for every frame
 of the animation. Our research determined that we needed to avoid as many
 reflows as possible when animating for best performance. Changing the map to
 be position:absolute significantly improved performance as only repaints were
 necessary.
-<!--l. 90--><p class="indent" >   In order to produce the desired scrolling effect, we set the overflow-y property
+<!--l. 91--><p class="indent" >   In order to produce the desired scrolling effect, we set the overflow-y property
 to scroll. This allows the contents to scroll within its div. To ensure that the
 content does not increase the page size, the height is set to 100% of the screen
 height.
-<!--l. 92--><p class="indent" >   Artist thumbnails are contained within an element with text-align set to center. Each
+<!--l. 93--><p class="indent" >   Artist thumbnails are contained within an element with text-align set to center. Each
 image is an inline-block to allow overflow and centering independent of the number of
 thumbnails. Since the images could be of any aspect ratio, we use the object-fit CSS
 property which is set as cover, and the left and top property which is set as 50% to keep
@@ -185,14 +181,7 @@ border radius of 50% to create a circular thumbnail, and the overflow is set to
 hidden to crop the image inside. Furthermore, the thumbnail is animated to
 zoom on hover using a CSS selector that transforms the scale of the thumbnail
 container.
-<<<<<<< HEAD
-<!--l. 94--><p class="indent" >   Missing artists have a silhouette avatar picture as their thumbnail. This was created
-by finding a silhouette SVG found online and overlaying it on-top of a gradient PNG
-image which was imported into Inkscape with the image rendering mode set to smooth to
-ensure the best quality conversion.
-<!--l. 96--><p class="indent" >   The box underneath contains an element for the artist title, along with a paragraph
-=======
-<!--l. 94--><p class="indent" >   <hr class="figure"><div class="figure" 
+<!--l. 95--><p class="indent" >   <hr class="figure"><div class="figure" 
 >
                                                                   
 
@@ -202,7 +191,7 @@ ensure the best quality conversion.
                                                                   
 
                                                                   
-<!--l. 97--><p class="noindent" >     <img 
+<!--l. 98--><p class="noindent" >     <img 
 src="example4.png" alt="PIC"  
 >
 <br /> <div class="caption" 
@@ -211,39 +200,27 @@ class="content">Example thumbnail layout with lots of artists.</span></div><!--t
                                                                   
 
                                                                   
-<!--l. 99--><p class="indent" >   </div><hr class="endfigure">
-<!--l. 102--><p class="indent" >   Missing artists have a silhouette avatar picture as their thumbnail. This was created
+<!--l. 100--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 103--><p class="indent" >   Missing artists have a silhouette avatar picture as their thumbnail. This was created
 by finding a silhouette SVG found online and overlaying it on-top of a gradient PNG
 image which was imported into Inkscape with the image rendering mode set to smooth to
 ensure the best quality conversion.
-<!--l. 104--><p class="indent" >   The box underneath contains an element for the artist title, along with a paragraph
->>>>>>> da1ad6461d044e2dc94b4d3e386f3e2524a325d0
+<!--l. 105--><p class="indent" >   The box underneath contains an element for the artist title, along with a paragraph
 tag for the biography. The title is displayed over the artist image and has a gradient
 behind it to make sure the text is visible. Additionally, the title is pinned to the bottom
-of the image. The image width is set to the parent&#8217;s width so that only the
+of the image. The image width is set to the parent's width so that only the
 height changes depending on the aspect ratio. This height pushes down the
 biography accordingly. For aesthetic purposes, there is a padding set on the
 biography.
-<<<<<<< HEAD
-<!--l. 98--><p class="indent" >   Beneath the artist information box is a purple SVG button. When clicked, it triggers a
-=======
-<!--l. 106--><p class="indent" >   Beneath the artist information box is a purple SVG button. When clicked, it triggers a
->>>>>>> da1ad6461d044e2dc94b4d3e386f3e2524a325d0
+<!--l. 107--><p class="indent" >   Beneath the artist information box is a purple SVG button. When clicked, it triggers a
 set of animations. The two triangles will turn 120 degrees clockwise with slightly different
 durations using SMIL animations. Also, the size of the box increases to reveal an iframe
 with a Spotify embedded player inside and the colour changes from purple to gray to
 match the player. These animations are reversed on a second click to hide the player.
 When updating the info panel, the URL for the iframe is also updated with the current
-artist&#8217;s URL. This triggers the URL to be loaded inside it, causing the correct player to be
-<<<<<<< HEAD
-                                                                  
-
-                                                                  
+artist's URL. This triggers the URL to be loaded inside it, causing the correct player to be
 displayed.
-<!--l. 100--><p class="indent" >   Inkscape was used to create the SVG play button. First, the polygon tool was used
-=======
-displayed.
-<!--l. 108--><p class="indent" >   <hr class="figure"><div class="figure" 
+<!--l. 109--><p class="indent" >   <hr class="figure"><div class="figure" 
 >
                                                                   
 
@@ -253,7 +230,7 @@ displayed.
                                                                   
 
                                                                   
-<!--l. 111--><p class="noindent" >     <img 
+<!--l. 112--><p class="noindent" >     <img 
 src="example5.gif" alt="PIC"  
 >
 <br /> <div class="caption" 
@@ -262,26 +239,18 @@ class="content">Play button animation action shot</span></div><!--tex4ht:label?:
                                                                   
 
                                                                   
-<!--l. 113--><p class="indent" >   </div><hr class="endfigure">
-<!--l. 115--><p class="indent" >   Inkscape was used to create the SVG play button. First, the polygon tool was used
->>>>>>> da1ad6461d044e2dc94b4d3e386f3e2524a325d0
+<!--l. 114--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 116--><p class="indent" >   Inkscape was used to create the SVG play button. First, the polygon tool was used
 to draw a white triangle path. Then by duplicating the triangle and enlarging
 it, we exclude the smaller triangle to produce stencil triangle. Then simply by
 overlaying the same-sized triangle and offsetting its position, we produce the final
 image.
-<<<<<<< HEAD
-<!--l. 102--><p class="indent" >   Lastly, there are two boxes which display venue and ticket information. The first
-=======
-<!--l. 117--><p class="indent" >   Lastly, there are two boxes which display venue and ticket information. The first
->>>>>>> da1ad6461d044e2dc94b4d3e386f3e2524a325d0
+<!--l. 118--><p class="indent" >   Lastly, there are two boxes which display venue and ticket information. The first
 displays the venue title and address. When this box is clicked, it will open a
-new tab with Songkick&#8217;s venue page. The second box holds another custom
+new tab with Songkick's venue page. The second box holds another custom
 ticket SVG. Similarly, if this box is clicked, the Songkick ticket purchasing site is
 opened.
-<<<<<<< HEAD
-<!--l. 104--><p class="indent" >   To produce the ticket SVG, we started with a rectangle with rounded corners.
-=======
-<!--l. 119--><p class="indent" >   <hr class="figure"><div class="figure" 
+<!--l. 120--><p class="indent" >   <hr class="figure"><div class="figure" 
 >
                                                                   
 
@@ -291,7 +260,7 @@ opened.
                                                                   
 
                                                                   
-<!--l. 122--><p class="noindent" >     <img 
+<!--l. 123--><p class="noindent" >     <img 
 src="example6.png" alt="PIC"  
 >
 <br /> <div class="caption" 
@@ -300,30 +269,25 @@ class="content">Example shot of the lower two boxes.</span></div><!--tex4ht:labe
                                                                   
 
                                                                   
-<!--l. 124--><p class="indent" >   </div><hr class="endfigure">
-<!--l. 126--><p class="indent" >   To produce the ticket SVG, we started with a rectangle with rounded corners.
->>>>>>> da1ad6461d044e2dc94b4d3e386f3e2524a325d0
+<!--l. 125--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 127--><p class="indent" >   To produce the ticket SVG, we started with a rectangle with rounded corners.
 Afterwards, two rounded squares were created for each end and we then used the
 difference tool to cut in a semi-circle. We then duplicating a small rounded rectangle six
 times and combined them into one object using the combine tool for simplicity. Using this
 combined object, we exclude the shape from the ticket to produce a dotted line. This is
 the original (filled) ticket behind the stencil ticket. To produce the stencil, we first tried
 duplicating the SVG and using the outset tool to make one bigger. Then by aligning the
-two and using the exclusion tool, we produced a stencil ticket. This didn&#8217;t quite have
+two and using the exclusion tool, we produced a stencil ticket. This didn't quite have
 the desired shape so instead we scaled the second ticket and excluded these
 two. This produced an acceptable uniform path thickness. Then, by placing
 the stencil over a copy of the original and using the difference tool we cut a
 shadow. Now by simply placing the stencil in the gap, we produced the desired
 SVG.
-<<<<<<< HEAD
-<!--l. 106--><p class="indent" >   The background image for the ticket box was found online and edited using
-=======
-<!--l. 129--><p class="indent" >   The background image for the ticket box was found online and edited using
->>>>>>> da1ad6461d044e2dc94b4d3e386f3e2524a325d0
+<!--l. 130--><p class="indent" >   The background image for the ticket box was found online and edited using
 GIMP. First, the image was cropped to be square-sized. Using the colour balance
 tool, we adjusted the shadows, midtones, and highlights to make the pink and
 blue stand out. Next, using the hue tool, we modify the pink to match the
-website&#8217;s colour scheme. Other colours had their saturation and lightness reduced
+website's colour scheme. Other colours had their saturation and lightness reduced
 using this tool. Afterwards using the curve tool, we adjust the RGB channels
 so that the image is more aesthetically pleasing. To create the effect of the
 image fading to pink, we created a new pink layer with a layer mask. Using
@@ -335,11 +299,7 @@ hue/saturation tool, the blues were adjusted to be more grey with the overlap se
 high value to consider overlapping hue values. Finally, we added the Songkick
 watermark as an overlying layer, and positioned the image in the bottom right
 corner.
-<<<<<<< HEAD
-<!--l. 108--><p class="indent" >   <hr class="figure"><div class="figure" 
-=======
-<!--l. 131--><p class="indent" >   <hr class="figure"><div class="figure" 
->>>>>>> da1ad6461d044e2dc94b4d3e386f3e2524a325d0
+<!--l. 132--><p class="indent" >   <hr class="figure"><div class="figure" 
 >
                                                                   
 
@@ -350,11 +310,7 @@ corner.
 
                                                                   
 
-<<<<<<< HEAD
-<!--l. 110--><p class="noindent" ><img 
-=======
-<!--l. 133--><p class="noindent" ><img 
->>>>>>> da1ad6461d044e2dc94b4d3e386f3e2524a325d0
+<!--l. 134--><p class="noindent" ><img 
 src="example2.png" alt="PIC"  
 >
 <br /> <div class="caption" 
@@ -363,137 +319,38 @@ class="content">Before and after gimpifying.</span></div><!--tex4ht:label?: x1-7
                                                                   
 
                                                                   
-<<<<<<< HEAD
-<!--l. 112--><p class="indent" >   </div><hr class="endfigure">
-<!--l. 115--><p class="indent" >   When a user hovers their mouse over the two lower boxes, is animated to dim. This is
+<!--l. 136--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 139--><p class="indent" >   When a user hovers their mouse over the two lower boxes, is animated to dim. This is
 achieved using an anchor html tag that is given the class boxClickUrl that expands the
 anchor to cover the entire parent. Also, the dim effect is achieved by setting
 the opacity of the image to a smaller value, revealing the black shadowbox
 behind.
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.5   </span> <a 
  id="x1-80001.1.5"></a>Search Panel</h5>
-<!--l. 118--><p class="noindent" >From left to right in the search panel, we have a Google material icons search icon.
-=======
-<!--l. 135--><p class="indent" >   </div><hr class="endfigure">
-<!--l. 138--><p class="indent" >   When a user hovers their mouse over the lower two boxes, an animation is triggered
-to dim the image. This is achieved using an anchor html tag that is given the class
-boxClickUrl that expands the anchor to cover the entire parent. The dim effect is
-achieved by setting the opacity of the image to a smaller value, revealing the black
-shadowbox behind.
-   <h5 class="subsubsectionHead"><span class="titlemark">1.1.5   </span> <a 
- id="x1-80001.1.5"></a>Search Panel</h5>
-<!--l. 141--><p class="noindent" >From left to right in the search panel, we have a Google material icons search icon.
->>>>>>> da1ad6461d044e2dc94b4d3e386f3e2524a325d0
+<!--l. 142--><p class="noindent" >From left to right in the search panel, we have a Google material icons search icon.
 Adjacent to the icon is an input box with placeholder text to indicate it is a search input.
 At the end, there are two date pickers produced using the <a 
 href="https://github.com/dbushell/Pikaday" >Pikaday</a> library. These allow the
-user to specify the query&#8217;s date range.
-<<<<<<< HEAD
-<!--l. 120--><p class="indent" >   The previous items are positioned using the float CSS attribute so that each item is
-=======
-<!--l. 143--><p class="indent" >   The previous items are positioned using the float CSS attribute so that each item is
->>>>>>> da1ad6461d044e2dc94b4d3e386f3e2524a325d0
+user to specify the query's date range.
+<!--l. 144--><p class="indent" >   The previous items are positioned using the float CSS attribute so that each item is
 placed on the right of the previous one. Padding is set in various places to produce a
 pleasing result. To create spaces between input boxes and text, non-breaking spaces are
 used. Date pickers, on hover, change the cursor to a pointer to indicate that they are
 clickable.
-<<<<<<< HEAD
-<!--l. 122--><p class="indent" >   For the search results, an empty list container is added for the search results to
+<!--l. 146--><p class="indent" >   For the search results, an empty list container is added for the search results to
 populate. A border-bottom is added to each list item as a border to separate results.
 Using the CSS selector last-child, we remove the last border-bottom so that the last list
 element does not have an end border.
-<!--l. 124--><p class="indent" >   A custom calendar icon was created using two divs: the white-background class inside
+<!--l. 148--><p class="indent" >   A custom calendar icon was created using two divs: the white-background class inside
 the red one. These are created using JavaScript, and it populates them with the required
 day and month.
-<!--l. 126--><p class="indent" >   Initially, the Pikaday library did not work in strict xhtml mode due to a bug in the
+<!--l. 151--><p class="indent" >   Initially, the Pikaday library did not work in strict xhtml mode due to a bug in the
 library that we have fixed and filed a <a 
 href="https://github.com/dbushell/Pikaday/pull/526" >pull request</a> for. We initialised two of these calendars
 by specifying the default date range. Also, when a user clicks a date from the from
 calendar, all dates before the current date are disabled to prevent them from selecting
 events from the past.
-<!--l. 128--><p class="noindent" >
-   <h5 class="subsubsectionHead"><span class="titlemark">1.1.6   </span> <a 
- id="x1-90001.1.6"></a>Map</h5>
-<!--l. 129--><p class="noindent" >Using the Google Maps API, we draw a map with a custom theme set to match the
-colour scheme of the website. Also, we use Google map markers for our visualising event
-locations but we add our own custom SVG as their icons. To create these, a basic SVG
-marker was found off the Internet. Next, by using Inkscape&#8217;s <img 
-src="report0x.png" alt="¨
-b  "  class="uml" >reak apart&#x1E97;ool, we
-deleted the opaque center to produce a transparent hole in the center of the
-marker. Lastly, the marker is animated using Google&#8217;s <img 
-src="report1x.png" alt="¨
-B  "  class="uml" >OUNCE&#8221; animation
-setting.
-<!--l. 131--><p class="indent" >   When animating these markers, we noticed that they would bounce in Safari
-and Firefox but not Chrome. Stepping through the markers script led to a
-getElementsByTagName looking for a HEAD tag in caps. Under XHTML, tags are
-case-sensitive and should always be lower case. However, in Firefox and Safari,
-                                                                  
-
-                                                                  
-the browser understood that this call was looking for the lower-case head tag.
-But this was not the case for Chrome as the query would produce no results.
-Attempting to change the sites head tag to upper-case did not solve the problem as
-different parts of Google&#8217;s script made queries to find the head tag in lower
-case. The only valid solution found for this problem was to have two heads: one
-upper-case and one lower. This means we fail to meet the XHTML spec, but
-the marker animations work and the page is still rendered in the mentioned
-browsers.
-<!--l. 133--><p class="noindent" >
-   <h4 class="subsectionHead"><span class="titlemark">1.2   </span> <a 
- id="x1-100001.2"></a>Logic</h4>
-<!--l. 134--><p class="noindent" >Main.js handles all of the logic for the web application. We subscribe to the window
-onload event as well as the Google Maps callback. In the window onload event, important
-functionality is setup such as the callbacks for the SVG button, intialise the websocket to
-the server, and initialising the date filter boxes.
-<!--l. 136--><p class="indent" >   When the map has loading, the browser provides its location via the Google Maps
-API. This information is then used to setup the purple marker which indicates the user&#8217;s
-position. After the map loads and websocket opens, the user&#8217;s location is sent to the
-server via the websocket. This prompts the server to find nearby events and this
-information to be send back to the client.
-<!--l. 138--><p class="indent" >   Afterwards, an array of events is received and thus we populate our internal events
-array. Next, using this information, we initialise the marker for each event. Also, a query
-is made to find the walking time to each of the events. Once the query has
-completed, the user can now click on the markers to display the info bar or search for
-events.
-<!--l. 140--><p class="indent" >   To produce the sliding effect of the info panel, a class is swapped out of the sidebar
-when a user clicks a marker to give it a new margin-right property. As the info panel has
-a transition property, the slide in will be animated. The same thing is done with the Play
-button and Spotify player but with CSS properties background-color and padding-bottom
-to change the background colour of the play button and to show the Spotify player
-respectively.
-<!--l. 142--><p class="indent" >   Whilst inputting the info panel with the relevant event information, a thumbnail for
-each artist needs to be created. To do this, we create a div with class bandimage for each
-artist and orderly append each one to the bandpics div which is the thumbnail container.
-This allows for a dynamic creation of thumbnails as there can be any number of
-artists. Furthermore, the Spotify player&#8217;s track URL is updated to load the correct
-song.
-<!--l. 144--><p class="indent" >   To retrieve a string representing the search each time a new key is pressed, the keyup
-event is subscribed to the search bar. This event is then used to update the search
-results. First, the current query string is used to do a sublime-styled fuzzy search on each
-of the first and second artist names in every event. The fuzziness refers to the lack of
-matching sequential characters and thus there can be skips before matching. To
-visualise these matches, the result of the search wraps each matched character
-with a bold html tag. This means that when the search results are displayed,
-                                                                  
-
-                                                                  
-it can be clearly seen which characters in the artist names are produced the
-match.
-<!--l. 146--><p class="indent" >   Event date, artist titles, and the walking time from the current location are included
-in the search data. For each result, a list element is created that contains a
-visualisation of the date, ordering of artist names, and walking time. Furthermore,
-these list items are appended to a html list element that exists in the existing
-=======
-<!--l. 145--><p class="indent" >   For the search results, an empty list container is added for the search results to
-populate. A border-bottom is added to each list item as a border to separate results.
-Using the CSS selector last-child, we remove the last border-bottom so that the last list
-element does not have an end border.
-<!--l. 147--><p class="indent" >   A custom calendar icon was created using two divs: the white-background class inside
-the red one. These are created using JavaScript, and it populates them with the required
-day and month.
-<!--l. 149--><p class="indent" >   <hr class="figure"><div class="figure" 
+<!--l. 153--><p class="indent" >   <hr class="figure"><div class="figure" 
 >
                                                                   
 
@@ -503,7 +360,7 @@ day and month.
                                                                   
 
                                                                   
-<!--l. 152--><p class="noindent" >     <img 
+<!--l. 156--><p class="noindent" >     <img 
 src="example7.png" alt="PIC"  
 >
 <br /> <div class="caption" 
@@ -512,140 +369,103 @@ class="content">Example shot of a search query.</span></div><!--tex4ht:label?: x
                                                                   
 
                                                                   
-<!--l. 154--><p class="indent" >   </div><hr class="endfigure">
-<!--l. 156--><p class="indent" >   The date range picker uses a library for visualising calendars. Initially, this did not
-work in strict xhtml mode due to a bug in the library that we have fixed and filed a <a 
-href="https://github.com/dbushell/Pikaday/pull/526" >pull
-request</a> for. We initialised two of these calendars by specifying the default date
-range. Also, when a user clicks a date from the from calendar, all dates before
-the current date are disabled to prevent them from selecting events from the
-past.
+<!--l. 158--><p class="indent" >   </div><hr class="endfigure">
    <h5 class="subsubsectionHead"><span class="titlemark">1.1.6   </span> <a 
  id="x1-90001.1.6"></a>Map</h5>
-<!--l. 159--><p class="noindent" >From the Google Maps API, the map has a custom theme set to match the
-colour scheme of the website. Also, we use the Google map markers for our
-event visualiser but add our own custom SVG as their icons. To create these, a
-basic SVG marker was found. Next, by using Inkscape&#8217;s <img 
-src="report0x.png" alt="¨b  "  class="uml" >reak apart&#x1E97;ool, we
+<!--l. 163--><p class="noindent" >Using the Google Maps API, we draw a map with a custom theme set to match the
+colour scheme of the website. Also, we use Google map markers for our visualising event
+locations but we add our own custom SVG as their icons. To create these, a basic SVG
+marker was found off the Internet. Next, by using Inkscape's &#8220;break apart&#8221; tool, we
 deleted the opaque center to produce a transparent hole in the center of the
-marker. Lastly, the The marker is animated using Google&#8217;s <img 
-src="report1x.png" alt="B¨  "  class="uml" >OUNCE&#8221; animation
+marker. Lastly, the marker is animated using Google's &#8220;BOUNCE&#8221; animation
 setting.
-<!--l. 161--><p class="indent" >   When animating the markers using the Google Maps API we found that they would
-bounce in safari and Firefox but not Chrome. Stepping through the markers script led to
-a getElementsByTagName looking for tag HEAD in caps. Under XHTML tags are case
-sensitive and should always be lower case. In chrome and safari the browser understood
-that this call was looking for the lower-case head tag and could find it fine. In chrome
-this wasn&#8217;t the case and the query would result in no results. Attempting to
-change the sites head tag to upper-case didn&#8217;t solve the problem as other parts
-of googles script made queries to find tag head in lower case. The solution
-found for this problem was to have two heads, one upper-case and one lower.
-While this means that we fail to meet the XHTML spec, it means that the
-marker animations work and the page is still rendered fine in all the browsers
-tested.
-<!--l. 163--><p class="noindent" >
+<!--l. 165--><p class="indent" >   When animating these markers, we noticed that they would bounce in Safari
+and Firefox but not Chrome. Stepping through the markers script led to a
+getElementsByTagName looking for a HEAD tag in caps. Under XHTML, tags are
+case-sensitive and should always be lower case. However, in Firefox and Safari,
+the browser understood that this call was looking for the lower-case head tag.
+But this was not the case for Chrome as the query would produce no results.
+Attempting to change the sites head tag to upper-case did not solve the problem as
+different parts of Google's script made queries to find the head tag in lower
+case. The only valid solution found for this problem was to have two heads: one
+upper-case and one lower. This means we fail to meet the XHTML spec, but
+the marker animations work and the page is still rendered in the mentioned
+browsers.
+<!--l. 167--><p class="noindent" >
    <h4 class="subsectionHead"><span class="titlemark">1.2   </span> <a 
  id="x1-100001.2"></a>Logic</h4>
-<!--l. 164--><p class="noindent" >There exists one script for all the logic of the webapp. We subscribe to the
-window onload event as well as the Google map callback. In the window load
-event we setup a few things, including setting up the callbacks for the SVG
-button, initialising the websocket to the server, and initialising the date filter
-boxes.
-<!--l. 166--><p class="indent" >   When the map has loaded, we request the browsers location via the Google
-Maps API and setup the markers on the map. After both the map has loaded
-and the websocket has loaded we send the user location to the server via the
-websocket. This triggers the server to find nearby events to be send back to the
-client.
-<!--l. 168--><p class="indent" >   When an array of events arrive we populate our internal events array and initialise the
-marker for each event. A query is made to find the walking time to each of the events as
+<!--l. 168--><p class="noindent" >Main.js handles all of the logic for the web application. We subscribe to the window
+onload event as well as the Google Maps callback. In the window onload event, important
+functionality is setup such as the callbacks for the SVG button, intialise the websocket to
+the server, and initialising the date filter boxes.
+<!--l. 170--><p class="indent" >   When the map has loading, the browser provides its location via the Google Maps
+API. This information is then used to setup the purple marker which indicates the user's
+position. After the map loads and websocket opens, the user's location is sent to the
+server via the websocket. This prompts the server to find nearby events and this
+information to be send back to the client.
+<!--l. 172--><p class="indent" >   Afterwards, an array of events is received and thus we populate our internal events
+array. Next, using this information, we initialise the marker for each event. Also, a query
+is made to find the walking time to each of the events. Once the query has
+completed, the user can now click on the markers to display the info bar or search for
+events.
+<!--l. 174--><p class="indent" >   To produce the sliding effect of the info panel, a class is swapped out of the sidebar
+when a user clicks a marker to give it a new margin-right property. As the info panel has
+a transition property, the slide in will be animated. The same thing is done with the Play
+button and Spotify player but with CSS properties background-color and padding-bottom
                                                                   
 
                                                                   
-well. Once this has happened the user can click on the markers to open up the
-information for the event, as well as being able to search for events using the search
-bar.
-<!--l. 170--><p class="indent" >   When a user clicks a marker, a class is swapped out on the sidebar so that it has a
-new margin-right property. As the infopanel has a transition property it will animate in.
-The same thing is done with the play button and Spotify player but with CSS properties
-background-color and padding-bottom to change the background colour of the play
-button and to show the Spotify player.
-<!--l. 172--><p class="indent" >   When filling the info panel with event information we need to create a thumbnail for
-each artist. There can be any number of artists in an event so we create a div
-with class bandimage for each artist and append each one to the bandpics div,
-organising them properly. The Spotify player url is also updated to load the correct
+to change the background colour of the play button and to show the Spotify player
+respectively.
+<!--l. 176--><p class="indent" >   Whilst inputting the info panel with the relevant event information, a thumbnail for
+each artist needs to be created. To do this, we create a div with class bandimage for each
+artist and orderly append each one to the bandpics div which is the thumbnail container.
+This allows for a dynamic creation of thumbnails as there can be any number of
+artists. Furthermore, the Spotify player's track URL is updated to load the correct
 song.
-<!--l. 174--><p class="indent" >   For the search bar, the keyup event is subscribed to for the input box so we can get a
-string representing the current search each time a new key is pressed. This event is used
-to update the search results. First the current query string is used to do a sublime style
-fuzzy matching on each of the first and second artist names in every event. The fuzziness
-refers to lack of need for sequential characters to match and instead there can be
-skips before matching. To visualise the matches the result of the search wraps
-each matched character with a bold html tag so that when the search results
-are displayed it can be clearly seen which of the artist names characters are
-matching.
-<!--l. 176--><p class="indent" >   The results from the search include data such as the event date, first and second
-artist title, and walking time from the current location. For each result a list element is
-created that contains a visualisation of the date, ordering of artist names, and walking
-time.
-<!--l. 178--><p class="indent" >   These list items are appended to a html list element that exists in the base
->>>>>>> da1ad6461d044e2dc94b4d3e386f3e2524a325d0
+<!--l. 178--><p class="indent" >   To retrieve a string representing the search each time a new key is pressed, the keyup
+event is subscribed to the search bar. This event is then used to update the search
+results. First, the current query string is used to do a sublime-styled fuzzy search on each
+of the first and second artist names in every event. The fuzziness refers to the lack of
+matching sequential characters and thus there can be skips before matching. To
+visualise these matches, the result of the search wraps each matched character
+with a bold html tag. This means that when the search results are displayed,
+it can be clearly seen which characters in the artist names are produced the
+match.
+<!--l. 180--><p class="indent" >   Event date, artist titles, and the walking time from the current location are included
+in the search data. For each result, a list element is created that contains a
+visualisation of the date, ordering of artist names, and walking time. Furthermore,
+these list items are appended to a html list element that exists in the existing
 html.
-<!--l. 180--><p class="noindent" >
+<!--l. 182--><p class="noindent" >
    <h3 class="sectionHead"><span class="titlemark">2   </span> <a 
  id="x1-110002"></a>Server</h3>
-<<<<<<< HEAD
-<!--l. 149--><p class="noindent" >On the server side, we used the provided script with modifications. The index is served as
+<!--l. 183--><p class="noindent" >On the server side, we used the provided script with modifications. The index is served as
 a static file and dynamic content is achieved using Websocket connections between the
 client and server. This design choice simplifies the file resource serving logic and thus
 reducing the dynamic parts to message passing.
-<!--l. 151--><p class="indent" >   Once the client has initialised the webpage, it sets up a secure Websocket
+<!--l. 185--><p class="indent" >   Once the client has initialised the webpage, it sets up a secure Websocket
 connection to the server. A secure socket is preferred as non-secure sockets are
 prevented when viewing the page over https. This connection is abstracted into
 websocket.js such that server.js can simply pass a callback. This is called when a
 new client query is made. Also, passing a function which can be called with a
 result.
-<!--l. 153--><p class="indent" >   The browser&#8217;s current geographical location is sent to the server along with the
+<!--l. 187--><p class="indent" >   The browser's current geographical location is sent to the server along with the
 desired date range. Eventually, the server will reply with an array of events.
-<!--l. 155--><p class="indent" >   Soon, the server will receive this data and use it to query the database using a
+<!--l. 189--><p class="indent" >   Soon, the server will receive this data and use it to query the database using a
 geoNear query on a <a 
 href="https://docs.mongodb.com/manual/core/2dsphere/" >2dsphere</a> index. A similar query is performed on the date range on
 the event date. Afterwards, the results are sent back to the client.
-<!--l. 157--><p class="indent" >   Since node does not come with a native websocket library, a popular third-party
+<!--l. 191--><p class="indent" >   Since node does not come with a native websocket library, a popular third-party
 library was used: <a 
 href="https://github.com/theturtle32/WebSocket-Node" >theturtle32/WebSocket-Node</a>. Websockets provide a stream of
 messages, where a message is either some binary data or a string. We serialize
 JSON for sending data between the client and server. When the client sends its
-position and desired date range, we serialize a data structure that is defined by the
-following:
-=======
-<!--l. 181--><p class="noindent" >The server uses the provided script with modifications. The index is served as a static file
-and dynamic content is achieved using Websocket connections between the client and
-server. This design choice simplifies the file resource serving logic, reducing the dynamic
-parts to message passing.
-<!--l. 183--><p class="indent" >   Once the client has initialised the webpage, it sets up a secure Websocket connection
-to the server. A secure socket is preferred as non secure sockets are disallowed when
-viewing the page over https. The connection is abstracted into websocket.js such that
-server.js can simply pass a callback that is called when a new client query is made, with a
-parameter that can be called with the result to send back. server.js doesnt need to worry
-about managing connections.
-<!--l. 185--><p class="indent" >   The client will query the browser for its current geographical location and when given,
-will send this to the server along with a desired date range. The server will reply at some
-point in the future with an array of events.
                                                                   
 
                                                                   
-<!--l. 187--><p class="indent" >   The server will receive this data and use it to query the database using a geoNear
-query on a <a 
-href="https://docs.mongodb.com/manual/core/2dsphere/" >2dsphere</a> index, and a date range query on the event date. The results are
-sent to the client.
-<!--l. 189--><p class="indent" >   As node doesn&#8217;t come with a native websockets library a popular third party
-library was used. <a 
-href="https://github.com/theturtle32/WebSocket-Node" >theturtle32/WebSocket-Node</a>. Websockets provide a stream of
-messages, where a message is either some binary data or a string. We serialize
-JSON for sending data between the client and server. When the client sends its
-position and desired date range we serialize a data structure that looks like the
-following.
->>>>>>> da1ad6461d044e2dc94b4d3e386f3e2524a325d0
+position and desired date range, we serialize a data structure that is defined by the
+following:
                                                                   
 
                                                                   
@@ -814,94 +634,60 @@ class="cmtt-10">&#x00A0;</span><span
 class="cmtt-10">&#x00A0;</span><span 
 class="cmtt-10">&#x00A0;</span>
 </div>
-<<<<<<< HEAD
-<!--l. 170--><p class="nopar" >
-<!--l. 172--><p class="indent" >   Dates are not parsed into JavaScript Date objects when using a JSON.parse so these
+<!--l. 204--><p class="nopar" >
+<!--l. 206--><p class="indent" >   Dates are not parsed into JavaScript Date objects when using a JSON.parse so these
 are handled manually for the database queries.
-<!--l. 174--><p class="indent" >   In addition to giving the client the desired data from the database, the database is
+<!--l. 208--><p class="indent" >   In addition to giving the client the desired data from the database, the database is
 checked to see whether it requires updating. This data is collected using a variety of
 APIs. First, the Songkick API is queried for the area that the user is in. This allows us to
 check the database to see if we have updated this area at all/recently. If the events for
 this area have not been updated recently, the events for the area are downloaded. In
 addition, last.fm is queried for artist biographies and pictures, Spotify for a reference to
-the artists&#8217; Spotify pages, and Google&#8217;s reverse geocode API to get the full address of the
+the artists'Spotify pages, and Google's reverse geocode API to get the full address of the
 venue.
-<!--l. 176--><p class="indent" >   For each area we limit the frequency of requests in order to avoid rate limiting. Any
+<!--l. 210--><p class="indent" >   For each area we limit the frequency of requests in order to avoid rate limiting. Any
 errors returned by the APIs are handled graciously. Once complete, event data is
 retrieved, and stored in the database using an <a 
 href="https://docs.mongodb.com/manual/reference/method/db.collection.update/#upsert-option" >upsert</a> on the event title. This is done to
 either update an already queried event, or insert a new event.
-<!--l. 178--><p class="indent" >   A possible optimization of the client-server interaction process would be to determine
+<!--l. 212--><p class="indent" >   A possible optimization of the client-server interaction process would be to determine
 what events have already been sent to the client. This would avoid sending events again
 if the user scrolls the map slightly. As a result, this would allow for significantly less data
 to be transferred between the two and thus would avoid reprocessing every event on the
 client side.
-<!--l. 180--><p class="indent" >   As we do not store any private data, encryption is not required for the data stored or
+<!--l. 214--><p class="indent" >   As we do not store any private data, encryption is not required for the data stored or
 obfuscated in any way. Validating the data retrieved from the client is necessary to stop a
 server crash. Additionally, location data is always sent over a secure websocket in order to
 prevent snooping.
-<!--l. 182--><p class="noindent" >
+<!--l. 216--><p class="noindent" >
    <h3 class="sectionHead"><span class="titlemark">3   </span> <a 
  id="x1-120003"></a>Deployment</h3>
-<!--l. 183--><p class="noindent" >Since the server is written using some ES6 features, it requires a newer version of nodejs
+<!--l. 217--><p class="noindent" >Since the server is written using some ES6 features, it requires a newer version of nodejs
 to run. By default, the server connects to a local mongojs server with no special
-=======
-<!--l. 202--><p class="nopar" >
-<!--l. 204--><p class="indent" >   Dates aren&#8217;t parsed into JavaScript date objects when using a JSON.parse so these
-are handled manually for the database queries.
-<!--l. 206--><p class="indent" >   As well as giving the client the desired data we have, we also check whether the
-database needs updating. The data is collected using a variety of APIs. First we ask
-Songkick for the area that the user is in, this allows us to check the database to see if we
-have checked this area at all/recently. If we haven&#8217;t got an up to date set of events
-for this area, we start downloading the events for the area as well as querying
-last.fm for the artists biography and picture, Spotify for a reference to their
-Spotify page, and Google&#8217;s reverse geocode API to get the full address of the
-venue.
-<!--l. 208--><p class="indent" >   For each area we limit the speed of requests in order to avoid rate limiting. Any
-returned errors by the APIs are handled graciously. Once complete data about an event is
-retrieved, it is stored in the database using an <a 
-href="https://docs.mongodb.com/manual/reference/method/db.collection.update/#upsert-option" >upsert</a> on the event title, to either update
-an already queried event, or insert as a new event.
-<!--l. 210--><p class="indent" >   A possible optimization of the client-server interaction process would be to determine
-what events have already been sent to the client in order to avoid sending them again if
-they only scroll the map slightly. This would allow for significantly less data to be
-transferred between the two and would avoid reprocessing every event on the client side
-on every query change.
-<!--l. 212--><p class="indent" >   As we don&#8217;t store any non public data we don&#8217;t require encryption for the data we
-store or obfuscation in any way. Validating the data we get from the client is necessary to
-stop a server crash. Location data is always sent over a secure websocket in order to
-prevent snooping.
-<!--l. 214--><p class="noindent" >
-   <h3 class="sectionHead"><span class="titlemark">3   </span> <a 
- id="x1-120003"></a>Deployment</h3>
-<!--l. 215--><p class="noindent" >The server is written using some ES6 features and so requires a newer version of nodejs
-to run. By default the server connects to a local mongojs server with no special
->>>>>>> da1ad6461d044e2dc94b4d3e386f3e2524a325d0
                                                                   
 
                                                                   
-configuration added. This implementation favours root accessible vps&#8217; such as digital
+configuration added. This implementation favours root accessible vps'such as digital
 ocean or <a 
 href="https://aws.amazon.com/ec2/" >EC2</a>.
-<<<<<<< HEAD
-<!--l. 185--><p class="indent" >   The development workflow consisted of a digital ocean instance that was
+<!--l. 219--><p class="indent" >   The development workflow consisted of a digital ocean instance that was
 setup with a bare git repo. Git hooks were written so that when a push to the
 repo is made, a clone of the repo is updated. Additionally, a call to npm install
 is made in order to update and install any libraries. On the server, the server
 script is run using <a 
 href="https://github.com/remy/nodemon" >nodemon</a> so that when the repo is updated, the server will
 restart.
-<!--l. 187--><p class="indent" >   This allows very fast staging tests, however this isn&#8217;t suitable for a production run of
+<!--l. 221--><p class="indent" >   This allows very fast staging tests, however this is not suitable for a production run of
 the server. The site should be live at <a 
 href="https://smple.uk" >https://smple.uk</a>.
-<!--l. 189--><p class="indent" >   Due to security issues, some browsers will not connect a secure websocket with an
+<!--l. 223--><p class="indent" >   Due to security issues, some browsers will not connect a secure websocket with an
 invalid certificate. Furthermore, the site is tested to be working on chrome locally for
 both https and http. When run with a valid certificate, everything works as it
 should.
-<!--l. 191--><p class="noindent" >
+<!--l. 225--><p class="noindent" >
    <h3 class="sectionHead"><span class="titlemark">4   </span> <a 
  id="x1-130004"></a>API Usage</h3>
-<!--l. 192--><p class="noindent" >As we are using a few public APIs, we needed to take into consideration the terms for
+<!--l. 226--><p class="noindent" >As we are using a few public APIs, we needed to take into consideration the terms for
 each of these:
      <ul class="itemize1">
      <li class="itemize">The Songkick API requires attribution when using their data in the form of a
@@ -914,34 +700,6 @@ each of these:
      <li class="itemize">The last.fm API requires a link to their site on any information that is retrieved
      from  them.  The  retrieved  biography  includes  a  link  to  their  website  thus
      meeting the terms and conditions.</li></ul>
-=======
-<!--l. 217--><p class="indent" >   The development workflow consisted of a digital ocean instance that was setup with a
-bare git repo. Git hooks were written so that when a push to the repo is made, a clone of
-the repo is updated and a call to npm install is made to update and install any libraries.
-On the server the server script is run using <a 
-href="https://github.com/remy/nodemon" >nodemon</a> so that when the repo is updated,
-the server will restart.
-<!--l. 219--><p class="indent" >   This allows very fast staging tests, however this isn&#8217;t suitable for a production run of
-the server. The site should be live at <a 
-href="https://smple.uk" >https://smple.uk</a>.
-<!--l. 221--><p class="indent" >   Due to security issues some browsers wont connect a secure websocket with an invalid
-certificate making local development hard. The site is tested working on chrome locally
-for both https and http. When run under the correct domain everything works as it
-should.
-<!--l. 223--><p class="noindent" >
-   <h3 class="sectionHead"><span class="titlemark">4   </span> <a 
- id="x1-130004"></a>API Usage</h3>
-<!--l. 224--><p class="noindent" >As we are using a few public APIs, we needed to take into consideration the terms for
-each of these.
-<!--l. 226--><p class="indent" >   The Songkick API requires attribution when using their data in the form of a graphic
-they provide. We accommodated for this by adding their graphic into our ticket purchase
-button.
-<!--l. 228--><p class="indent" >   Spotify have no requirement for the use of their embedded player as it already
-advertising where the player comes from.
-<!--l. 230--><p class="indent" >   Last.fm require a link to their site on any information that is retrieved from them, we
-get a biography from them in which they include a link to their website so we are covered
-here.
->>>>>>> da1ad6461d044e2dc94b4d3e386f3e2524a325d0
     
 </body></html> 
 

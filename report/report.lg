@@ -147,12 +147,7 @@ File: example4.png
 File: example5.gif
 File: example6.png
 File: example2.png
-<<<<<<< HEAD
-=======
 File: example7.png
->>>>>>> da1ad6461d044e2dc94b4d3e386f3e2524a325d0
---- needs --- report.idv[2] ==> report0x.png ---
---- needs --- report.idv[3] ==> report1x.png ---
 --- characters ---
 Font("cmss","10","10","100")
 Font("cmss","17","17","100")
@@ -160,3 +155,4 @@ Font("cmss","12","12","100")
 Font("cmtt","10","10","100")
 Font("cmss","9","9","100")
 Font("cmssbx","10","10","90")
+Font("tcss","1000","10","100")
